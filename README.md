@@ -1,4 +1,4 @@
-# Harjoitustyö <h1> tag
+# Harjoitustyö <h1>
 
 Tämä on uusi _github_ repositorio **Robustic/ot-harjoitustyo**.
 
