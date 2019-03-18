@@ -1,8 +1,6 @@
-# Harjoitustyö <h1>
+# Ohjelmistotekniikka, harjoitustyö
+## Tehtävät
+### Viikko 1
+[gitlog.txt](https://github.com/Robustic/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
 
-Tämä on uusi _github_ repositorio **Robustic/ot-harjoitustyo**.
-
-On tarkoitus oppia:
-* paremmaksi ohjelmoijaksi
-* käyttämään versionhallintaa
-* dokumentoimaan omaa työtä
+[komentorivi.txt](https://github.com/Robustic/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
