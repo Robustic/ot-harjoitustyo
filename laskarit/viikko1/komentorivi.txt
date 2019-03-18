@@ -1,0 +1,33 @@
+juhamali@melkki:~$ tree kurssit
+kurssit
+├── Johdatus tietojenkäsittelytieteisiin
+│   ├── 811393A_4._apa_viittausohjeet.pdf
+│   ├── Immateriaalioikeudet
+│   │   ├── esitys_immateriaalioikeudet (copy).pptx
+│   │   ├── esitys_immateriaalioikeudet.pptx
+│   │   ├── immateriaalioikeudet
+│   │   └── immateriaalioikeudet.txt
+│   └── Massadata
+│       └── Massadata.txt
+└── _ot2019
+    └── viikko1
+        └── Unicafe
+            ├── pom.xml
+            └── src
+                ├── main
+                │   ├── java
+                │   │   └── com
+                │   │       └── mycompany
+                │   │           └── unicafe
+                │   │               ├── Kassapaate.java
+                │   │               ├── Maksukortti.java
+                │   │               └── Paaohjelma.java
+                │   └── resources
+                └── test
+                    └── java
+                        └── com
+                            └── mycompany
+                                └── unicafe
+                                    └── MaksukorttiTest.java
+
+18 directories, 11 files

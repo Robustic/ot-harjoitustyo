@@ -1,0 +1,115 @@
+juhamali@lx8-fuxi181:~/ot_viikko1$ git log --stat |cat
+commit 943c0ad4238e40dc084c6024d91188d02e915e3f
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 18:07:36 2019 +0200
+
+    fileihin tuli muutoksia
+
+ tiedostoja/file2             | 0
+ tiedostoja/{file1 => file22} | 0
+ tiedostoja/file3             | 1 +
+ 3 files changed, 1 insertion(+)
+
+commit dea7e823f28f7c85b751207703e55b502fabfb78
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 18:03:30 2019 +0200
+
+    lisätty kolme file:a
+
+ tiedostoja/file1 | 0
+ tiedostoja/file2 | 0
+ tiedostoja/file3 | 0
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 8458c3f7a93de778d8465bdb78871f81e1cbf281
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:57:38 2019 +0200
+
+    muutoksia eka ja kolmas tiedostoihin
+
+ eka.txt    | 14 +++++++-------
+ kolmas.txt |  5 ++++-
+ 2 files changed, 11 insertions(+), 8 deletions(-)
+
+commit e9af5937920e938920dd58588fc321de3da77771
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:53:36 2019 +0200
+
+    tiedostonimi muutettu
+
+ tiedosto.txt => eka.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit c6efa75a64ccedf03889676c3275d2573f88db58
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:51:51 2019 +0200
+
+    poistettu toinen.txt
+
+ toinen.txt | 1 -
+ 1 file changed, 1 deletion(-)
+
+commit fc59a9ab3ef0d976786b77d88aba5e61daef4585
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:49:25 2019 +0200
+
+    tiedostosta poistettu ja lisätty tekstiä
+
+ tiedosto.txt | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+commit 27ba4bede8baf1e70a24290285979651facb38a8
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:48:08 2019 +0200
+
+    tiedostoon lisätty paljon tekstiä
+
+ tiedosto.txt | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+commit 6ff35b5809da9a7fcb7c90633dfd708cce5b0ec0
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:44:36 2019 +0200
+
+    lisätty staffi
+
+ staff/staffi.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit a1a37275d37a8aa2078754a71e0a65db0b0472f0
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:43:22 2019 +0200
+
+    toista ja kolmatta tiedostoa muutettu
+
+ kolmas.txt | 1 +
+ toinen.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+commit cee52ef49d8b89e9e45e0163ab5ebef06219ea90
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:41:33 2019 +0200
+
+    lisätty kolmas
+
+ kolmas.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 0995aad6c2957ee3d502a1ab790037293a986594
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:39:13 2019 +0200
+
+    muutos ja lisäys
+
+ tiedosto.txt | 4 ++++
+ toinen.txt   | 0
+ 2 files changed, 4 insertions(+)
+
+commit 6caae297e1badacd567580b16b99aa50c63435c6
+Author: Juha Malinen <juha.malinen@helsinki.fi>
+Date:   Mon Mar 18 17:36:43 2019 +0200
+
+    tiedosto.txt luotu
+
+ tiedosto.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
