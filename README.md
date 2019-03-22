@@ -11,4 +11,5 @@
 ## Harjoitustyö: SeismicAccelerationSpectrum
 
 [tuntikirjanpito.md](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/tuntikirjanpito.md)
+
 [vaatimusmaarittely.md](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
