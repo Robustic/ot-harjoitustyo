@@ -24,15 +24,12 @@ Ohjelmaa hallitaan sovellukseen liittyvillä napeilla.
 
 ## Perusversion tarjoama toiminnallisuus
 
-- tiedostojenkäsittelyyn ja laskentaan liittyvistä asioista pidetään yllä loki-tiedostoa, josta kolme viimeisintä tietoa näytetään käyttäjälle
-
-### Ennen kiihtyvyysspektrien laskentaa
-
-- käyttäjä voi valita yhden tai useamman tiedoston, joidenka sisältämistä kiihtyvyyshistorioista kiihtyvyysspektrit lasketaan
-
-### Kiihtyvyysspektrin laskennan jälkeen
-
-- lasketuista kiihtyvyysspektreistä muodostetaan verhokäyrä, joka näytetään käyttäjälle kaaviokuvana
+- tiedostojenkäsittelyyn ja laskentaan liittyvistä asioista pidetään yllä loki-tiedostoa, josta kolme viimeisintä riviä näytetään käyttäjälle
+- käyttäjä voi valita yhden tai useamman tiedoston yksitellen laskentaa varten
+- käyttäjä voi poistaa listalta väärin valitun tiedoston
+- käyttäjä voi määrittää taajuuspisteet, joilla laskenta tehdään
+- käyttäjä voi määrittää laskennassa käytettävän vaimennuksen arvon
+- kun käyttäjä painaa "laske"-nappia, lasketuista kiihtyvyysspektreistä muodostetaan verhokäyrä, joka näytetään käyttäjälle kaaviokuvana
 
 ## Jatkokehitysideoita
 
