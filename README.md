@@ -1,15 +1,49 @@
-# Ohjelmistotekniikka, harjoitustyö
-## Tehtävät
-### Viikko 1
-[gitlog.txt](https://github.com/Robustic/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+# SeismicAccelerationSpectrum
 
-[komentorivi.txt](https://github.com/Robustic/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+## Dokumentaatio
 
-### Viikko 2
-[JacocoUnicafescreenshot.png](https://github.com/Robustic/ot-harjoitustyo/tree/master/laskarit/viikko2/JacocoUnicafeScreenshot.png)
+[Vaatimusmaarittely](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
 
-## Harjoitustyö: SeismicAccelerationSpectrum
+[Työaikakirjanpito](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/tuntikirjanpito.md)
 
-[tuntikirjanpito.md](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/tuntikirjanpito.md)
+## Komentorivitoiminnot
 
-[vaatimusmaarittely.md](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
+### Testaus
+
+Testit suoritetaan komennolla
+
+```
+mvn test
+```
+
+Testikattavuusraportti luodaan komennolla
+
+```
+mvn jacoco:report
+```
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto _target/site/jacoco/index.html_
+
+### Suoritettavan jarin generointi
+
+Komento
+
+```
+mvn package
+```
+
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_
+
+### Checkstyle
+
+Tiedostoon [checkstyle.xml](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
+
+```
+ mvn jxr:jxr checkstyle:checkstyle
+```
+
+Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
+
+
+
+
