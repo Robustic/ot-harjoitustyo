@@ -8,6 +8,5 @@
 | 28.3. | 1    | calculations -pakettiin liittyvien toiminnallisuuksien ohjelmoinnin aloitus |
 | 29.3. | 11   | calculations -paketteihin liittyvä toiminnallisuus, graafisen käyttöliittymän ohjelmoinnin aloitus |
 | 1.4.  | 3    | virheilmoitusten ratkaiseminen, viikon 3 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
-| :----:|:-----| :-----|
 | Yhteensä | 22 | |
 
