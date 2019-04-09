@@ -21,6 +21,10 @@ public class Frequencies {
         return frequencelist;
     }
     
+    public double getFrequency(int i) {
+        return frequencelist.get(i);
+    }
+    
     public int numberOfFrequencies() {
         return frequencelist.size();
     }

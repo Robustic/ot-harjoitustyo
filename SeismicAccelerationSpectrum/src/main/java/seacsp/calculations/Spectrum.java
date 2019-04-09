@@ -3,10 +3,7 @@ package seacsp.calculations;
 import java.util.*;
 import java.lang.*;
 
-public class Spectrum {
-    private Frequencies frequencies;
-    private Timehistory timehistory;
-    private Phii phii;
+public class Spectrum {    
     private ArrayList<Double> accelerationList;
     private double omegaD;
     private double omegaN;
@@ -14,19 +11,21 @@ public class Spectrum {
     private double deltaT;
     private ArrayList<Double> timeHistoryList;
 
-    public Spectrum(Frequencies frequencies, Timehistory timehistory, Phii phii) {
-        this.frequencies = frequencies;
-        this.timehistory = timehistory;
-        this.phii = phii;
+    public Spectrum() {
         this.accelerationList = new ArrayList<>();
     }
     
-    public void calculateSpectrum() {
-        this.phi = this.phii.getPhii();
-        this.deltaT = this.timehistory.getDeltaT();
-        this.timeHistoryList = this.timehistory.getTimehistory();
-        for (int i = 0; i < this.frequencies.numberOfFrequencies(); i++) {
-            this.omegaN = 2 * Math.PI * this.frequencies.getFrequences().get(i);
+    public double getAccWithFrequency(int i) {
+        return this.accelerationList.get(i);
+    }
+     
+    public void calculateSpectrum(Frequencies frequencies, Timehistory timehistory, Phii phii) {
+        this.phi = phii.getPhii();
+        this.deltaT = timehistory.getDeltaT();
+        this.timeHistoryList = timehistory.getTimehistory();
+        ArrayList<Double> frequenciesList = frequencies.getFrequences();
+        for (int i = 0; i < frequenciesList.size(); i++) {
+            this.omegaN = 2 * Math.PI * frequenciesList.get(i);
             this.omegaD = this.omegaN * Math.sqrt(1 - this.phi * this.phi);            
             accelerationList.add(calculateForOneFrequency());
         }

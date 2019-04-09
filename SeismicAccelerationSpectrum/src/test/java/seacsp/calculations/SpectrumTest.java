@@ -5,9 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
 
-public class SpectrumTest {
-    
-    Spectrum spectrum;
+public class SpectrumTest {    
+    private Spectrum spectrum;
     
     @Before
     public void setUp() {
@@ -18,9 +17,9 @@ public class SpectrumTest {
         for(int i = 0; i <= 1100; i++) {
             timehistoryList.add(Math.sin(9.425 * i * 0.01));
         }
-        Timehistory timehistory = new Timehistory(timehistoryList, 0.01, "", "");
-        this.spectrum = new Spectrum(frequencies, timehistory, phii);
-        this.spectrum.calculateSpectrum();
+        Timehistory timehistory = new Timehistory(timehistoryList, 0.01, "");
+        this.spectrum = new Spectrum();
+        this.spectrum.calculateSpectrum(frequencies, timehistory, phii);
     }
 
     @Test
@@ -31,12 +30,18 @@ public class SpectrumTest {
     @Test
     public void correctValueOfMaximumAcceleration1() {
         double acceleration = this.spectrum.getAccelerationList().get(1-1);
-        assertTrue(1.65245375 < acceleration && acceleration < 1.65245376);      
+        assertEquals(1.65245375, acceleration, 0.00000001);
     }
     
     @Test
     public void correctValueOfMaximumAcceleration50() {
         double acceleration = this.spectrum.getAccelerationList().get(50-1);
-        assertTrue(0.172626019 < acceleration && acceleration < 0.172626021);      
+        assertEquals(0.172626020, acceleration, 0.000000001);
+    }
+    
+    @Test
+    public void correctValueWhenAskedFrequency() {
+        double acceleration = this.spectrum.getAccelerationList().get(50-1);
+        assertEquals(1.504347408, this.spectrum.getAccWithFrequency(3), 0.000000001);
     }
 }
