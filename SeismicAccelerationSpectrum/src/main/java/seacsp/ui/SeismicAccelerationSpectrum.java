@@ -13,7 +13,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import javafx.scene.chart.LineChart;
 import seacsp.logic.Logic;
-import seacsp.filein.InputFile;
+import seacsp.data.DataFile;
 import java.util.*;
 import javafx.util.Pair;
 
@@ -35,7 +35,7 @@ public class SeismicAccelerationSpectrum extends Application {
         );
         button1.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
-            InputFile inputFile = logik.addFileWhenSelectFileButtonPressed(selectedFile);
+            DataFile inputFile = logik.addFileWhenSelectFileButtonPressed(selectedFile);
             if (inputFile != null) {
                 timeHistoryCheckBoxTree.addNewFileToTree(inputFile);
             }

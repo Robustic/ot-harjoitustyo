@@ -3,26 +3,26 @@ package seacsp.logic;
 import java.io.File;
 import javafx.scene.chart.LineChart;
 import seacsp.calculations.Frequencies;
-import seacsp.filein.InputFile;
-import seacsp.filein.InputFiles;
+import seacsp.data.DataFile;
+import seacsp.data.DataFiles;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 import java.util.*;
 import javafx.util.Pair;
 
 public class Logic {
-    private InputFiles inputFiles;
+    private DataFiles inputFiles;
     private Phii phii;
     private Frequencies frequencies;
 
     public Logic() {
-        this.inputFiles = new InputFiles();
+        this.inputFiles = new DataFiles();
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
         frequencies.equalDivision(1, 50.05, 0.1);
     }
     
-    public InputFile addFileWhenSelectFileButtonPressed(File file) {
+    public DataFile addFileWhenSelectFileButtonPressed(File file) {
         try {
             return this.inputFiles.addFile(file);            
         } catch (Exception e) {
