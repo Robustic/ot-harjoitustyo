@@ -8,6 +8,10 @@
 
 [Työaikakirjanpito](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/tuntikirjanpito.md)
 
+## Releaset
+
+[Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5)
+
 ## Komentorivitoiminnot
 
 ### Testaus

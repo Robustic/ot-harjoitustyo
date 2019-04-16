@@ -10,12 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.util.StringConverter;
-import seacsp.calculations.Frequencies;
-import seacsp.calculations.Phii;
-import seacsp.calculations.Spectrum;
-import seacsp.calculations.Timehistory;
 import javafx.util.Pair;
-import java.time.temporal.ValueRange;
 
 public class SpectrumLineChart {
     private double min;
@@ -88,24 +83,4 @@ public class SpectrumLineChart {
         this.yAxel.setLabel("Acceleration [m/s²]");
         return this.yAxel;
     }
-    
-//    public void initializeAccData(XYChart.Series<Number, Number> accData) {
-//        Phii phii = new Phii(0.05);
-//        Frequencies frequencies = new Frequencies();
-//        frequencies.equalDivision(1, 50.05, 0.1);
-//        ArrayList<Double> timehistoryList = new ArrayList<>();
-//        for (int i = 0; i <= 1100; i++) {
-//            timehistoryList.add(Math.sin(2 * 3.14 * 15 * i * 0.01) + Math.sin(0.8 * 2 * 3.14 * 26 * (i * 0.01 - 1)));
-//        }
-//        Timehistory timehistory = new Timehistory(timehistoryList, 0.01, "");
-//        Spectrum spectrum = new Spectrum();
-//        spectrum.calculateSpectrum(frequencies, timehistory, phii);
-//        ArrayList<Double> frequencyList = frequencies.getFrequences();
-//        this.min = frequencyList.get(0);
-//        this.max = frequencyList.get(frequencyList.size() - 1);
-//        ArrayList<Double> accelerationList = spectrum.getAccelerationList();
-//        for (int i = 0; i < frequencyList.size(); i++) {
-//            accData.getData().add(new XYChart.Data<>(frequencyList.get(i), accelerationList.get(i)));
-//        }
-//    }
 }

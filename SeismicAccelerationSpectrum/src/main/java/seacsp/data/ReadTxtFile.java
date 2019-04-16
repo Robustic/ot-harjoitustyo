@@ -38,7 +38,7 @@ public class ReadTxtFile {
     
     public void stringToData(String fileAsString) throws Exception {        
         Scanner scanner = new Scanner(fileAsString);
-        addHeaders(fileAsString, scanner);
+        addHeaders(scanner);
         addTimehistories(fileAsString, scanner); 
     }
     
@@ -46,14 +46,14 @@ public class ReadTxtFile {
         ArrayList<String> columnsOut = new ArrayList<>();
         for (int i = 0; i < columnsIn.length; i++) {
             columnsIn[i] = columnsIn[i].replaceAll("\\s+", "");
-            if (!columnsIn[i].equals("") && !columnsIn[i].equals(" ")) {
+            if (!columnsIn[i].equals("")) {
                 columnsOut.add(columnsIn[i]);
             }
         }        
         return columnsOut;
     }
     
-    public void addHeaders(String fileAsString, Scanner scanner) throws Exception {
+    public void addHeaders(Scanner scanner) throws Exception {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             ArrayList<String> columns = cleanColumns(line.split(" "));            
@@ -100,6 +100,9 @@ public class ReadTxtFile {
     public void addDeltaTValues(ArrayList<Double> timeLine) throws Exception {
         if (timeLine.size() < 2) {
             throw new IllegalArgumentException("File " + this.file.getName() + " contains ineligible data. Less than 2 data rows.");
+        }
+        if (timeLine.get(0) >= timeLine.get(timeLine.size() - 1)) {
+            throw new IllegalArgumentException("File " + this.file.getName() + " time is decreasing.");
         }
         Double deltaT = (timeLine.get(timeLine.size() - 1) - timeLine.get(0)) / (timeLine.size() - 1);
         Double marginal = 0.000001;

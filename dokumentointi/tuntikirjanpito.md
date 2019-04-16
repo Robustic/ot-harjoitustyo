@@ -10,6 +10,10 @@
 | 1.4.  | 3    | virheilmoitusten ratkaiseminen, viikon 3 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
 | 5.4.  | 2    | tiedostosta lukemisen lisääminen |
 | 8.4.  | 2    | tiedostosta lukemisen lisääminen, kuvajan piirtäminen tiedostosta luetun tiedon pohjalta |
-| 9.4.  | 11    | kuvajan piirtäminen tiedostosta luetun tiedon pohjalta, viikon 4 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
-| Yhteensä | 37 | |
+| 9.4.  | 11    | kuvaajan piirtäminen tiedostosta luetun tiedon pohjalta, viikon 4 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
+| 11.4.  | 3    | testien lisääminen |
+| 12.4.  | 9    | testien lisääminen, koodin parantaminen ja selkeyttäminen |
+| 15.4.  | 4    | käyttöliittymän lisäominaisuuksien määritys |
+| 16.4.  | 8    | aikahistorioiden piirtäminen tiedostosta luetun tiedon pohjalta, viikon 5 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
+| Yhteensä | 61 | |
 

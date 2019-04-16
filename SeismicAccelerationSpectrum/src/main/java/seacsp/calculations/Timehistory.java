@@ -3,9 +3,9 @@ package seacsp.calculations;
 import java.util.*;
 
 public class Timehistory {
-    private ArrayList<Double> timehistory;
+    final private ArrayList<Double> timehistory;
     private double deltaT;
-    private String name;
+    final private String name;
 
     public Timehistory(ArrayList<Double> timehistory, double deltaT, String name) {
         this.timehistory = timehistory;
@@ -20,6 +20,10 @@ public class Timehistory {
     
     public void addNewAcc(double acc) {
         this.timehistory.add(acc);
+    }
+    
+    public double getAcc(int i) {
+        return this.timehistory.get(i);
     }
 
     public ArrayList<Double> getTimehistory() {

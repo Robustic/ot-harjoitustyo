@@ -23,7 +23,7 @@ public class Spectrum {
         this.phi = phii.getPhii();
         this.deltaT = timehistory.getDeltaT();
         this.timeHistoryList = timehistory.getTimehistory();
-        ArrayList<Double> frequenciesList = frequencies.getFrequences();
+        ArrayList<Double> frequenciesList = frequencies.getFrequenceList();
         for (int i = 0; i < frequenciesList.size(); i++) {
             this.omegaN = 2 * Math.PI * frequenciesList.get(i);
             this.omegaD = this.omegaN * Math.sqrt(1 - this.phi * this.phi);            
