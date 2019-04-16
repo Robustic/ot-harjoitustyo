@@ -14,7 +14,7 @@ Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihty
 
 ## Releaset
 
-[Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5)
+[Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5_1.01)
 
 ## Komentorivitoiminnot
 
