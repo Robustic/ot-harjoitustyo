@@ -69,10 +69,10 @@ public class TimehistoryLineChart {
     }
     
     public void addAccData(XYChart.Series<Number, Number> accData, ArrayList<Pair<Double, Double>> pairs) {   
-        Collection<XYChart.Data<Number,Number>> samples = new ArrayList<>(pairs.size());
+        Collection<XYChart.Data<Number, Number>> samples = new ArrayList<>(pairs.size());
         for (int i = 0; i < pairs.size(); i++) {
-             XYChart.Data<Number, Number> sample = new XYChart.Data<>((Number) pairs.get(i).getKey(), (Number) pairs.get(i).getValue());
-             samples.add(sample);
+            XYChart.Data<Number, Number> sample = new XYChart.Data<>((Number) pairs.get(i).getKey(), (Number) pairs.get(i).getValue());
+            samples.add(sample);
         }
         accData.getData().addAll(samples);
     }

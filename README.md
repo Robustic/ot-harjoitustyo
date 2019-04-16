@@ -1,5 +1,9 @@
 # SeismicAccelerationSpectrum
 
+## Sovelluksen tarkoitus
+
+Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihtyvyysspektrien verhokäyrä. Kiihtyvyyshistoriat voidaan hakea laskemista varten yhdestä tai useammasta tiedostosta. Kukin tiedosto voi sisältää yhden tai useamman kiihtyvyyshistorian.
+
 ## Dokumentaatio
 
 [Vaatimusmaarittely](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)

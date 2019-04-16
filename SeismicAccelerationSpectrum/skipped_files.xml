@@ -6,5 +6,8 @@
 
 <suppressions>
     <suppress files="seacsp.ui.SeismicAccelerationSpectrum.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="seacsp.ui.SpectrumLineChart.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="seacsp.ui.TimeHistoryCheckBoxTree.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="seacsp.ui.TimehistoriesStage.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="seacsp.ui.TimehistoryLineChart.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

@@ -70,8 +70,6 @@ public class SeismicAccelerationSpectrum extends Application {
                 String zero = "0";
                 char charZero = zero.charAt(0);
                 if (!newValue.isEmpty() && (newValue.charAt(0) != charZero || !newValue.matches("\\d{0,1}([\\.]\\d{0,3})?"))) {
-                    System.out.println("oldValue " + oldValue);
-                    System.out.println("newValue " + newValue);
                     phiiTextField.setText(oldValue);
                 }
             }
