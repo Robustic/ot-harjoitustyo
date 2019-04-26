@@ -18,6 +18,12 @@ public class Timehistory {
         this.name = name;
     }
     
+    public Timehistory(double deltaT, String name) {
+        this.timehistory = new ArrayList<>();
+        this.deltaT = deltaT;
+        this.name = name;
+    }
+    
     public void addNewAcc(double acc) {
         this.timehistory.add(acc);
     }

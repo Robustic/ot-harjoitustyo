@@ -1,13 +1,19 @@
 package seacsp.logic;
 
 import java.io.File;
-import seacsp.calculations.Frequencies;
-import seacsp.data.DataFile;
-import seacsp.data.DataFiles;
-import seacsp.calculations.Phii;
-import seacsp.calculations.Spectrum;
+import java.sql.SQLException;
 import java.util.*;
 import javafx.util.Pair;
+import seacsp.calculations.Frequencies;
+import seacsp.calculations.Phii;
+import seacsp.calculations.Spectrum;
+import seacsp.calculations.Timehistory;
+import seacsp.data.DataFile;
+import seacsp.data.DataFiles;
+import seacsp.db.ReadDatabase;
+import seacsp.db.InitializeDatabase;
+import seacsp.db.TimehistoryDao;
+
 
 public class Logic {
     final private DataFiles dataFiles;
@@ -21,6 +27,28 @@ public class Logic {
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
         this.frequencies.asceDivision();        
+    }
+    
+    public void initialize() {
+        InitializeDatabase initializeDatabase = new InitializeDatabase();
+        initializeDatabase.initializeDatabase();
+        System.out.println("Initialized!");             
+    }
+    
+    public void readHeadersFromSQL() {
+        System.out.println("readHeadersFromSQL()");
+        
+        TimehistoryDao timehistoryDao = new TimehistoryDao();
+        try { 
+            timehistoryDao.create(new Timehistory(0.1, "OmaNimi"));
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }        
+//        try { 
+//            System.out.println("Nimi: " + timehistoryDao.read(1).getName() + ", Luku: " + timehistoryDao.read(1).getDeltaT());
+//        } catch (SQLException e) {
+//            System.out.println(e.toString());
+//        }        
     }
     
     public void setPhiiValue(double newPhii) {

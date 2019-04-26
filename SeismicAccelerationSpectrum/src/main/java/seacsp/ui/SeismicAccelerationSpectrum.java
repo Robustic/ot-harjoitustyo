@@ -1,6 +1,8 @@
 package seacsp.ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +24,8 @@ import seacsp.logic.Logic;
 import seacsp.data.DataFile;
 
 public class SeismicAccelerationSpectrum extends Application {
-
+    
+    
     @Override
     public void start(Stage stage) throws Exception {
         TimehistoriesStage timehistoriesStage = new TimehistoriesStage();
@@ -46,7 +49,8 @@ public class SeismicAccelerationSpectrum extends Application {
         });        
         Button button2 = new Button("Calculate and Draw");
         Button button3 = new Button("Draw timehistories");
-        Button button4 = new Button("Button4");
+        Button button4 = new Button("Initiualize");
+        Button button5 = new Button("Add to SQL db");
         
         // Phii Radio-Buttons
         ToggleGroup toggleGroupPhii = new ToggleGroup();
@@ -117,6 +121,7 @@ public class SeismicAccelerationSpectrum extends Application {
         buttonsHBox.getChildren().add(button2);
         buttonsHBox.getChildren().add(button3);
         buttonsHBox.getChildren().add(button4);
+        buttonsHBox.getChildren().add(button5);
         buttonsHBox.getChildren().add(phiiRadioButtonsVBox);
         buttonsHBox.getChildren().add(freqRadioButtonsVBox);
         
@@ -158,6 +163,13 @@ public class SeismicAccelerationSpectrum extends Application {
             timehistoriesStage.drawTimehistories(logic.getTimehistoryLists());
         });
         
+        button4.setOnAction(e -> {
+            logic.initialize();
+        });
+        
+        button5.setOnAction(e -> {
+            logic.readHeadersFromSQL();
+        });
         // Label
         Label infoLabel = new Label("Infotext, not full functionality yet!");
         
