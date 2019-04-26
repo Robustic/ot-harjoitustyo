@@ -22,6 +22,8 @@ public class Logic {
     final private LogList logList;
     final private ReadFile readFile;
     private File dbFile;
+    private TimehistoryDao timehistoryDao;
+    private InitializeDatabase initializeDatabase;
 
     public Logic() {
         this.logList = new LogList();
@@ -29,7 +31,9 @@ public class Logic {
         this.dataFiles = new DataCollections(this.logList, this.readFile);
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
-        this.frequencies.asceDivision();        
+        this.frequencies.asceDivision();
+        this.timehistoryDao = new TimehistoryDao();
+        this.initializeDatabase = new InitializeDatabase();
     }
 
     public void setDbFile(File dbFile) {
@@ -46,31 +50,39 @@ public class Logic {
                 this.logList.addLog("New database not initialized. Filename already exists.");
                 return "";
             } else {
-                InitializeDatabase initializeDatabase = new InitializeDatabase();
-                initializeDatabase.initializeDatabase(dbname);
-                this.logList.addLog("New database " + dbname + " initialized!");
-                this.dbFile = new File(dbname);
-                this.dbFile = new File(this.dbFile.getAbsolutePath());
-                System.out.println(this.dbFile.toString());
+                initializeDb(dbname);
                 return dbname;
             }
         }
     }
     
-    public void readHeadersFromSQL() {
-        System.out.println("readHeadersFromSQL()");
-        
-        TimehistoryDao timehistoryDao = new TimehistoryDao();
+    public void initializeDb(String dbname) {
+        try {
+            initializeDatabase.initializeDatabase(dbname);
+            this.logList.addLog("New database " + dbname + " initialized!");
+            this.dbFile = new File(dbname);
+            this.dbFile = new File(this.dbFile.getAbsolutePath());
+        } catch (SQLException e) {
+            this.logList.addLog("There was error. New database was not initialized.");
+        }        
+    }
+    
+    public void saveTimehistoriesToDB() {
+        timehistoryDao.setDbFile(this.dbFile);
+        timehistoryDao.setCollectionId(123);
         try { 
-            timehistoryDao.create(new Timehistory(0.1, "OmaNimi"));
+            ArrayList<Double> lista = new ArrayList<>();
+            lista.add(1.1);
+            lista.add(2.3);
+            lista.add(3.4);
+            lista.add(4.5);
+            lista.add(5.6);
+            
+            timehistoryDao.create(new Timehistory(lista, 0.1, "OmaNimi"));
+            timehistoryDao.create(new Timehistory(lista, 12.1, "Faf"));
         } catch (SQLException e) {
             System.out.println(e.toString());
-        }        
-//        try { 
-//            System.out.println("Nimi: " + timehistoryDao.read(1).getName() + ", Luku: " + timehistoryDao.read(1).getDeltaT());
-//        } catch (SQLException e) {
-//            System.out.println(e.toString());
-//        }        
+        }     
     }
     
     public void setPhiiValue(double newPhii) {

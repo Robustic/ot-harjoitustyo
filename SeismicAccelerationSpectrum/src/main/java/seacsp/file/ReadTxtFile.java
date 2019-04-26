@@ -21,8 +21,8 @@ public class ReadTxtFile {
     }
     
     public void initialize(File file) {
-       setFile(file);
-       this.timehistories = new ArrayList<>();
+        setFile(file);
+        this.timehistories = new ArrayList<>();
     }
     
     public DataCollection readTxtFile(File file) throws Exception {

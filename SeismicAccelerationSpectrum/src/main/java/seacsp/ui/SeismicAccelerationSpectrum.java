@@ -208,8 +208,9 @@ public class SeismicAccelerationSpectrum extends Application {
         }); 
         
         button5.setOnAction(e -> {
-            logic.readHeadersFromSQL();
+            logic.saveTimehistoriesToDB();
         });
+        
         // Label
         Label infoLabel = new Label("Infotext, not full functionality yet!");
         

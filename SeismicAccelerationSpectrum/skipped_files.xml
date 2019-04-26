@@ -10,4 +10,5 @@
     <suppress files="seacsp.ui.TimeHistoryCheckBoxTree.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="seacsp.ui.TimehistoriesStage.java" checks="[a-zA-Z0-9]*"/>
     <suppress files="seacsp.ui.TimehistoryLineChart.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="seacsp.ui.NewDataBaseStage.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>
