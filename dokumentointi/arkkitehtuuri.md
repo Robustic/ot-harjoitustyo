@@ -15,11 +15,10 @@ Pakkauksen _seacsp.db_ luokat _DataCollectionDao_ ja _TimehistoryDao_ huolehtiva
 ## Rakenne
 
 Ohjelman rakenne noudattaa kerrosarkkitehtuuria. Rakenne on kuvattuna pakkauksina seuraavasti:
-
-seacsp.ui
-seacsp.logic
-seacsp.data
-seacsp.calculations
+- seacsp.ui
+- seacsp.logic
+- seacsp.data
+- seacsp.calculations
 
 Ylimpänä on pakkaus seacsp.ui ja alimpana seacsp.calculations.
 
