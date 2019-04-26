@@ -15,5 +15,8 @@
 | 12.4.  | 9    | testien lisääminen, koodin parantaminen ja selkeyttäminen |
 | 15.4.  | 4    | käyttöliittymän lisäominaisuuksien määritys |
 | 16.4.  | 8    | aikahistorioiden piirtäminen tiedostosta luetun tiedon pohjalta, viikon 5 harjoitustyön palautuksen vaatimuksien täyttymisen varmistus |
-| Yhteensä | 61 | |
+| 23.4.  | 6    | tietokannan käyttöönottoa |
+| 24.4.  | 8    | tietokannan käyttöönottoa, JavaDoc:in käyttöönotto |
+| 26.4.  | 12    | tietokannan käyttöönottoa, koodin parantelua, JavaDoc:in täydennys |
+| Yhteensä | 87 | |
 

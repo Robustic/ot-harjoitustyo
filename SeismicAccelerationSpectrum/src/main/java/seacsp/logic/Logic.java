@@ -7,16 +7,14 @@ import javafx.util.Pair;
 import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
-import seacsp.calculations.Timehistory;
 import seacsp.data.DataCollection;
 import seacsp.data.DataCollections;
 import seacsp.file.ReadFile;
 import seacsp.db.InitializeDatabase;
-import seacsp.db.TimehistoryDao;
 
 
 public class Logic {
-    final private DataCollections dataFiles;
+    final private DataCollections dataCollections;
     private Phii phii;
     private Frequencies frequencies;
     final private LogList logList;
@@ -27,7 +25,7 @@ public class Logic {
     public Logic() {
         this.logList = new LogList();
         this.readFile = new ReadFile();
-        this.dataFiles = new DataCollections(this.logList, this.readFile);
+        this.dataCollections = new DataCollections(this.logList, this.readFile);
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
         this.frequencies.asceDivision();        
@@ -66,7 +64,11 @@ public class Logic {
     }
     
     public void saveTimehistoriesToDB() {
-        dataFiles.saveTimehistoriesToDB(this.dbFile);     
+        if (this.dbFile == null || this.dbFile.getName().equals("")) {
+            this.logList.addLog("Database not selected.");
+        } else {
+            dataCollections.saveTimehistoriesToDB(this.dbFile);
+        }
     }
     
     public void setPhiiValue(double newPhii) {
@@ -87,7 +89,7 @@ public class Logic {
     
     public DataCollection addFileWhenSelectFileButtonPressed(File file) {
         try {
-            DataCollection dataFile = this.dataFiles.addFile(file);
+            DataCollection dataFile = this.dataCollections.addFile(file);
             logList.addLog("File " + file.getName() + " added to list.");            
             return dataFile;            
         } catch (Exception e) {
@@ -97,9 +99,9 @@ public class Logic {
     }
     
     public ArrayList<Pair<Double, Double>> getXYValuesForChart() {
-        this.dataFiles.calculate(this.frequencies, this.phii);
+        this.dataCollections.calculate(this.frequencies, this.phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<Spectrum>();
-        this.dataFiles.getSpectrumList(spectrumList);                
+        this.dataCollections.getSpectrumList(spectrumList);                
         ArrayList<Pair<Double, Double>> pairs = new ArrayList<>();
         for (int i = 0; i < this.frequencies.numberOfFrequencies(); i++) {
             double max = 0;
@@ -115,7 +117,7 @@ public class Logic {
     
     public ArrayList<ArrayList<Pair<Double, Double>>> getTimehistoryLists() {
         ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
-        this.dataFiles.getTimehistoryLists(timehistoryLists);
+        this.dataCollections.getTimehistoryLists(timehistoryLists);
         ArrayList<ArrayList<Pair<Double, Double>>> timehistoryXYValuesForChart = new ArrayList<>();
         for (Pair<ArrayList<Double>, ArrayList<Double>> pairs : timehistoryLists) {
             ArrayList<Pair<Double, Double>> pairList = new ArrayList<>(pairs.getKey().size());

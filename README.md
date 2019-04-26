@@ -6,6 +6,8 @@ Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihty
 
 ## Dokumentaatio
 
+[Käyttöohje](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kayttoohje.md)
+
 [Vaatimusmaarittely](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
 
 [Arkkitehtuurikuvaus](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/arkkitehtuuri.md)
@@ -15,6 +17,9 @@ Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihty
 ## Releaset
 
 [Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5)
+
+[Viikko 6](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko6)
+
 
 ## Komentorivitoiminnot
 
@@ -42,7 +47,17 @@ Komento
 mvn package
 ```
 
-generoi hakemistoon _target_ suoritettavan jar-tiedoston _OtmTodoApp-1.0-SNAPSHOT.jar_
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _SeismicAccelerationSpectrum-1.02.jar_
+
+### JavaDoc
+
+JavaDoc generoidaan komennolla
+
+```
+mvn javadoc:javadoc
+```
+
+JavaDocia voi tarkastella avaamalla selaimella tiedosto _target/site/apidocs/index.html_
 
 ### Checkstyle
 

@@ -6,6 +6,7 @@ import static org.junit.Assert.*;
 import java.util.*;
 import java.io.File;
 import javafx.scene.control.CheckBoxTreeItem;
+import javafx.util.Pair;
 import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
@@ -168,5 +169,21 @@ public class DataCollectionsTest {
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
         this.dataCollections.getSpectrumList(spectrumList);        
         assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
-    }    
+    }
+    
+    @Test
+    public void getTimehistoryListsGivesTimehistoriesKey() {
+        ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
+        dataCollections.getTimehistoryLists(timehistoryLists);
+        double value = timehistoryLists.get(0).getKey().get(4);
+        assertEquals(0.008, value, 0.000001);
+    }
+    
+    @Test
+    public void getTimehistoryListsGivesTimehistoriesValue() {
+        ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
+        dataCollections.getTimehistoryLists(timehistoryLists);
+        double value = timehistoryLists.get(0).getValue().get(4);
+        assertEquals(0.00878124, value, 0.000001);
+    }
 }
