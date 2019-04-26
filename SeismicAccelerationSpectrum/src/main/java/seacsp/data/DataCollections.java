@@ -8,9 +8,12 @@ import javafx.util.Pair;
 import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
+import seacsp.db.TimehistoryDao;
+import seacsp.db.DataCollectionDao;
 import seacsp.logic.LogList;
 import seacsp.file.ReadFile;
 import seacsp.file.ReadTxtFile;
+import java.sql.SQLException;
 
 public class DataCollections {
     final private ArrayList<DataCollection> dataCollectionList;
@@ -19,6 +22,8 @@ public class DataCollections {
     final private LogList loglist;
     final private ReadFile readFile;
     final private ReadTxtFile readTxtFile;
+    final private TimehistoryDao timehistoryDao;
+    final private DataCollectionDao dataCollectionDao;
 
     public DataCollections(LogList setLoglist, ReadFile readFile) {
         this.dataCollectionList = new ArrayList<>();
@@ -27,6 +32,22 @@ public class DataCollections {
         this.loglist = setLoglist;
         this.readFile = readFile;
         this.readTxtFile = new ReadTxtFile(this.readFile);
+        this.timehistoryDao = new TimehistoryDao();
+        this.dataCollectionDao = new DataCollectionDao();
+    }
+    
+    public void saveTimehistoriesToDB(File dbFile) {
+        this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
+        this.dataCollectionDao.setDbFile(dbFile);
+        try { 
+            for (int i = 0; i < this.dataCollectionList.size(); i++) {
+                loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
+                this.dataCollectionDao.create(this.dataCollectionList.get(i));
+                loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " finished.");
+            }
+        } catch (SQLException e) {
+            loglist.addLog("Writing to the database caused error.");
+        }     
     }
     
     public void getTimehistoryLists(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {

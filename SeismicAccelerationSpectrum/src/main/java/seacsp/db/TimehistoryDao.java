@@ -4,6 +4,7 @@ import java.util.*;
 import java.sql.*;
 import seacsp.calculations.Timehistory;
 import java.io.File;
+import java.text.DecimalFormat;
 
 public class TimehistoryDao implements Dao<Timehistory, Integer> {
     private File dbFile;
@@ -48,17 +49,22 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
     
     public void addList(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
         initializeNewTable(rowId);
-        String connectionPath = "jdbc:sqlite:" + dbFile.toString();
-        Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+        String connectionPath = "jdbc:sqlite:" + dbFile.toString();        
+        String listAsString = "";
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(8);
         for (int i = 0; i < timehistoryAsList.size(); i++) {
-            String newTableName = "Timehistorylist" + rowId;
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + newTableName
-                + " (acceleration)"
-                + " VALUES (?)");
-            stmt.setDouble(1, timehistoryAsList.get(i));
-            stmt.executeUpdate();
-            stmt.close();
-        }        
+            if (i > 0) {
+                listAsString = listAsString + ", ";
+            }
+            listAsString = listAsString + "(" + df.format(timehistoryAsList.get(i)) + ")";
+        }
+        Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+        String newTableName = "Timehistorylist" + rowId;
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO " + newTableName
+            + " (acceleration) VALUES " + listAsString);
+        stmt.executeUpdate();
+        stmt.close();    
         connection.close();
     }
     

@@ -75,6 +75,10 @@ public class DataCollection {
     public String getFileName() {
         return this.name;
     }
+
+    public String getName() {
+        return name;
+    }
     
     public void setReferenceToTreeItem(int index, CheckBoxTreeItem obj) {
         this.treeItems.set(index, obj);

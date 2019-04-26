@@ -21,8 +21,7 @@ public class Logic {
     private Frequencies frequencies;
     final private LogList logList;
     final private ReadFile readFile;
-    private File dbFile;
-    private TimehistoryDao timehistoryDao;
+    private File dbFile;    
     private InitializeDatabase initializeDatabase;
 
     public Logic() {
@@ -31,8 +30,7 @@ public class Logic {
         this.dataFiles = new DataCollections(this.logList, this.readFile);
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
-        this.frequencies.asceDivision();
-        this.timehistoryDao = new TimehistoryDao();
+        this.frequencies.asceDivision();        
         this.initializeDatabase = new InitializeDatabase();
     }
 
@@ -68,21 +66,7 @@ public class Logic {
     }
     
     public void saveTimehistoriesToDB() {
-        timehistoryDao.setDbFile(this.dbFile);
-        timehistoryDao.setCollectionId(123);
-        try { 
-            ArrayList<Double> lista = new ArrayList<>();
-            lista.add(1.1);
-            lista.add(2.3);
-            lista.add(3.4);
-            lista.add(4.5);
-            lista.add(5.6);
-            
-            timehistoryDao.create(new Timehistory(lista, 0.1, "OmaNimi"));
-            timehistoryDao.create(new Timehistory(lista, 12.1, "Faf"));
-        } catch (SQLException e) {
-            System.out.println(e.toString());
-        }     
+        dataFiles.saveTimehistoriesToDB(this.dbFile);     
     }
     
     public void setPhiiValue(double newPhii) {

@@ -112,6 +112,13 @@
                 <configuration>
                     <excludes>
                         <exclude>seacsp/ui/*</exclude>
+                        <exclude>org/sqlite/*</exclude>
+                        <exclude>org/sqlite/jdbc3/*</exclude>
+                        <exclude>org/sqlite/date/*</exclude>
+                        <exclude>org/sqlite/core/*</exclude>
+                        <exclude>org/sqlite/jdbc4/*</exclude>
+                        <exclude>org/sqlite/util/*</exclude>
+                        <exclude>org/sqlite/javax/*</exclude>
                     </excludes>
                 </configuration> 
                 <executions>

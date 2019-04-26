@@ -1,8 +1,6 @@
 package seacsp.ui;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.beans.value.ChangeListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -222,7 +220,7 @@ public class SeismicAccelerationSpectrum extends Application {
         layout.setBottom(infoLabel);
         
         // Scene
-        Scene scene = new Scene(layout, 1300, 600);
+        Scene scene = new Scene(layout, 1500, 600);
         stage.setTitle("Acceleration Spectrums");
         stage.setScene(scene);
         stage.show();
