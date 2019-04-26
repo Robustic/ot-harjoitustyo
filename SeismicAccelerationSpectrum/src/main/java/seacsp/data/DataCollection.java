@@ -1,6 +1,5 @@
 package seacsp.data;
 
-import java.io.File;
 import java.util.ArrayList;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.util.Pair;
@@ -9,15 +8,15 @@ import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 import seacsp.calculations.Timehistory;
 
-public class DataFile {
-    final private File file;
+public class DataCollection {
+    final private String name;
     final private ArrayList<Timehistory> timehistories;
     final private ArrayList<CheckBoxTreeItem> treeItems;
     private boolean calculated;    
     final private ArrayList<Spectrum> spectrums;
 
-    public DataFile(File file, ArrayList<Timehistory> timehistories) {
-        this.file = file;
+    public DataCollection(String name, ArrayList<Timehistory> timehistories) {
+        this.name = name;
         this.timehistories = timehistories;
         this.treeItems = new ArrayList<>();
         for (Timehistory timehistory : this.timehistories) {
@@ -74,7 +73,7 @@ public class DataFile {
     }
 
     public String getFileName() {
-        return file.getName();
+        return this.name;
     }
     
     public void setReferenceToTreeItem(int index, CheckBoxTreeItem obj) {

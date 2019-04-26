@@ -1,39 +1,35 @@
-package seacsp.data;
+package seacsp.file;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.stream.Stream;
 import seacsp.calculations.Timehistory;
+import seacsp.data.DataCollection;
 
 public class ReadTxtFile {
-    final private File file;
-    final private ArrayList<Timehistory> timehistories;
+    private File file;
+    private ArrayList<Timehistory> timehistories;
+    final private ReadFile readFile;
 
-    public ReadTxtFile(File file) {
-        this.file = file;
+    public ReadTxtFile(ReadFile readFile) {        
         this.timehistories = new ArrayList<>();
-    } 
-    
-    public DataFile readTxtFile() throws Exception {
-        String fileAsString = readFileLineByLine();        
-        stringToData(fileAsString);        
-        return new DataFile(this.file, this.timehistories);        
+        this.readFile = readFile;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
     
-    public String readFileLineByLine() throws Exception {
-        StringBuilder contentBuilder = new StringBuilder(); 
-        try (Stream<String> stream = Files.lines(Paths.get(this.file.toString()), StandardCharsets.UTF_8)) {
-            stream.forEach(s -> contentBuilder.append(s).append("\n"));
-        }
-        catch (IOException e) {
-            throw e;
-        } 
-        return contentBuilder.toString();
+    public void initialize(File file) {
+       setFile(file);
+       this.timehistories = new ArrayList<>();
+    }
+    
+    public DataCollection readTxtFile(File file) throws Exception {
+        initialize(file);
+        String fileAsString = this.readFile.readFileLineByLine(this.file);        
+        stringToData(fileAsString);        
+        return new DataCollection(this.file.getName(), this.timehistories);        
     }
     
     public void stringToData(String fileAsString) throws Exception {        

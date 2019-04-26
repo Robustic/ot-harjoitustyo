@@ -1,5 +1,7 @@
 package seacsp.data;
 
+import seacsp.file.ReadFile;
+import seacsp.file.ReadTxtFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -10,15 +12,16 @@ import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 
-public class DataFileTest {
-    private DataFile dataFile;
+public class DataCollectionTest {
+    private DataCollection dataFile;
     
     @Before
     public void setUp() {
         File file = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
-        ReadTxtFile readTxtFile = new ReadTxtFile(file);
+        ReadFile readFile = new ReadFile();
+        ReadTxtFile readTxtFile = new ReadTxtFile(readFile);
         try {
-            this.dataFile = readTxtFile.readTxtFile();
+            this.dataFile = readTxtFile.readTxtFile(file);
         } catch (Exception e) {
             System.out.println("");
         }       

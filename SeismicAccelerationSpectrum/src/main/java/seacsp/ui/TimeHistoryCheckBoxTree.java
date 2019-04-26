@@ -3,7 +3,7 @@ package seacsp.ui;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
-import seacsp.data.DataFile;
+import seacsp.data.DataCollection;
 import seacsp.calculations.Timehistory;
 
 public class TimeHistoryCheckBoxTree {    
@@ -23,7 +23,7 @@ public class TimeHistoryCheckBoxTree {
         return treeView;
     }  
     
-    public TreeView<String> addNewFileToTree(DataFile inputFile) {
+    public TreeView<String> addNewFileToTree(DataCollection inputFile) {
         CheckBoxTreeItem<String> file = new CheckBoxTreeItem<>(inputFile.getFileName());
         for (int i = 0; i < inputFile.getTimehistories().size(); i++) {
             Timehistory timehistory = inputFile.getTimehistories().get(i);

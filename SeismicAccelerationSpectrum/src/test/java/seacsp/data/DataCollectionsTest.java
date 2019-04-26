@@ -10,46 +10,51 @@ import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 import seacsp.logic.LogList;
+import seacsp.file.ReadFile;
 
-public class DataFilesTest {
-    private DataFiles dataFiles;
-    private DataFile dataFile0;
-    private DataFile dataFile1;
+public class DataCollectionsTest {
+    private DataCollections dataCollections;
+    private DataCollection dataCollection0;
+    private DataCollection dataCollection1;
     
     @Before
     public void setUp() {
         LogList loglist = new LogList();
-        this.dataFiles = new DataFiles(loglist);
+        ReadFile readFile = new ReadFile();
+        this.dataCollections = new DataCollections(loglist, readFile);
         File file0 = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         try {
-            this.dataFile1 = this.dataFiles.addFile(file1);
-            this.dataFile0 = this.dataFiles.addFile(file0);
+            this.dataCollection1 = this.dataCollections.addFile(file1); 
+            this.dataCollection0 = this.dataCollections.addFile(file0);
+           
         } catch (Exception e) {
-            System.out.println("");
+            System.out.println("Something is wrong.");
         }
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();
         objTrue.setSelected(true);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
-        this.dataFile1.setReferenceToTreeItem(0, objTrue);
-        this.dataFile1.setReferenceToTreeItem(1, objFalse);
-        this.dataFile0.setReferenceToTreeItem(0, objFalse);
-        this.dataFile0.setReferenceToTreeItem(1, objTrue);
-        this.dataFile0.setReferenceToTreeItem(2, objFalse);
-        this.dataFile0.setReferenceToTreeItem(3, objTrue);
-        this.dataFile0.setReferenceToTreeItem(4, objTrue);        
+        
+        this.dataCollection1.setReferenceToTreeItem(0, objTrue);
+        this.dataCollection1.setReferenceToTreeItem(1, objFalse);
+        
+        this.dataCollection0.setReferenceToTreeItem(0, objFalse);
+        this.dataCollection0.setReferenceToTreeItem(1, objTrue);
+        this.dataCollection0.setReferenceToTreeItem(2, objFalse);
+        this.dataCollection0.setReferenceToTreeItem(3, objTrue);
+        this.dataCollection0.setReferenceToTreeItem(4, objTrue);        
     }
     
     @Test
     public void dataFilesExist() {        
-        assertTrue(this.dataFiles != null);      
+        assertTrue(this.dataCollections != null);      
     }
     
     @Test
     public void fileAlreadyAdded() {
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
-        assertTrue(this.dataFiles.fileAlreadyAdded(file1));      
+        assertTrue(this.dataCollections.fileAlreadyAdded(file1));      
     }
     
     @Test
@@ -57,7 +62,7 @@ public class DataFilesTest {
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         String message = "";
         try {
-            this.dataFiles.addFile(file1);
+            this.dataCollections.addFile(file1);
         } catch (Exception e) {
             message = e.toString();
         }
@@ -67,7 +72,7 @@ public class DataFilesTest {
     @Test
     public void fileNotYetAdded() {
         File filex = new File(System.getProperty("user.dir") + "/" + "TestFilex.txt");
-        assertFalse(this.dataFiles.fileAlreadyAdded(filex));      
+        assertFalse(this.dataCollections.fileAlreadyAdded(filex));      
     }
         
     @Test
@@ -75,21 +80,21 @@ public class DataFilesTest {
         Phii phii = new Phii(-0.1);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        assertTrue(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
     public void recalculationNeeded02() {
         Phii phii = new Phii(0.01);
         Frequencies frequencies = new Frequencies();
-        assertTrue(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
     public void recalculationNeeded00() {
         Phii phii = new Phii(-0.1);
         Frequencies frequencies = new Frequencies();
-        assertFalse(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -97,8 +102,8 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        this.dataFiles.neededToRecalculate(frequencies, phii);
-        assertFalse(this.dataFiles.neededToRecalculate(frequencies, phii));
+        this.dataCollections.neededToRecalculate(frequencies, phii);
+        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -106,9 +111,9 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        this.dataFiles.neededToRecalculate(frequencies, phii);
+        this.dataCollections.neededToRecalculate(frequencies, phii);
         phii = new Phii(0.050001);
-        assertTrue(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -116,9 +121,9 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        this.dataFiles.neededToRecalculate(frequencies, phii);
+        this.dataCollections.neededToRecalculate(frequencies, phii);
         frequencies.equalDivision(3.0001, 5.5, 1);
-        assertTrue(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -126,9 +131,9 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        this.dataFiles.neededToRecalculate(frequencies, phii);
+        this.dataCollections.neededToRecalculate(frequencies, phii);
         frequencies.equalDivision(3.1, 5.5, 1);        
-        assertFalse(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -136,7 +141,7 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(3.1, 5.5, 1);
-        assertTrue(this.dataFiles.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -144,9 +149,9 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.equalDivision(2.1, 6.5, 1);
-        this.dataFiles.calculate(frequencies, phii);
+        this.dataCollections.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
-        this.dataFiles.getSpectrumList(spectrumList);
+        this.dataCollections.getSpectrumList(spectrumList);
         assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
     }
     
@@ -155,14 +160,13 @@ public class DataFilesTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies1 = new Frequencies();
         frequencies1.equalDivision(2.1, 6.5, 1);
-        this.dataFiles.calculate(frequencies1, phii);
+        this.dataCollections.calculate(frequencies1, phii);
         Frequencies frequencies2 = new Frequencies();
         frequencies2.equalDivision(3.1, 7.5, 1);
-        this.dataFiles.copyFrequencies(frequencies2.getFrequenceList());
-        this.dataFiles.calculate(frequencies2, phii);
+        this.dataCollections.copyFrequencies(frequencies2.getFrequenceList());
+        this.dataCollections.calculate(frequencies2, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
-        this.dataFiles.getSpectrumList(spectrumList);        
+        this.dataCollections.getSpectrumList(spectrumList);        
         assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
-    }
-    
+    }    
 }

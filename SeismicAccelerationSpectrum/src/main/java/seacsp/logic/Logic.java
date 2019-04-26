@@ -8,31 +8,53 @@ import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 import seacsp.calculations.Timehistory;
-import seacsp.data.DataFile;
-import seacsp.data.DataFiles;
-import seacsp.db.ReadDatabase;
+import seacsp.data.DataCollection;
+import seacsp.data.DataCollections;
+import seacsp.file.ReadFile;
 import seacsp.db.InitializeDatabase;
 import seacsp.db.TimehistoryDao;
 
 
 public class Logic {
-    final private DataFiles dataFiles;
+    final private DataCollections dataFiles;
     private Phii phii;
     private Frequencies frequencies;
     final private LogList logList;
+    final private ReadFile readFile;
+    private File dbFile;
 
     public Logic() {
         this.logList = new LogList();
-        this.dataFiles = new DataFiles(this.logList);
+        this.readFile = new ReadFile();
+        this.dataFiles = new DataCollections(this.logList, this.readFile);
         this.phii = new Phii(0.05);
         this.frequencies = new Frequencies();
         this.frequencies.asceDivision();        
     }
+
+    public void setDbFile(File dbFile) {
+        this.dbFile = dbFile;
+    }
     
-    public void initialize() {
-        InitializeDatabase initializeDatabase = new InitializeDatabase();
-        initializeDatabase.initializeDatabase();
-        System.out.println("Initialized!");             
+    public String initialize(String filename) {
+        if (filename.equals("-1")) {
+            this.logList.addLog("New database not initialized. Filename was empty.");
+            return "";
+        } else {           
+            String dbname = filename + ".db";
+            if (this.readFile.checkThatFileExists(new File(dbname))) {
+                this.logList.addLog("New database not initialized. Filename already exists.");
+                return "";
+            } else {
+                InitializeDatabase initializeDatabase = new InitializeDatabase();
+                initializeDatabase.initializeDatabase(dbname);
+                this.logList.addLog("New database " + dbname + " initialized!");
+                this.dbFile = new File(dbname);
+                this.dbFile = new File(this.dbFile.getAbsolutePath());
+                System.out.println(this.dbFile.toString());
+                return dbname;
+            }
+        }
     }
     
     public void readHeadersFromSQL() {
@@ -67,9 +89,9 @@ public class Logic {
         this.frequencies.equalDivision(start, end, divisionHz);
     }
     
-    public DataFile addFileWhenSelectFileButtonPressed(File file) {
+    public DataCollection addFileWhenSelectFileButtonPressed(File file) {
         try {
-            DataFile dataFile = this.dataFiles.addFile(file);
+            DataCollection dataFile = this.dataFiles.addFile(file);
             logList.addLog("File " + file.getName() + " added to list.");            
             return dataFile;            
         } catch (Exception e) {

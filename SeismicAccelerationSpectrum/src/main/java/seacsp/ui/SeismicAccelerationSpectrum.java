@@ -21,7 +21,7 @@ import java.io.File;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.chart.LineChart;
 import seacsp.logic.Logic;
-import seacsp.data.DataFile;
+import seacsp.data.DataCollection;
 
 public class SeismicAccelerationSpectrum extends Application {
     
@@ -29,6 +29,7 @@ public class SeismicAccelerationSpectrum extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         TimehistoriesStage timehistoriesStage = new TimehistoriesStage();
+        NewDataBaseStage newDataBaseStage = new NewDataBaseStage();
         Logic logic = new Logic();
         
         // Treeview
@@ -36,21 +37,22 @@ public class SeismicAccelerationSpectrum extends Application {
 
         // Buttons
         Button button1 = new Button("Select File");
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().addAll(
+        FileChooser fileChooserTxt = new FileChooser();
+        fileChooserTxt.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Text Files", "*.txt")
         );
         button1.setOnAction(e -> {
-            File selectedFile = fileChooser.showOpenDialog(stage);
-            DataFile inputFile = logic.addFileWhenSelectFileButtonPressed(selectedFile);
+            File selectedFile = fileChooserTxt.showOpenDialog(stage);
+            DataCollection inputFile = logic.addFileWhenSelectFileButtonPressed(selectedFile);
             if (inputFile != null) {
                 timeHistoryCheckBoxTree.addNewFileToTree(inputFile);
             }
         });        
         Button button2 = new Button("Calculate and Draw");
         Button button3 = new Button("Draw timehistories");
-        Button button4 = new Button("Initiualize");
-        Button button5 = new Button("Add to SQL db");
+        Button button4 = new Button("Add new database");
+        Button button6 = new Button("Open database");        
+        Button button5 = new Button("Save Timehistories to SQL-db");
         
         // Phii Radio-Buttons
         ToggleGroup toggleGroupPhii = new ToggleGroup();
@@ -121,9 +123,27 @@ public class SeismicAccelerationSpectrum extends Application {
         buttonsHBox.getChildren().add(button2);
         buttonsHBox.getChildren().add(button3);
         buttonsHBox.getChildren().add(button4);
+        buttonsHBox.getChildren().add(button6);
         buttonsHBox.getChildren().add(button5);
-        buttonsHBox.getChildren().add(phiiRadioButtonsVBox);
-        buttonsHBox.getChildren().add(freqRadioButtonsVBox);
+        VBox buttonsAndDBNameVBox = new VBox();
+        buttonsAndDBNameVBox.setSpacing(10);
+        buttonsAndDBNameVBox.getChildren().add(buttonsHBox);
+        HBox dbNameHBox = new HBox();
+        dbNameHBox.setSpacing(10);
+        Label dbNameLabel = new Label("Chosen SQL-database: ");
+        dbNameHBox.getChildren().add(dbNameLabel);
+        TextField dbNameTextField = new TextField("");
+        dbNameTextField.setEditable(false);
+        dbNameTextField.setDisable(true);
+        dbNameTextField.setMinWidth(250);
+        dbNameTextField.setMaxWidth(250);
+        dbNameHBox.getChildren().add(dbNameTextField);
+        buttonsAndDBNameVBox.getChildren().add(dbNameHBox);
+        HBox upperRowHBox = new HBox();
+        upperRowHBox.setSpacing(10);
+        upperRowHBox.getChildren().add(buttonsAndDBNameVBox);
+        upperRowHBox.getChildren().add(phiiRadioButtonsVBox);
+        upperRowHBox.getChildren().add(freqRadioButtonsVBox);
         
         // TextArea
         TextArea logTextArea = new TextArea("");
@@ -164,8 +184,28 @@ public class SeismicAccelerationSpectrum extends Application {
         });
         
         button4.setOnAction(e -> {
-            logic.initialize();
+            if (!newDataBaseStage.isShowing()) {
+                newDataBaseStage.showAndWait();
+                String givenText = newDataBaseStage.getText();
+                if (!givenText.equals("")) {
+                    String inputToDBNameTextField = logic.initialize(givenText);                    
+                    newDataBaseStage.clearText();
+                    if (!inputToDBNameTextField.equals("")) {
+                        dbNameTextField.setText(inputToDBNameTextField);
+                    }
+                }
+            }
         });
+        
+        FileChooser fileChooserDB = new FileChooser();
+        fileChooserDB.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("DB Files", "*.db")
+        );
+        button6.setOnAction(e -> {
+            File selectedFile = fileChooserDB.showOpenDialog(stage);
+            logic.setDbFile(selectedFile);
+            dbNameTextField.setText(selectedFile.getName());
+        }); 
         
         button5.setOnAction(e -> {
             logic.readHeadersFromSQL();
@@ -175,13 +215,13 @@ public class SeismicAccelerationSpectrum extends Application {
         
         // Layout
         BorderPane layout = new BorderPane();
-        layout.setTop(buttonsHBox);
+        layout.setTop(upperRowHBox);
         layout.setLeft(timeHistoryCheckBoxTree.getTreeView());
         layout.setCenter(graphLogVBox);
         layout.setBottom(infoLabel);
         
         // Scene
-        Scene scene = new Scene(layout, 1000, 600);
+        Scene scene = new Scene(layout, 1300, 600);
         stage.setTitle("Acceleration Spectrums");
         stage.setScene(scene);
         stage.show();

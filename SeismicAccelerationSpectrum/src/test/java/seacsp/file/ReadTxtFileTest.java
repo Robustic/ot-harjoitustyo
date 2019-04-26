@@ -1,18 +1,23 @@
-package seacsp.data;
+package seacsp.file;
 
+import seacsp.file.ReadTxtFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.*;
 import java.io.File;
+import seacsp.data.DataCollection;
 
 public class ReadTxtFileTest {
     private ReadTxtFile readTxtFile;
+    private File file;
     
     @Before
     public void setUp() {
-        File file = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
-        this.readTxtFile = new ReadTxtFile(file);        
+        this.file = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
+        ReadFile readFile = new ReadFile();
+        this.readTxtFile = new ReadTxtFile(readFile);  
+        this.readTxtFile.setFile(this.file);
     }
     
     @Test
@@ -22,9 +27,9 @@ public class ReadTxtFileTest {
         
     @Test
     public void correctValueOfDeltaT() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -33,9 +38,9 @@ public class ReadTxtFileTest {
     
     @Test
     public void correctNumberOfTimehistories() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -44,9 +49,9 @@ public class ReadTxtFileTest {
     
     @Test
     public void correctHeaderOfTimehistory5() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -55,9 +60,9 @@ public class ReadTxtFileTest {
     
     @Test
     public void correctNumberOfTimesteps() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -66,9 +71,9 @@ public class ReadTxtFileTest {
     
     @Test
     public void correctLastValueOfTimehistory5() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -77,9 +82,9 @@ public class ReadTxtFileTest {
     
     @Test
     public void correctSecondLastValueOfTimehistory5() {
-        DataFile dataFile = null;
+        DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile();
+            dataFile = this.readTxtFile.readTxtFile(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -116,7 +121,7 @@ public class ReadTxtFileTest {
     }
     
     @Test
-    public void timeLineNotCrowingLinearilyPlus() {
+    public void timeLineNotCrowingLinearilyPlus() {        
         ArrayList<Double> timeLine = new ArrayList<>();
         timeLine.add(0.0);
         timeLine.add(1.0);
@@ -128,7 +133,7 @@ public class ReadTxtFileTest {
             this.readTxtFile.addDeltaTValues(timeLine);
         } catch (Exception e) {
             catchedString = e.toString();
-        }
+        }      
         assertEquals("java.lang.IllegalArgumentException: In file TestFile0.txt time is not increasing linerially.", catchedString);
     }
     
@@ -145,7 +150,6 @@ public class ReadTxtFileTest {
             this.readTxtFile.addDeltaTValues(timeLine);
         } catch (Exception e) {
             catchedString = e.toString();
-            System.out.println(e);
         }
         assertEquals("java.lang.IllegalArgumentException: File TestFile0.txt time is decreasing.", catchedString);
     }
@@ -182,11 +186,11 @@ public class ReadTxtFileTest {
     
     @Test
     public void ghostFileNotFound() {
-        File file = new File(System.getProperty("user.dir") + "/" + "FileNotFound.txt");
-        this.readTxtFile = new ReadTxtFile(file);
+        File newfile = new File(System.getProperty("user.dir") + "/" + "FileNotFound.txt");
+        ReadFile readFile = new ReadFile();
         String catchedString = "";
         try {
-            this.readTxtFile.readFileLineByLine();
+            readFile.readFileLineByLine(newfile);
         } catch (Exception e) {
             catchedString = "File not found.";
         }
@@ -203,7 +207,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile();
+            this.readTxtFile.readTxtFile(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();
@@ -223,7 +227,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile();
+            this.readTxtFile.readTxtFile(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();
@@ -242,7 +246,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile();
+            this.readTxtFile.readTxtFile(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();

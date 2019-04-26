@@ -7,11 +7,12 @@ import java.sql.*;
 
 public class InitializeDatabase {
    
-    public void initializeDatabase() {
+    public void initializeDatabase(String dbname) {
         Connection connection = null;
         try {
+            String dbPath = "jdbc:sqlite:" + dbname;
             // create a database connection
-            connection = DriverManager.getConnection("jdbc:sqlite:spectrum.db");
+            connection = DriverManager.getConnection(dbPath);
 //            connection = DriverManager.getConnection("jdbc:sqlite:./spectrum.db", "sa", "");
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.

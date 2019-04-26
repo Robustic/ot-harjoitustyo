@@ -9,22 +9,28 @@ import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
 import seacsp.logic.LogList;
+import seacsp.file.ReadFile;
+import seacsp.file.ReadTxtFile;
 
-public class DataFiles {
-    final private ArrayList<DataFile> dataFileList;
+public class DataCollections {
+    final private ArrayList<DataCollection> dataCollectionList;
     private double currentPhii;
     final private ArrayList<Double> currentFrequencies;
     final private LogList loglist;
+    final private ReadFile readFile;
+    final private ReadTxtFile readTxtFile;
 
-    public DataFiles(LogList setLoglist) {
-        this.dataFileList = new ArrayList<>();
+    public DataCollections(LogList setLoglist, ReadFile readFile) {
+        this.dataCollectionList = new ArrayList<>();
         this.currentPhii = -0.1;
         this.currentFrequencies = new ArrayList<>();
         this.loglist = setLoglist;
+        this.readFile = readFile;
+        this.readTxtFile = new ReadTxtFile(this.readFile);
     }
     
     public void getTimehistoryLists(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {
-        for (DataFile dataFile : this.dataFileList) {
+        for (DataCollection dataFile : this.dataCollectionList) {
             dataFile.getTimehistoryLists(timehistoryLists);
         }
     }
@@ -69,12 +75,12 @@ public class DataFiles {
     
     public void calculate(Frequencies frequencies, Phii phii) {        
         if (neededToRecalculate(frequencies, phii) == true) {
-            for (DataFile dataFile : this.dataFileList) {
+            for (DataCollection dataFile : this.dataCollectionList) {
                 dataFile.setCalculatedFalse();
             }
         }
         loglist.addLog("*** Calculation started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
-        for (DataFile dataFile : this.dataFileList) {
+        for (DataCollection dataFile : this.dataCollectionList) {
             if (dataFile.isCalculated() == false) {
                 dataFile.calculate(frequencies, phii);
                 loglist.addLog("File " + dataFile.getFileName() + " calculated.");
@@ -87,24 +93,23 @@ public class DataFiles {
     }
     
     public void getSpectrumList(ArrayList<Spectrum> spectrumList) {
-        for (DataFile dataFile : this.dataFileList) {
+        for (DataCollection dataFile : this.dataCollectionList) {
             dataFile.addSpectrumsToList(spectrumList);
         }
     }
     
-    public DataFile addFile(File file) throws Exception {
+    public DataCollection addFile(File file) throws Exception {
         if (fileAlreadyAdded(file)) {
             throw new IllegalArgumentException("File " + file.getName() + " already added.");
         }
-        ReadTxtFile readTxtFile = new ReadTxtFile(file);
-        DataFile newFile = readTxtFile.readTxtFile();
-        this.dataFileList.add(newFile);
+        DataCollection newFile = this.readTxtFile.readTxtFile(file);
+        this.dataCollectionList.add(newFile);
         return newFile;
     }
     
     public boolean fileAlreadyAdded(File file) {
         String newFileName = file.getName();
-        for (DataFile dataFile : this.dataFileList) {
+        for (DataCollection dataFile : this.dataCollectionList) {
             if (newFileName.equals(dataFile.getFileName())) {
                 return true;
             }
