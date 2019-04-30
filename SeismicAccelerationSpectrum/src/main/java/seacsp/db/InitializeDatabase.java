@@ -19,7 +19,6 @@ public class InitializeDatabase {
     public void addTimehistoryTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
         statement.executeUpdate("DROP TABLE IF EXISTS Timehistory");
         statement.executeUpdate("CREATE TABLE Timehistory ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -32,7 +31,6 @@ public class InitializeDatabase {
     public void addDataCollectionTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);  // set timeout to 30 sec.
-
         statement.executeUpdate("DROP TABLE IF EXISTS Datacollection");
         statement.executeUpdate("CREATE TABLE Datacollection ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "

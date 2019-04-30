@@ -19,7 +19,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
     }
     
     @Override
-    public void create(Timehistory timehistory) throws SQLException {
+    public void create(Timehistory timehistory) throws SQLException {        
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();
         Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Timehistory"
@@ -32,7 +32,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         int rowId = generatedKey(stmt);
         stmt.close();
         connection.close();                
-        addList(timehistory.getTimehistory(), rowId);
+        addListAsTable(timehistory.getTimehistory(), rowId);
     }
     
     public int generatedKey(PreparedStatement stmt) throws SQLException {
@@ -47,7 +47,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         return rowId;
     }
     
-    public void addList(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
+    public void addListAsTable(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
         initializeNewTable(rowId);
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();        
         String listAsString = "";
@@ -75,7 +75,6 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);
         String newTableName = "Timehistorylist" + rowId;
-
         statement.executeUpdate("DROP TABLE IF EXISTS " + newTableName);
         statement.executeUpdate("CREATE TABLE " + newTableName + " ("
                 + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -86,34 +85,58 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
 
     @Override
     public Timehistory read(Integer key) throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./spectrum.db", "sa", "");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE id = ?");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE id = ? ORDER BY id ASC");
         stmt.setInt(1, key);
         ResultSet rs = stmt.executeQuery();
         if (!rs.next()) {
             return null;
         }
-        Timehistory timehistory = new Timehistory(rs.getDouble("deltat"), rs.getString("name"));
+        double deltaT = rs.getDouble("deltat");
+        String name = rs.getString("name");
         stmt.close();
         rs.close();
         connection.close();
+        Timehistory timehistory = new Timehistory(getTableAsList(key), deltaT, name);
         return timehistory;
     }
-
-    @Override
-    public Timehistory update(Timehistory object) throws SQLException {
-        // ei toteutettu
-        return null;
+    
+    public ArrayList<Double> getTableAsList(int rowId) throws SQLException {
+        ArrayList<Double> list = new ArrayList<>();
+        String tableName = "Timehistorylist" + rowId;
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM " + tableName +  " ORDER BY id ASC");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            list.add(rs.getDouble("acceleration"));
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return list;
     }
-
-    @Override
-    public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+    
+    public ArrayList<Timehistory> listWithCollectionId(int collectionId) throws SQLException {
+        ArrayList<Integer> rowIdList = getRowIdList(collectionId);
+        ArrayList<Timehistory> timehistoryList = new ArrayList<>();
+        for (int i = 0; i < rowIdList.size(); i++) {
+            timehistoryList.add(read(rowIdList.get(i)));
+        }
+        return timehistoryList;
     }
-
-    @Override
-    public List<Timehistory> list() throws SQLException {
-        // ei toteutettu
-        return null;
+    
+    public ArrayList<Integer> getRowIdList(int collectionId) throws SQLException {
+        ArrayList<Integer> rowIdList = new ArrayList<>();
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE datacollection_id = ? ORDER BY id ASC");
+        stmt.setInt(1, collectionId);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            rowIdList.add(rs.getInt("id"));
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return rowIdList;
     }
 }

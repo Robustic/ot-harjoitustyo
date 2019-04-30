@@ -36,14 +36,39 @@ public class DataCollections {
         this.dataCollectionDao = new DataCollectionDao();
     }
     
+    public ArrayList<DataCollection> readDataBase(File dbFile) {
+        this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
+        this.dataCollectionDao.setDbFile(dbFile);
+        ArrayList<String> dataCollectionNames = new ArrayList<>();
+        for (DataCollection dataCollection : this.dataCollectionList) {
+            dataCollectionNames.add(dataCollection.getFileName());
+        }
+        ArrayList<DataCollection> dataCollectionsFromDatabase = new ArrayList<>();
+        try {
+            dataCollectionsFromDatabase = this.dataCollectionDao.listWithNameNotExistInTheList(dataCollectionNames);
+        } catch (SQLException e) {
+            loglist.addLog("Reading from database caused error.");
+        } 
+        for (int i = 0; i < dataCollectionsFromDatabase.size(); i++) {
+            this.dataCollectionList.add(dataCollectionsFromDatabase.get(i));
+            loglist.addLog("Collection " + dataCollectionsFromDatabase.get(i).getName() + " readed from database.");
+        }
+        return dataCollectionsFromDatabase;
+    }
+    
     public void saveTimehistoriesToDB(File dbFile) {
         this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
         this.dataCollectionDao.setDbFile(dbFile);
         try { 
-            for (int i = 0; i < this.dataCollectionList.size(); i++) {
-                loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
-                this.dataCollectionDao.create(this.dataCollectionList.get(i));
-                loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " finished.");
+            for (int i = 0; i < this.dataCollectionList.size(); i++) {                
+                if (this.dataCollectionDao.exist(this.dataCollectionList.get(i).getName())) {
+                    loglist.addLog("File " + this.dataCollectionList.get(i).getName() + " already exist in the DB.");                    
+                } else {
+                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
+                    this.dataCollectionDao.create(this.dataCollectionList.get(i));
+                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " finished.");
+                }
+                
             }
         } catch (SQLException e) {
             loglist.addLog("Writing to the database caused error.");

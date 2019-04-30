@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.ArrayList;
 import seacsp.data.DataCollection;
 
 
@@ -55,35 +55,55 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
 
     @Override
     public DataCollection read(Integer key) throws SQLException {
-//        Connection connection = DriverManager.getConnection("jdbc:sqlite:./spectrum.db", "sa", "");
-//        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE id = ?");
-//        stmt.setInt(1, key);
-//        ResultSet rs = stmt.executeQuery();
-//        if (!rs.next()) {
-//            return null;
-//        }
-//        DataCollection timehistory = new DataCollection(rs.getDouble("deltat"), rs.getString("name"));
-//        stmt.close();
-//        rs.close();
-//        connection.close();
-//        return timehistory;
-        return null;
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection WHERE id = ? ORDER BY id ASC");
+        stmt.setInt(1, key);
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.next()) {
+            stmt.close();
+            rs.close();
+            connection.close();
+            return null;
+        }
+        String name = rs.getString("name");
+        stmt.close();
+        rs.close();
+        connection.close();
+        DataCollection dataCollection = new DataCollection(name, this.timehistoryDao.listWithCollectionId(key));
+        return dataCollection;
     }
-
-    @Override
-    public DataCollection update(DataCollection object) throws SQLException {
-        // ei toteutettu
-        return null;
+    
+    public boolean exist(String findName) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection WHERE name = ? ORDER BY id ASC");
+        stmt.setString(1, findName);
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.next()) {
+            stmt.close();
+            rs.close();
+            connection.close();
+            return false;
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return true;
     }
-
-    @Override
-    public void delete(Integer key) throws SQLException {
-        // ei toteutettu
-    }
-
-    @Override
-    public List<DataCollection> list() throws SQLException {
-        // ei toteutettu
-        return null;
+    
+    public ArrayList<DataCollection> listWithNameNotExistInTheList(ArrayList<String> names) throws SQLException {
+        this.timehistoryDao.setDbFile(this.dbFile);
+        ArrayList<DataCollection> returnList = new ArrayList<>();
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection ORDER BY id ASC");
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            if (!names.contains(rs.getString("name"))) {
+                returnList.add(new DataCollection(rs.getString("name"), this.timehistoryDao.listWithCollectionId(rs.getInt("id"))));
+            }
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return returnList;
     }
 }

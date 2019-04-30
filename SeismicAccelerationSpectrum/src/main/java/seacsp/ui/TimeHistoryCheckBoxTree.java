@@ -1,5 +1,6 @@
 package seacsp.ui;
 
+import java.util.ArrayList;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.CheckBoxTreeCell;
@@ -23,7 +24,7 @@ public class TimeHistoryCheckBoxTree {
         return treeView;
     }  
     
-    public TreeView<String> addNewFileToTree(DataCollection inputFile) {
+    public void addNewFileToTree(DataCollection inputFile) {
         CheckBoxTreeItem<String> file = new CheckBoxTreeItem<>(inputFile.getFileName());
         for (int i = 0; i < inputFile.getTimehistories().size(); i++) {
             Timehistory timehistory = inputFile.getTimehistories().get(i);
@@ -33,7 +34,12 @@ public class TimeHistoryCheckBoxTree {
         }
         file.setExpanded(true);
         this.all.setExpanded(true);
-        this.all.getChildren().add(file);        
-        return this.treeView;
+        this.all.getChildren().add(file);
+    }
+    
+    public void addNewFilesToTree(ArrayList<DataCollection> inputFiles) {
+        for (int i = 0; i < inputFiles.size(); i++) {
+            addNewFileToTree(inputFiles.get(i));
+        }
     }
 }

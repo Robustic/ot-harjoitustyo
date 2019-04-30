@@ -36,6 +36,10 @@ public class Logic {
         this.dbFile = dbFile;
     }
     
+    public ArrayList<DataCollection> readDataBase() {
+        return this.dataCollections.readDataBase(this.dbFile);
+    }
+    
     public String initialize(String filename) {
         if (filename.equals("-1")) {
             this.logList.addLog("New database not initialized. Filename was empty.");

@@ -20,6 +20,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.chart.LineChart;
 import seacsp.logic.Logic;
 import seacsp.data.DataCollection;
+import java.util.ArrayList;
 
 public class SeismicAccelerationSpectrum extends Application {
     
@@ -203,6 +204,11 @@ public class SeismicAccelerationSpectrum extends Application {
             File selectedFile = fileChooserDB.showOpenDialog(stage);
             logic.setDbFile(selectedFile);
             dbNameTextField.setText(selectedFile.getName());
+//            logic.readDataBase();
+            ArrayList<DataCollection> inputFiles = logic.readDataBase();
+            if (inputFiles != null) {
+                timeHistoryCheckBoxTree.addNewFilesToTree(inputFiles);
+            }
         }); 
         
         button5.setOnAction(e -> {
