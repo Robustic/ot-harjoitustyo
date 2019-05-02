@@ -20,12 +20,12 @@ public class PhiiTest {
     
     @Test
     public void correctInitializedValueOfPhii() {
-        assertTrue(0.0499999 < this.phii.getPhii() && this.phii.getPhii() < 0.0500001);      
+        assertEquals(0.05, this.phii.getPhii(), 0.0000001);      
     }
     
     @Test
     public void correctValueOfPhii() {
         this.phii.setPhii(0.02);
-        assertTrue(0.0199999 < this.phii.getPhii() && this.phii.getPhii() < 0.0200001);      
+        assertEquals(0.02, this.phii.getPhii(), 0.0000001);      
     }
 }

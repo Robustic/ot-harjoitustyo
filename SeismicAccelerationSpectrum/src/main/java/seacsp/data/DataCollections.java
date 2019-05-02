@@ -1,6 +1,7 @@
 package seacsp.data;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -8,12 +9,11 @@ import javafx.util.Pair;
 import seacsp.calculations.Frequencies;
 import seacsp.calculations.Phii;
 import seacsp.calculations.Spectrum;
-import seacsp.db.TimehistoryDao;
 import seacsp.db.DataCollectionDao;
-import seacsp.logic.LogList;
+import seacsp.db.TimehistoryDao;
 import seacsp.file.ReadFile;
 import seacsp.file.ReadTxtFile;
-import java.sql.SQLException;
+import seacsp.logic.LogList;
 
 public class DataCollections {
     final private ArrayList<DataCollection> dataCollectionList;
@@ -53,6 +53,7 @@ public class DataCollections {
             this.dataCollectionList.add(dataCollectionsFromDatabase.get(i));
             loglist.addLog("Collection " + dataCollectionsFromDatabase.get(i).getName() + " readed from database.");
         }
+        loglist.addLog("Reading from database " + dbFile.getName() + " finished.");
         return dataCollectionsFromDatabase;
     }
     
@@ -66,7 +67,7 @@ public class DataCollections {
                 } else {
                     loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
                     this.dataCollectionDao.create(this.dataCollectionList.get(i));
-                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " finished.");
+                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database finished.");
                 }
                 
             }

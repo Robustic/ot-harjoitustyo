@@ -4,6 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.sql.*;
 import java.util.*;
 import java.io.File;
 import java.sql.SQLException;
@@ -35,7 +36,7 @@ public class TimehistoryDaoTest {
         Timehistory timehistory1 = new Timehistory(list1, 0.01, "First th");
         Timehistory timehistory2 = new Timehistory(list2, 0.02, "Second th");
         Timehistory timehistory3 = new Timehistory(list3, 0.07, "Third th");
-        this.timehistoryDao.setDbFile(new File(testFile));
+        this.timehistoryDao.setDbFile(this.file);
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
             initializeDatabase.initializeDatabase(testFile);
@@ -160,5 +161,31 @@ public class TimehistoryDaoTest {
             System.out.println(e);
         }
         assertEquals("Third th", timehistoryListTest.get(1).getName());      
+    }
+    
+    @Test
+    public void exceptionWhenNoGeneratedKeys() {
+        String generatedException = "";
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory");
+            ResultSet rs = stmt.executeQuery();
+            this.timehistoryDao.generatedKey(stmt);
+        } catch (Exception e) {
+            generatedException = e.toString();
+        }
+        assertEquals("java.lang.IllegalArgumentException: No generated sqldb-rows.", generatedException);
+    }
+    
+    @Test
+    public void exceptionWhenTimehistoryWithKey() {
+        Timehistory getTimehistory = null;
+        try {
+            getTimehistory = this.timehistoryDao.read(133);
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        assertTrue(getTimehistory == null);
     }
 }

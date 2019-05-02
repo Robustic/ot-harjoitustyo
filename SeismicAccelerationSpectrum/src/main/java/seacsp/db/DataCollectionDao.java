@@ -42,14 +42,19 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
     }
     
     public int generatedKey(PreparedStatement stmt) throws SQLException {
-        ResultSet rs = stmt.getGeneratedKeys();        
+        ResultSet rs;
         int rowId;
-        if (!rs.next()) {
+        try {
+            rs = stmt.getGeneratedKeys();
+            rs.next();
+            if (rs.getInt(1) == 0) {
+                throw new SQLException("Generated row number == 0.");
+            }
+            rowId = rs.getInt(1);            
+            rs.close();
+        } catch (SQLException e) {
             throw new IllegalArgumentException("No generated sqldb-rows.");
-        } else {
-            rowId = rs.getInt(1);
-        }
-        rs.close();
+        }                
         return rowId;
     }
 

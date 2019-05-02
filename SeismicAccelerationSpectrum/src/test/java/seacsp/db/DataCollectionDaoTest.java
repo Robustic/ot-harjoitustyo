@@ -1,6 +1,10 @@
 package seacsp.db;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.After;
@@ -124,5 +128,80 @@ public class DataCollectionDaoTest {
             System.out.println(e);
         }
         assertEquals(22.11,  collectionList.get(0).getTimehistories().get(1).getAcc(5), 0.00001);      
+    }
+    
+    @Test
+    public void exceptionWhenNoGeneratedKeys() {
+        String generatedException = "";
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
+            ResultSet rs = stmt.executeQuery();
+            this.dataCollectionDao.generatedKey(stmt);
+        } catch (Exception e) {
+            generatedException = e.toString();
+        }
+        assertEquals("java.lang.IllegalArgumentException: No generated sqldb-rows.", generatedException);
+    }
+    
+    @Test
+    public void dataCollectionWithGivenKeyExists() {
+        boolean keyExist = false;
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
+            ResultSet rs = stmt.executeQuery();
+            keyExist = this.dataCollectionDao.exist("Collection 1");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        assertTrue(keyExist);
+    }
+    
+    @Test
+    public void dataCollectionWithGivenKeyNotExist() {
+        boolean keyExist = true;
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
+            ResultSet rs = stmt.executeQuery();
+            keyExist = this.dataCollectionDao.exist("Collection 0");
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        assertFalse(keyExist);
+    }
+    
+    @Test
+    public void dataCollectionWithGivenKeyIsOk() {
+        DataCollection dataCollection = null;
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
+            ResultSet rs = stmt.executeQuery();
+            dataCollection = this.dataCollectionDao.read(2);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        assertEquals(22.11, dataCollection.getTimehistories().get(1).getAcc(5), 0.0000001);
+    }
+    
+    @Test
+    public void dataCollectionWithGivenKeyNotExists() {
+        DataCollection dataCollection = null;
+        try {
+            String connectionPath = "jdbc:sqlite:" + this.file.toString();
+            Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
+            ResultSet rs = stmt.executeQuery();
+            dataCollection = this.dataCollectionDao.read(20);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        assertTrue(dataCollection == null);
     }
 }

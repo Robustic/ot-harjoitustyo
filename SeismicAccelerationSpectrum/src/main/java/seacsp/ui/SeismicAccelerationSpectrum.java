@@ -35,7 +35,7 @@ public class SeismicAccelerationSpectrum extends Application {
         TimeHistoryCheckBoxTree timeHistoryCheckBoxTree = new TimeHistoryCheckBoxTree();
 
         // Buttons
-        Button button1 = new Button("Select File");
+        Button button1 = new Button("Select Txt-file");
         FileChooser fileChooserTxt = new FileChooser();
         fileChooserTxt.getExtensionFilters().addAll(
             new FileChooser.ExtensionFilter("Text Files", "*.txt")
@@ -48,9 +48,9 @@ public class SeismicAccelerationSpectrum extends Application {
             }
         });        
         Button button2 = new Button("Calculate and Draw");
-        Button button3 = new Button("Draw timehistories");
-        Button button4 = new Button("Add new database");
-        Button button6 = new Button("Open database");        
+        Button button3 = new Button("Draw Timehistories");
+        Button button4 = new Button("Add New Database");
+        Button button6 = new Button("Open Database");        
         Button button5 = new Button("Save Timehistories to SQL-db");
         
         // Phii Radio-Buttons
@@ -170,9 +170,9 @@ public class SeismicAccelerationSpectrum extends Application {
                 logic.setPhiiValue(Double.parseDouble(phiiTextField.getText()));
             }
             if (freqAsce.isSelected()) {
-                logic.equalDivisionFrequence(0.1, 5.05, 0.01);
+                logic.equalDivisionFrequence(0.1, 5.0005, 0.01);
             } else if (freqLinear.isSelected()) {
-                logic.equalDivisionFrequence(1, 50.05, 0.1);
+                logic.equalDivisionFrequence(1, 50.005, 0.1);
             }
             spectrumLineChart.updateSpectrumLineChart(logic.getXYValuesForChart());
         });
@@ -216,7 +216,8 @@ public class SeismicAccelerationSpectrum extends Application {
         });
         
         // Label
-        Label infoLabel = new Label("Infotext, not full functionality yet!");
+        Label infoLabel = new Label("Open text-file or open database-file to import data. Calculate and draw envelope spectrum. "
+                + "Draw timehistories. Save timehistories to SQL-db-file.");
         
         // Layout
         BorderPane layout = new BorderPane();
