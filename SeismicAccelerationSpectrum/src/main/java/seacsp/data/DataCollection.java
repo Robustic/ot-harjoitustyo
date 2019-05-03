@@ -95,7 +95,7 @@ public class DataCollection {
      *
      * @param   timehistoryLists   list as input where data is added
      */
-    public void getTimehistoryLists(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {        
+    public void getTimehistoriesAsTimeAndAccelerationListPairs(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {        
         for (int i = 0; i < this.timehistories.size(); i++) {
             if (this.treeItems.get(i).isSelected()) {                
                 double deltaT = this.timehistories.get(i).getDeltaT();
@@ -126,7 +126,7 @@ public class DataCollection {
      *
      * @param   obj   object to set as TreeItem
      */
-    public void setReferenceToTreeItem(int index, CheckBoxTreeItem obj) {
+    public void setReferenceToTreeItemObject(int index, CheckBoxTreeItem obj) {
         this.treeItems.set(index, obj);
     }
 
@@ -136,6 +136,6 @@ public class DataCollection {
      * @return time histories as a list
      */
     public ArrayList<Timehistory> getTimehistories() {
-        return timehistories;
+        return this.timehistories;
     }  
 }

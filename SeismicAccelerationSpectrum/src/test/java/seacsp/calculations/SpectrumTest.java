@@ -42,6 +42,6 @@ public class SpectrumTest {
     @Test
     public void correctValueWhenAskedFrequency() {
         double acceleration = this.spectrum.getAccelerationList().get(50-1);
-        assertEquals(1.504347408, this.spectrum.getAccWithFrequency(3), 0.000000001);
+        assertEquals(1.504347408, this.spectrum.getAccelerationInTheIndex(3), 0.000000001);
     }
 }

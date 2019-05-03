@@ -21,11 +21,11 @@ public class FrequenciesTest {
     
     @Test
     public void correctValueOfFrequency() {
-        assertEquals(4.0, this.frequencies.getFrequency(3), 0.00000001);
+        assertEquals(4.0, this.frequencies.getFrequencyInTheIndex(3), 0.00000001);
     }
     
     @Test
     public void correctNumberOfFrequencies() {
-        assertEquals(50, this.frequencies.numberOfFrequencies());
+        assertEquals(50, this.frequencies.numberOfFrequenciesInTheList());
     }
 }

@@ -31,7 +31,7 @@ public class LogList {
      *
      * @return log strings as list
      */
-    public ArrayList<String> getLog() {
+    public ArrayList<String> getLogMessagesAsStringList() {
         return log;
     }
 
@@ -40,7 +40,7 @@ public class LogList {
      *
      * @param   newLog   new log
      */
-    public void addLog(String newLog) {
+    public void addNewLogMessage(String newLog) {
         this.log.add(newLog);
         if (logTextArea != null) {
             this.logTextArea.appendText("\n" + newLog);

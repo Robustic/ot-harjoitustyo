@@ -26,7 +26,7 @@ public class ReadFileTest {
     public void fileIsReadedProperly() {
         String fileAsString = "";
         try { 
-            fileAsString = this.readFile.readFileLineByLine(this.file);
+            fileAsString = this.readFile.readFileToString(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -36,13 +36,13 @@ public class ReadFileTest {
     
     @Test
     public void fileExist() {
-        assertTrue(this.readFile.checkThatFileExists(this.file));
+        assertTrue(this.readFile.checkIfFileExists(this.file));
     }
     
     @Test
     public void fileNotExist() {
         String fileAsString = "";
         File file2 = new File(System.getProperty("user.dir") + "/" + "TestFileNNN.txt");
-        assertFalse(this.readFile.checkThatFileExists(file2));
+        assertFalse(this.readFile.checkIfFileExists(file2));
     }
 }

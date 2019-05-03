@@ -12,7 +12,7 @@ import seacsp.calculations.Spectrum;
 import seacsp.db.DataCollectionDao;
 import seacsp.db.TimehistoryDao;
 import seacsp.file.ReadFile;
-import seacsp.file.ReadTxtFile;
+import seacsp.file.ReadTextFile;
 import seacsp.logic.LogList;
 
 /**
@@ -24,7 +24,7 @@ public class DataCollections {
     final private ArrayList<Double> currentFrequencies;
     final private LogList loglist;
     final private ReadFile readFile;
-    final private ReadTxtFile readTxtFile;
+    final private ReadTextFile readTxtFile;
     final private TimehistoryDao timehistoryDao;
     final private DataCollectionDao dataCollectionDao;
 
@@ -41,7 +41,7 @@ public class DataCollections {
         this.currentFrequencies = new ArrayList<>();
         this.loglist = setLoglist;
         this.readFile = readFile;
-        this.readTxtFile = new ReadTxtFile(this.readFile);
+        this.readTxtFile = new ReadTextFile(this.readFile);
         this.timehistoryDao = new TimehistoryDao();
         this.dataCollectionDao = new DataCollectionDao();
     }
@@ -53,24 +53,24 @@ public class DataCollections {
      *
      * @return DataCollections as a list read from the database
      */
-    public ArrayList<DataCollection> readDatabase(File dbFile) {
+    public ArrayList<DataCollection> readDataCollectionsFromDatabase(File dbFile) {
         this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
-        this.dataCollectionDao.setDbFile(dbFile);
+        this.dataCollectionDao.setDatabaseFile(dbFile);
         ArrayList<String> dataCollectionNames = new ArrayList<>();
         for (DataCollection dataCollection : this.dataCollectionList) {
             dataCollectionNames.add(dataCollection.getName());
         }
         ArrayList<DataCollection> dataCollectionsFromDatabase = new ArrayList<>();
         try {
-            dataCollectionsFromDatabase = this.dataCollectionDao.listWithNameNotExistInTheList(dataCollectionNames);
+            dataCollectionsFromDatabase = this.dataCollectionDao.listDataCollectionsWithNameNotExistInTheList(dataCollectionNames);
         } catch (SQLException e) {
-            loglist.addLog("Reading from database caused error.");
+            loglist.addNewLogMessage("Reading from database caused error.");
         } 
         for (int i = 0; i < dataCollectionsFromDatabase.size(); i++) {
             this.dataCollectionList.add(dataCollectionsFromDatabase.get(i));
-            loglist.addLog("Collection " + dataCollectionsFromDatabase.get(i).getName() + " readed from database.");
+            loglist.addNewLogMessage("Collection " + dataCollectionsFromDatabase.get(i).getName() + " readed from database.");
         }
-        loglist.addLog("Reading from database " + dbFile.getName() + " finished.");
+        loglist.addNewLogMessage("Reading from database " + dbFile.getName() + " finished.");
         return dataCollectionsFromDatabase;
     }
     
@@ -79,22 +79,22 @@ public class DataCollections {
      *
      * @param   dbFile   database file where to save data
      */
-    public void saveTimehistoriesToDatabase(File dbFile) {
+    public void saveDataCollectionsToDatabase(File dbFile) {
         this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
-        this.dataCollectionDao.setDbFile(dbFile);
+        this.dataCollectionDao.setDatabaseFile(dbFile);
         try { 
             for (int i = 0; i < this.dataCollectionList.size(); i++) {                
-                if (this.dataCollectionDao.exist(this.dataCollectionList.get(i).getName())) {
-                    loglist.addLog("File " + this.dataCollectionList.get(i).getName() + " already exist in the DB.");                    
+                if (this.dataCollectionDao.dataCollectionWithGivenNameExist(this.dataCollectionList.get(i).getName())) {
+                    loglist.addNewLogMessage("File " + this.dataCollectionList.get(i).getName() + " already exist in the DB.");                    
                 } else {
-                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
+                    loglist.addNewLogMessage("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
                     this.dataCollectionDao.create(this.dataCollectionList.get(i));
-                    loglist.addLog("Writing file " + this.dataCollectionList.get(i).getName() + " to the database finished.");
+                    loglist.addNewLogMessage("Writing file " + this.dataCollectionList.get(i).getName() + " to the database finished.");
                 }
                 
             }
         } catch (SQLException e) {
-            loglist.addLog("Writing to the database caused error.");
+            loglist.addNewLogMessage("Writing to the database caused error.");
         }     
     }
     
@@ -103,9 +103,9 @@ public class DataCollections {
      *
      * @param   timehistoryLists   list as input where data is added
      */
-    public void getTimehistoryLists(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {
-        for (DataCollection dataFile : this.dataCollectionList) {
-            dataFile.getTimehistoryLists(timehistoryLists);
+    public void getTimehistoriesAsTimeAndAccelerationListPairs(ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists) {
+        for (DataCollection dataCollection : this.dataCollectionList) {
+            dataCollection.getTimehistoriesAsTimeAndAccelerationListPairs(timehistoryLists);
         }
     }
 
@@ -118,14 +118,14 @@ public class DataCollections {
      * 
      * @return returns true if there is need for the recalculation
      */
-    public boolean neededToRecalculate(Frequencies frequencies, Phii phii) {
+    public boolean isItNeededToRecalculate(Frequencies frequencies, Phii phii) {
         boolean returnValue = false;
         if (!sameDoubles(this.currentPhii, phii.getPhii())) {
             this.currentPhii = phii.getPhii();
             returnValue = true;
         }
         ArrayList<Double> frequenceList = frequencies.getFrequenceList();
-        if (this.currentFrequencies.size() != frequencies.numberOfFrequencies()) {
+        if (this.currentFrequencies.size() != frequencies.numberOfFrequenciesInTheList()) {
             copyFrequencies(frequenceList);
             returnValue = true;
         }
@@ -178,22 +178,22 @@ public class DataCollections {
      * @param   phii   damping value capsulated inside object
      */
     public void calculate(Frequencies frequencies, Phii phii) {        
-        if (neededToRecalculate(frequencies, phii) == true) {
+        if (isItNeededToRecalculate(frequencies, phii) == true) {
             for (DataCollection dataFile : this.dataCollectionList) {
                 dataFile.setCalculatedFalse();
             }
         }
-        loglist.addLog("*** Calculation started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
-        for (DataCollection dataFile : this.dataCollectionList) {
-            if (dataFile.isCalculated() == false) {
-                dataFile.calculate(frequencies, phii);
-                loglist.addLog("File " + dataFile.getName() + " calculated.");
+        loglist.addNewLogMessage("*** Calculation started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
+        for (DataCollection dataCollection : this.dataCollectionList) {
+            if (dataCollection.isCalculated() == false) {
+                dataCollection.calculate(frequencies, phii);
+                loglist.addNewLogMessage("File " + dataCollection.getName() + " calculated.");
                 
             } else {
-                loglist.addLog("File " + dataFile.getName() + " already calculated.  No need to recalculate.");
+                loglist.addNewLogMessage("File " + dataCollection.getName() + " already calculated.  No need to recalculate.");
             }
         }
-        loglist.addLog("*** Calculation finished " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
+        loglist.addNewLogMessage("*** Calculation finished " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
     }
     
     /**
@@ -202,25 +202,25 @@ public class DataCollections {
      * @param   spectrumList   list as input where collected spectrums are added
      */
     public void addSpectrumsToList(ArrayList<Spectrum> spectrumList) {
-        for (DataCollection dataFile : this.dataCollectionList) {
-            dataFile.addSpectrumsToList(spectrumList);
+        for (DataCollection dataCollection : this.dataCollectionList) {
+            dataCollection.addSpectrumsToList(spectrumList);
         }
     }
     
     /**
      * Method to add data in the text file as collection to the data collections.
      * 
-     * @throws Exception  If data collection with given name already exist
+     * @throws Exception  If data collection with given name already dataCollectionWithGivenNameExist
      * 
      * @param   file   text file which data will be added as collection to the data collections
      * 
      * @return DataCollection composed from text file content
      */
-    public DataCollection addFile(File file) throws Exception {
-        if (fileAlreadyAdded(file)) {
+    public DataCollection addDataCollectionImportedFromFile(File file) throws Exception {
+        if (checkIfDataCollectionWithGivenNameAlreadyExist(file)) {
             throw new IllegalArgumentException("File " + file.getName() + " already added.");
         }
-        DataCollection newFile = this.readTxtFile.readTxtFile(file);
+        DataCollection newFile = this.readTxtFile.readTextFileToDataCollection(file);
         this.dataCollectionList.add(newFile);
         return newFile;
     }
@@ -232,7 +232,7 @@ public class DataCollections {
      * 
      * @return true if there already is data collection with same name
      */
-    public boolean fileAlreadyAdded(File file) {
+    public boolean checkIfDataCollectionWithGivenNameAlreadyExist(File file) {
         String newFileName = file.getName();
         for (DataCollection dataFile : this.dataCollectionList) {
             if (newFileName.equals(dataFile.getName())) {

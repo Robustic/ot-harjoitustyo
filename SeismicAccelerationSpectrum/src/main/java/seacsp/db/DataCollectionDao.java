@@ -21,7 +21,7 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
      *
      * @param   dbFile   database file
      */
-    public void setDbFile(File dbFile) {
+    public void setDatabaseFile(File dbFile) {
         this.dbFile = dbFile;
     }
 
@@ -53,7 +53,7 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         int rowId = generatedKey(stmt);
         stmt.close();
         connection.close();
-        this.timehistoryDao.setDbFile(this.dbFile);
+        this.timehistoryDao.setDatabaseFile(this.dbFile);
         this.timehistoryDao.setDataCollectionId(rowId);
         for (int i = 0; i < dataCollection.getTimehistories().size(); i++) {
             this.timehistoryDao.create(dataCollection.getTimehistories().get(i));
@@ -112,7 +112,7 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         stmt.close();
         rs.close();
         connection.close();
-        DataCollection dataCollection = new DataCollection(name, this.timehistoryDao.listWithCollectionId(key));
+        DataCollection dataCollection = new DataCollection(name, this.timehistoryDao.listTimehistoriesWithGivenDataCollectionId(key));
         return dataCollection;
     }
     
@@ -125,7 +125,7 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
      * 
      * @return true if SQL-object already exists with given input string as name
      */
-    public boolean exist(String findName) throws SQLException {
+    public boolean dataCollectionWithGivenNameExist(String findName) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection WHERE name = ?");
         stmt.setString(1, findName);
@@ -144,23 +144,23 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
     
     /**
      * Method returns list of the DataCollections in the SQL-database which 
-     * name does not exist in the list given as input.
+ name does not dataCollectionWithGivenNameExist in the list given as input.
      * 
      * @throws SQLException  If exception happens during database operation
      *
      * @param   names   name list
      * 
-     * @return list of the DataCollections which name does not exist in the list given as input
+     * @return list of the DataCollections which name does not dataCollectionWithGivenNameExist in the list given as input
      */
-    public ArrayList<DataCollection> listWithNameNotExistInTheList(ArrayList<String> names) throws SQLException {
-        this.timehistoryDao.setDbFile(this.dbFile);
+    public ArrayList<DataCollection> listDataCollectionsWithNameNotExistInTheList(ArrayList<String> names) throws SQLException {
+        this.timehistoryDao.setDatabaseFile(this.dbFile);
         ArrayList<DataCollection> returnList = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection ORDER BY id ASC");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             if (!names.contains(rs.getString("name"))) {
-                returnList.add(new DataCollection(rs.getString("name"), this.timehistoryDao.listWithCollectionId(rs.getInt("id"))));
+                returnList.add(new DataCollection(rs.getString("name"), this.timehistoryDao.listTimehistoriesWithGivenDataCollectionId(rs.getInt("id"))));
             }
         }
         stmt.close();

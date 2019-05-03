@@ -25,10 +25,10 @@ public class DataCollectionDaoTest {
         this.file = new File(testFile);
         this.timehistoryDao = new TimehistoryDao();
         this.dataCollectionDao = new DataCollectionDao();
-        this.timehistoryDao.setDbFile(new File(testFile));
+        this.timehistoryDao.setDatabaseFile(new File(testFile));
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
-            initializeDatabase.initializeDatabase(testFile);            
+            initializeDatabase.initializeDatabaseFile(testFile);            
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -60,7 +60,7 @@ public class DataCollectionDaoTest {
         list.add(timehistory3);
         DataCollection dataCollection = new DataCollection("Collection 1", list);
         try {
-            this.dataCollectionDao.setDbFile(file);
+            this.dataCollectionDao.setDatabaseFile(file);
             this.dataCollectionDao.setTimehistoryDao(timehistoryDao);
             this.dataCollectionDao.create(dataCollection);          
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class DataCollectionDaoTest {
         list.add(timehistory3);
         DataCollection dataCollection = new DataCollection("Collection 2", list);
         try {
-            this.dataCollectionDao.setDbFile(file);
+            this.dataCollectionDao.setDatabaseFile(file);
             this.dataCollectionDao.setTimehistoryDao(timehistoryDao);
             this.dataCollectionDao.create(dataCollection);          
         } catch (SQLException e) {
@@ -123,11 +123,11 @@ public class DataCollectionDaoTest {
         existingNames.add("Sauli");
         ArrayList<DataCollection> collectionList = null;
         try {
-            collectionList = this.dataCollectionDao.listWithNameNotExistInTheList(existingNames);
+            collectionList = this.dataCollectionDao.listDataCollectionsWithNameNotExistInTheList(existingNames);
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(22.11,  collectionList.get(0).getTimehistories().get(1).getAcc(5), 0.00001);      
+        assertEquals(22.11,  collectionList.get(0).getTimehistories().get(1).getAccelerationValueInTheIndex(5), 0.00001);      
     }
     
     @Test
@@ -153,7 +153,7 @@ public class DataCollectionDaoTest {
             Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
             ResultSet rs = stmt.executeQuery();
-            keyExist = this.dataCollectionDao.exist("Collection 1");
+            keyExist = this.dataCollectionDao.dataCollectionWithGivenNameExist("Collection 1");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -168,7 +168,7 @@ public class DataCollectionDaoTest {
             Connection connection = DriverManager.getConnection(connectionPath, "sa", "");
             PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection");
             ResultSet rs = stmt.executeQuery();
-            keyExist = this.dataCollectionDao.exist("Collection 0");
+            keyExist = this.dataCollectionDao.dataCollectionWithGivenNameExist("Collection 0");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
@@ -187,7 +187,7 @@ public class DataCollectionDaoTest {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        assertEquals(22.11, dataCollection.getTimehistories().get(1).getAcc(5), 0.0000001);
+        assertEquals(22.11, dataCollection.getTimehistories().get(1).getAccelerationValueInTheIndex(5), 0.0000001);
     }
     
     @Test

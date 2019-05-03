@@ -1,7 +1,7 @@
 package seacsp.data;
 
 import seacsp.file.ReadFile;
-import seacsp.file.ReadTxtFile;
+import seacsp.file.ReadTextFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -19,9 +19,9 @@ public class DataCollectionTest {
     public void setUp() {
         File file = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
         ReadFile readFile = new ReadFile();
-        ReadTxtFile readTxtFile = new ReadTxtFile(readFile);
+        ReadTextFile readTxtFile = new ReadTextFile(readFile);
         try {
-            this.dataCollection = readTxtFile.readTxtFile(file);
+            this.dataCollection = readTxtFile.readTextFileToDataCollection(file);
         } catch (Exception e) {
             System.out.println("");
         }       
@@ -39,7 +39,7 @@ public class DataCollectionTest {
     
     @Test
     public void getTimehistoriesWorks() {
-        assertEquals(-0.00038879, this.dataCollection.getTimehistories().get(4).getAcc(9999), 0.00000001);
+        assertEquals(-0.00038879, this.dataCollection.getTimehistories().get(4).getAccelerationValueInTheIndex(9999), 0.00000001);
     }
     
     @Test
@@ -54,11 +54,11 @@ public class DataCollectionTest {
         obj3.setSelected(true);
         CheckBoxTreeItem obj4 = new CheckBoxTreeItem();
         obj4.setSelected(true);        
-        this.dataCollection.setReferenceToTreeItem(0, obj0);
-        this.dataCollection.setReferenceToTreeItem(1, obj1);
-        this.dataCollection.setReferenceToTreeItem(2, obj2);
-        this.dataCollection.setReferenceToTreeItem(3, obj3);
-        this.dataCollection.setReferenceToTreeItem(4, obj4);
+        this.dataCollection.setReferenceToTreeItemObject(0, obj0);
+        this.dataCollection.setReferenceToTreeItemObject(1, obj1);
+        this.dataCollection.setReferenceToTreeItemObject(2, obj2);
+        this.dataCollection.setReferenceToTreeItemObject(3, obj3);
+        this.dataCollection.setReferenceToTreeItemObject(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
@@ -66,7 +66,7 @@ public class DataCollectionTest {
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
         this.dataCollection.addSpectrumsToList(spectrumList);
-        assertEquals(8.79829703, spectrumList.get(0).getAccWithFrequency(0), 0.00000001);
+        assertEquals(8.79829703, spectrumList.get(0).getAccelerationInTheIndex(0), 0.00000001);
     }
     
     @Test
@@ -81,11 +81,11 @@ public class DataCollectionTest {
         obj3.setSelected(true);
         CheckBoxTreeItem obj4 = new CheckBoxTreeItem();
         obj4.setSelected(true);        
-        this.dataCollection.setReferenceToTreeItem(0, obj0);
-        this.dataCollection.setReferenceToTreeItem(1, obj1);
-        this.dataCollection.setReferenceToTreeItem(2, obj2);
-        this.dataCollection.setReferenceToTreeItem(3, obj3);
-        this.dataCollection.setReferenceToTreeItem(4, obj4);
+        this.dataCollection.setReferenceToTreeItemObject(0, obj0);
+        this.dataCollection.setReferenceToTreeItemObject(1, obj1);
+        this.dataCollection.setReferenceToTreeItemObject(2, obj2);
+        this.dataCollection.setReferenceToTreeItemObject(3, obj3);
+        this.dataCollection.setReferenceToTreeItemObject(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
@@ -93,7 +93,7 @@ public class DataCollectionTest {
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
         this.dataCollection.addSpectrumsToList(spectrumList);
-        assertEquals(2.66412234, spectrumList.get(3).getAccWithFrequency(2), 0.00000001);
+        assertEquals(2.66412234, spectrumList.get(3).getAccelerationInTheIndex(2), 0.00000001);
     }
     
     @Test
@@ -108,11 +108,11 @@ public class DataCollectionTest {
         obj3.setSelected(true);
         CheckBoxTreeItem obj4 = new CheckBoxTreeItem();
         obj4.setSelected(true);        
-        this.dataCollection.setReferenceToTreeItem(0, obj0);
-        this.dataCollection.setReferenceToTreeItem(1, obj1);
-        this.dataCollection.setReferenceToTreeItem(2, obj2);
-        this.dataCollection.setReferenceToTreeItem(3, obj3);
-        this.dataCollection.setReferenceToTreeItem(4, obj4);
+        this.dataCollection.setReferenceToTreeItemObject(0, obj0);
+        this.dataCollection.setReferenceToTreeItemObject(1, obj1);
+        this.dataCollection.setReferenceToTreeItemObject(2, obj2);
+        this.dataCollection.setReferenceToTreeItemObject(3, obj3);
+        this.dataCollection.setReferenceToTreeItemObject(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
@@ -122,7 +122,7 @@ public class DataCollectionTest {
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
         this.dataCollection.addSpectrumsToList(spectrumList);
-        assertEquals(8.79829703, spectrumList.get(0).getAccWithFrequency(0), 0.00000001);
+        assertEquals(8.79829703, spectrumList.get(0).getAccelerationInTheIndex(0), 0.00000001);
     }
     
     @Test
@@ -137,11 +137,11 @@ public class DataCollectionTest {
         obj3.setSelected(true);
         CheckBoxTreeItem obj4 = new CheckBoxTreeItem();
         obj4.setSelected(true);        
-        this.dataCollection.setReferenceToTreeItem(0, obj0);
-        this.dataCollection.setReferenceToTreeItem(1, obj1);
-        this.dataCollection.setReferenceToTreeItem(2, obj2);
-        this.dataCollection.setReferenceToTreeItem(3, obj3);
-        this.dataCollection.setReferenceToTreeItem(4, obj4);
+        this.dataCollection.setReferenceToTreeItemObject(0, obj0);
+        this.dataCollection.setReferenceToTreeItemObject(1, obj1);
+        this.dataCollection.setReferenceToTreeItemObject(2, obj2);
+        this.dataCollection.setReferenceToTreeItemObject(3, obj3);
+        this.dataCollection.setReferenceToTreeItemObject(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
@@ -152,7 +152,7 @@ public class DataCollectionTest {
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
         this.dataCollection.addSpectrumsToList(spectrumList);
-        assertEquals(1.01721305, spectrumList.get(0).getAccWithFrequency(0), 0.00000001);
+        assertEquals(1.01721305, spectrumList.get(0).getAccelerationInTheIndex(0), 0.00000001);
     }
     
     @Test

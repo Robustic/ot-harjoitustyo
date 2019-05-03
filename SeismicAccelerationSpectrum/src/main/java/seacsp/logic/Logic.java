@@ -42,7 +42,7 @@ public class Logic {
      *
      * @param   dbFile   database file
      */
-    public void setDbFile(File dbFile) {
+    public void setDatabaseFile(File dbFile) {
         this.dbFile = dbFile;
     }
     
@@ -51,8 +51,8 @@ public class Logic {
      *
      * @return DataCollections as a list read from the database
      */
-    public ArrayList<DataCollection> readDatabase() {
-        return this.dataCollections.readDatabase(this.dbFile);
+    public ArrayList<DataCollection> readDataCollectionsFromDatabase() {
+        return this.dataCollections.readDataCollectionsFromDatabase(this.dbFile);
     }
     
     /**
@@ -62,14 +62,14 @@ public class Logic {
      *
      * @return database file name with file name extension
      */
-    public String newDatabase(String newDatabaseName) {
+    public String newDatabaseFile(String newDatabaseName) {
         if (newDatabaseName.equals("-1")) {
-            this.logList.addLog("New database not initialized. Filename was empty.");
+            this.logList.addNewLogMessage("New database not initialized. Filename was empty.");
             return "";
         } else {           
             String newDatabaseNameWithExtension = newDatabaseName + ".db";
-            if (this.readFile.checkThatFileExists(new File(newDatabaseNameWithExtension))) {
-                this.logList.addLog("New database not initialized. Filename already exists.");
+            if (this.readFile.checkIfFileExists(new File(newDatabaseNameWithExtension))) {
+                this.logList.addNewLogMessage("New database not initialized. Filename already exists.");
                 return "";
             } else {
                 initializeDatabaseFile(newDatabaseNameWithExtension);
@@ -85,23 +85,23 @@ public class Logic {
      */
     public void initializeDatabaseFile(String dbName) {
         try {
-            initializeDatabase.initializeDatabase(dbName);
-            this.logList.addLog("New database " + dbName + " initialized!");
+            initializeDatabase.initializeDatabaseFile(dbName);
+            this.logList.addNewLogMessage("New database " + dbName + " initialized!");
             this.dbFile = new File(dbName);
             this.dbFile = new File(this.dbFile.getAbsolutePath());
         } catch (SQLException e) {
-            this.logList.addLog("There was error. New database was not initialized.");
+            this.logList.addNewLogMessage("There was error. New database was not initialized.");
         }        
     }
     
     /**
      * Method to create Timehistory data to SQL-database.
      */
-    public void saveTimehistoriesToDatabase() {
+    public void saveDataCollectionsToDatabase() {
         if (this.dbFile == null || this.dbFile.getName().equals("")) {
-            this.logList.addLog("Database not selected.");
+            this.logList.addNewLogMessage("Database not selected.");
         } else {
-            dataCollections.saveTimehistoriesToDatabase(this.dbFile);
+            dataCollections.saveDataCollectionsToDatabase(this.dbFile);
         }
     }
     
@@ -121,15 +121,6 @@ public class Logic {
      */
     public LogList getLogList() {
         return logList;
-    }
-    
-    /**
-     * Method to add new log message.
-     *
-     * @param   message   new message
-     */
-    public void addLogMessage(String message) {
-        this.logList.addLog(message);
     }
     
     /**
@@ -154,11 +145,11 @@ public class Logic {
      */
     public DataCollection addNewDataCollection(File file) {
         try {
-            DataCollection dataFile = this.dataCollections.addFile(file);
-            logList.addLog("File " + file.getName() + " added to list.");            
+            DataCollection dataFile = this.dataCollections.addDataCollectionImportedFromFile(file);
+            logList.addNewLogMessage("File " + file.getName() + " added to list.");            
             return dataFile;            
         } catch (Exception e) {
-            logList.addLog(e.toString());
+            logList.addNewLogMessage(e.toString());
             return null;
         }        
     }
@@ -173,14 +164,14 @@ public class Logic {
         ArrayList<Spectrum> spectrumList = new ArrayList<Spectrum>();
         this.dataCollections.addSpectrumsToList(spectrumList);                
         ArrayList<Pair<Double, Double>> pairs = new ArrayList<>();
-        for (int i = 0; i < this.frequencies.numberOfFrequencies(); i++) {
+        for (int i = 0; i < this.frequencies.numberOfFrequenciesInTheList(); i++) {
             double max = 0;
             for (Spectrum spectrum : spectrumList) {
-                if (spectrum.getAccWithFrequency(i) > max) {
-                    max = spectrum.getAccWithFrequency(i);
+                if (spectrum.getAccelerationInTheIndex(i) > max) {
+                    max = spectrum.getAccelerationInTheIndex(i);
                 }
             }
-            pairs.add(new Pair<>(this.frequencies.getFrequency(i), max));
+            pairs.add(new Pair<>(this.frequencies.getFrequencyInTheIndex(i), max));
         }
         return pairs;
     }
@@ -192,7 +183,7 @@ public class Logic {
      */
     public ArrayList<ArrayList<Pair<Double, Double>>> getTimehistoryXYValueLists() {
         ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
-        this.dataCollections.getTimehistoryLists(timehistoryLists);
+        this.dataCollections.getTimehistoriesAsTimeAndAccelerationListPairs(timehistoryLists);
         ArrayList<ArrayList<Pair<Double, Double>>> timehistoryXYValuesForChart = new ArrayList<>();
         for (Pair<ArrayList<Double>, ArrayList<Double>> pairs : timehistoryLists) {
             ArrayList<Pair<Double, Double>> pairList = new ArrayList<>(pairs.getKey().size());

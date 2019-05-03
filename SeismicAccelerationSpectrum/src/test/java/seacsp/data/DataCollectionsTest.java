@@ -32,8 +32,8 @@ public class DataCollectionsTest {
         File file0 = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         try {
-            this.dataCollection1 = this.dataCollections.addFile(file1); 
-            this.dataCollection0 = this.dataCollections.addFile(file0);
+            this.dataCollection1 = this.dataCollections.addDataCollectionImportedFromFile(file1); 
+            this.dataCollection0 = this.dataCollections.addDataCollectionImportedFromFile(file0);
            
         } catch (Exception e) {
             System.out.println("Something is wrong.");
@@ -43,14 +43,14 @@ public class DataCollectionsTest {
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         
-        this.dataCollection1.setReferenceToTreeItem(0, objTrue);
-        this.dataCollection1.setReferenceToTreeItem(1, objFalse);
+        this.dataCollection1.setReferenceToTreeItemObject(0, objTrue);
+        this.dataCollection1.setReferenceToTreeItemObject(1, objFalse);
         
-        this.dataCollection0.setReferenceToTreeItem(0, objFalse);
-        this.dataCollection0.setReferenceToTreeItem(1, objTrue);
-        this.dataCollection0.setReferenceToTreeItem(2, objFalse);
-        this.dataCollection0.setReferenceToTreeItem(3, objTrue);
-        this.dataCollection0.setReferenceToTreeItem(4, objTrue);        
+        this.dataCollection0.setReferenceToTreeItemObject(0, objFalse);
+        this.dataCollection0.setReferenceToTreeItemObject(1, objTrue);
+        this.dataCollection0.setReferenceToTreeItemObject(2, objFalse);
+        this.dataCollection0.setReferenceToTreeItemObject(3, objTrue);
+        this.dataCollection0.setReferenceToTreeItemObject(4, objTrue);        
     }
     
     private DataCollection initializeDataCollection1() {
@@ -111,7 +111,7 @@ public class DataCollectionsTest {
     @Test
     public void fileAlreadyAdded() {
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
-        assertTrue(this.dataCollections.fileAlreadyAdded(file1));      
+        assertTrue(this.dataCollections.checkIfDataCollectionWithGivenNameAlreadyExist(file1));      
     }
     
     @Test
@@ -119,7 +119,7 @@ public class DataCollectionsTest {
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         String message = "";
         try {
-            this.dataCollections.addFile(file1);
+            this.dataCollections.addDataCollectionImportedFromFile(file1);
         } catch (Exception e) {
             message = e.toString();
         }
@@ -129,7 +129,7 @@ public class DataCollectionsTest {
     @Test
     public void fileNotYetAdded() {
         File filex = new File(System.getProperty("user.dir") + "/" + "TestFilex.txt");
-        assertFalse(this.dataCollections.fileAlreadyAdded(filex));      
+        assertFalse(this.dataCollections.checkIfDataCollectionWithGivenNameAlreadyExist(filex));      
     }
         
     @Test
@@ -137,21 +137,21 @@ public class DataCollectionsTest {
         Phii phii = new Phii(-0.1);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
     public void recalculationNeeded02() {
         Phii phii = new Phii(0.01);
         Frequencies frequencies = new Frequencies();
-        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
     public void recalculationNeeded00() {
         Phii phii = new Phii(-0.1);
         Frequencies frequencies = new Frequencies();
-        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertFalse(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -159,8 +159,8 @@ public class DataCollectionsTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        this.dataCollections.neededToRecalculate(frequencies, phii);
-        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
+        this.dataCollections.isItNeededToRecalculate(frequencies, phii);
+        assertFalse(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -168,9 +168,9 @@ public class DataCollectionsTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        this.dataCollections.neededToRecalculate(frequencies, phii);
+        this.dataCollections.isItNeededToRecalculate(frequencies, phii);
         phii = new Phii(0.050001);
-        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -178,9 +178,9 @@ public class DataCollectionsTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        this.dataCollections.neededToRecalculate(frequencies, phii);
+        this.dataCollections.isItNeededToRecalculate(frequencies, phii);
         frequencies.setEqualDivision(3.0001, 5.5, 1);
-        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -188,9 +188,9 @@ public class DataCollectionsTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        this.dataCollections.neededToRecalculate(frequencies, phii);
+        this.dataCollections.isItNeededToRecalculate(frequencies, phii);
         frequencies.setEqualDivision(3.1, 5.5, 1);        
-        assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertFalse(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -198,7 +198,7 @@ public class DataCollectionsTest {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
         frequencies.setEqualDivision(3.1, 5.5, 1);
-        assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
+        assertTrue(this.dataCollections.isItNeededToRecalculate(frequencies, phii));
     }
     
     @Test
@@ -209,7 +209,7 @@ public class DataCollectionsTest {
         this.dataCollections.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
         this.dataCollections.addSpectrumsToList(spectrumList);
-        assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
+        assertEquals(4.29171705, spectrumList.get(0).getAccelerationInTheIndex(0), 0.000001);
     }
     
     @Test
@@ -224,13 +224,13 @@ public class DataCollectionsTest {
         this.dataCollections.calculate(frequencies2, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
         this.dataCollections.addSpectrumsToList(spectrumList);        
-        assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
+        assertEquals(4.29171705, spectrumList.get(0).getAccelerationInTheIndex(0), 0.000001);
     }
     
     @Test
     public void getTimehistoryListsGivesTimehistoriesKey() {
         ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
-        dataCollections.getTimehistoryLists(timehistoryLists);
+        dataCollections.getTimehistoriesAsTimeAndAccelerationListPairs(timehistoryLists);
         double value = timehistoryLists.get(0).getKey().get(4);
         assertEquals(0.008, value, 0.000001);
     }
@@ -238,7 +238,7 @@ public class DataCollectionsTest {
     @Test
     public void getTimehistoryListsGivesTimehistoriesValue() {
         ArrayList<Pair<ArrayList<Double>, ArrayList<Double>>> timehistoryLists = new ArrayList<>();
-        dataCollections.getTimehistoryLists(timehistoryLists);
+        dataCollections.getTimehistoriesAsTimeAndAccelerationListPairs(timehistoryLists);
         double value = timehistoryLists.get(0).getValue().get(4);
         assertEquals(0.00878124, value, 0.000001);
     }
@@ -249,18 +249,18 @@ public class DataCollectionsTest {
         File file1 = new File(testFile);
         DataCollectionDao dataCollectionDao = new DataCollectionDao();
         dataCollectionDao.setTimehistoryDao(new TimehistoryDao());
-        dataCollectionDao.setDbFile(file1);
+        dataCollectionDao.setDatabaseFile(file1);
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
-            initializeDatabase.initializeDatabase(testFile);            
+            initializeDatabase.initializeDatabaseFile(testFile);            
         } catch (SQLException e) {
             System.out.println(e);
         }        
-        this.dataCollections.saveTimehistoriesToDatabase(file1);
+        this.dataCollections.saveDataCollectionsToDatabase(file1);
         DataCollections newDataCollections = new DataCollections(new LogList(), new ReadFile());
-        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDatabase(file1);
+        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataCollectionsFromDatabase(file1);
         deleteDBFile(file1);
-        assertEquals(0.00019844, dataCollectionsList.get(1).getTimehistories().get(2).getAcc(3), 0.000001);
+        assertEquals(0.00019844, dataCollectionsList.get(1).getTimehistories().get(2).getAccelerationValueInTheIndex(3), 0.000001);
     }
     
     public void deleteDBFile(File file) {
@@ -277,9 +277,9 @@ public class DataCollectionsTest {
         File file1 = new File(testFile);
         LogList logList = new LogList();
         DataCollections newDataCollections = new DataCollections(logList, new ReadFile());
-        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDatabase(file1);
+        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataCollectionsFromDatabase(file1);
         deleteDBFile(file1);
-        assertEquals("Reading from database caused error.", logList.getLog().get(0));
+        assertEquals("Reading from database caused error.", logList.getLogMessagesAsStringList().get(0));
     }
     
     @Test
@@ -288,16 +288,16 @@ public class DataCollectionsTest {
         File file1 = new File(testFile);
         DataCollectionDao dataCollectionDao = new DataCollectionDao();
         dataCollectionDao.setTimehistoryDao(new TimehistoryDao());
-        dataCollectionDao.setDbFile(file1);
+        dataCollectionDao.setDatabaseFile(file1);
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
-            initializeDatabase.initializeDatabase(testFile);            
+            initializeDatabase.initializeDatabaseFile(testFile);            
         } catch (SQLException e) {
             System.out.println(e);
         }        
-        this.dataCollections.saveTimehistoriesToDatabase(file1);
-        this.dataCollections.saveTimehistoriesToDatabase(file1);
+        this.dataCollections.saveDataCollectionsToDatabase(file1);
+        this.dataCollections.saveDataCollectionsToDatabase(file1);
         deleteDBFile(file1);
-        assertEquals("File TestFile0.txt already exist in the DB.", this.logList.getLog().get(this.logList.getLog().size()-1));
+        assertEquals("File TestFile0.txt already exist in the DB.", this.logList.getLogMessagesAsStringList().get(this.logList.getLogMessagesAsStringList().size()-1));
     }
 }

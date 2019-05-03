@@ -24,13 +24,13 @@ public class LogListTest {
     
     @Test
     public void logListIsEmptyWhenInitialized() {
-        assertEquals(0, this.logList.getLog().size());      
+        assertEquals(0, this.logList.getLogMessagesAsStringList().size());      
     }
     
     @Test
     public void logListSavesRightValue() {
-        this.logList.addLog("This is logtext.");
-        assertEquals("This is logtext.", this.logList.getLog().get(this.logList.getLog().size() - 1));      
+        this.logList.addNewLogMessage("This is logtext.");
+        assertEquals("This is logtext.", this.logList.getLogMessagesAsStringList().get(this.logList.getLogMessagesAsStringList().size() - 1));      
     }
     
     

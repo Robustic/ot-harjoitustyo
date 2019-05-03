@@ -28,7 +28,7 @@ public class Spectrum {
      * 
      * @return acceleration value in the index i
      */
-    public double getAccWithFrequency(int i) {
+    public double getAccelerationInTheIndex(int i) {
         return this.accelerationList.get(i);
     }
     
@@ -81,6 +81,5 @@ public class Spectrum {
      */
     public ArrayList<Double> getAccelerationList() {
         return accelerationList;
-    }
-    
+    }   
 }

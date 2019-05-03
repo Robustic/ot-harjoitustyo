@@ -23,19 +23,6 @@ public class Timehistory {
     /**
      * Constructor.
      * 
-     * @param   deltaT   time step between time history values
-     * 
-     * @param   name   name for the time history
-     */
-    public Timehistory(double deltaT, String name) {
-        this.timehistory = new ArrayList<>();
-        this.deltaT = deltaT;
-        this.name = name;
-    }
-    
-    /**
-     * Constructor.
-     * 
      * @param   timehistory   time history as a list
      * 
      * @param   deltaT   time step between time history values
@@ -53,7 +40,7 @@ public class Timehistory {
      * 
      * @param   acc   new acceleration value
      */
-    public void addNewAcc(double acc) {
+    public void addNewAccelerationValue(double acc) {
         this.timehistory.add(acc);
     }
     
@@ -64,7 +51,7 @@ public class Timehistory {
      * 
      * @return acceleration value in the index i
      */
-    public double getAcc(int i) {
+    public double getAccelerationValueInTheIndex(int i) {
         return this.timehistory.get(i);
     }
     

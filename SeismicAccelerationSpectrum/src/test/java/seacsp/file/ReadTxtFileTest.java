@@ -1,6 +1,6 @@
 package seacsp.file;
 
-import seacsp.file.ReadTxtFile;
+import seacsp.file.ReadTextFile;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,14 +9,14 @@ import java.io.File;
 import seacsp.data.DataCollection;
 
 public class ReadTxtFileTest {
-    private ReadTxtFile readTxtFile;
+    private ReadTextFile readTxtFile;
     private File file;
     
     @Before
     public void setUp() {
         this.file = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
         ReadFile readFile = new ReadFile();
-        this.readTxtFile = new ReadTxtFile(readFile);  
+        this.readTxtFile = new ReadTextFile(readFile);  
         this.readTxtFile.setFile(this.file);
     }
     
@@ -29,7 +29,7 @@ public class ReadTxtFileTest {
     public void correctValueOfDeltaT() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -40,7 +40,7 @@ public class ReadTxtFileTest {
     public void correctNumberOfTimehistories() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -51,7 +51,7 @@ public class ReadTxtFileTest {
     public void correctHeaderOfTimehistory5() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -62,7 +62,7 @@ public class ReadTxtFileTest {
     public void correctNumberOfTimesteps() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -73,22 +73,22 @@ public class ReadTxtFileTest {
     public void correctLastValueOfTimehistory5() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
-        assertEquals(0, dataFile.getTimehistories().get(4).getAcc(dataFile.getTimehistories().get(4).getTimehistory().size() - 1), 0.000000001);
+        assertEquals(0, dataFile.getTimehistories().get(4).getAccelerationValueInTheIndex(dataFile.getTimehistories().get(4).getTimehistory().size() - 1), 0.000000001);
     }
     
     @Test
     public void correctSecondLastValueOfTimehistory5() {
         DataCollection dataFile = null;
         try { 
-            dataFile = this.readTxtFile.readTxtFile(this.file);
+            dataFile = this.readTxtFile.readTextFileToDataCollection(this.file);
         } catch (Exception e) {
             System.out.println(e);
         }
-        assertEquals(-0.00038879, dataFile.getTimehistories().get(4).getAcc(dataFile.getTimehistories().get(4).getTimehistory().size() - 2), 0.000000001);
+        assertEquals(-0.00038879, dataFile.getTimehistories().get(4).getAccelerationValueInTheIndex(dataFile.getTimehistories().get(4).getTimehistory().size() - 2), 0.000000001);
     }
     
     @Test
@@ -190,7 +190,7 @@ public class ReadTxtFileTest {
         ReadFile readFile = new ReadFile();
         String catchedString = "";
         try {
-            readFile.readFileLineByLine(newfile);
+            readFile.readFileToString(newfile);
         } catch (Exception e) {
             catchedString = "File not found.";
         }
@@ -207,7 +207,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile(this.file);
+            this.readTxtFile.readTextFileToDataCollection(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();
@@ -227,7 +227,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile(this.file);
+            this.readTxtFile.readTextFileToDataCollection(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();
@@ -246,7 +246,7 @@ public class ReadTxtFileTest {
         columns.add("0.0");
         String catchedString = "";
         try { 
-            this.readTxtFile.readTxtFile(this.file);
+            this.readTxtFile.readTextFileToDataCollection(this.file);
             this.readTxtFile.addColumnsContent(columns, new ArrayList<Double>());
         } catch (Exception e) {
             catchedString = e.toString();

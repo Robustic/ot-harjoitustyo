@@ -25,7 +25,7 @@ public class TimehistoryTest {
     
     @Test
     public void correctAddedAcc() {
-        this.timehistory.addNewAcc(1.23456);
+        this.timehistory.addNewAccelerationValue(1.23456);
         assertEquals(1.23456, this.timehistory.getTimehistory().get(0), 0.00001);
     }
     
@@ -37,19 +37,19 @@ public class TimehistoryTest {
     
     @Test
     public void correctTimehistoryWithDeltaTAndName1() {
-        Timehistory timehistory2 = new Timehistory(0.234, "History 2");
+        Timehistory timehistory2 = new Timehistory(new ArrayList<>(), 0.234, "History 2");
         assertEquals(0.234, timehistory2.getDeltaT(), 0.00001);
     }
     
     @Test
     public void correctTimehistoryWithDeltaTAndName2() {
-        Timehistory timehistory2 = new Timehistory(0.234, "History 2");
+        Timehistory timehistory2 = new Timehistory(new ArrayList<>(), 0.234, "History 2");
         assertEquals("History 2", timehistory2.getName());
     }
     
     @Test
     public void correctTimehistoryWithDeltaTAndName3() {
-        Timehistory timehistory2 = new Timehistory(0.234, "History 2");
+        Timehistory timehistory2 = new Timehistory(new ArrayList<>(), 0.234, "History 2");
         assertEquals(0, timehistory2.getTimehistory().size());
     }
 }

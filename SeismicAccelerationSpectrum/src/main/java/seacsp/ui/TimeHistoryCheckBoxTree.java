@@ -30,7 +30,7 @@ public class TimeHistoryCheckBoxTree {
             Timehistory timehistory = inputFile.getTimehistories().get(i);
             CheckBoxTreeItem<String> history = new CheckBoxTreeItem<>(timehistory.getName());
             file.getChildren().add(history);
-            inputFile.setReferenceToTreeItem(i, history);
+            inputFile.setReferenceToTreeItemObject(i, history);
         }
         file.setExpanded(true);
         this.all.setExpanded(true);

@@ -17,7 +17,7 @@ public class InitializeDatabase {
      *
      * @param   dbname   new sql-database file name as string
      */
-    public void initializeDatabase(String dbname) throws SQLException {
+    public void initializeDatabaseFile(String dbname) throws SQLException {
         String dbPath = "jdbc:sqlite:" + dbname;
         Connection connection = DriverManager.getConnection(dbPath, "sa", "");
         addTimehistoryTable(connection);
@@ -32,7 +32,7 @@ public class InitializeDatabase {
      *
      * @param   connection   connection which to be used for initializing
      */
-    public void addTimehistoryTable(Connection connection) throws SQLException {
+    private void addTimehistoryTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);  // set timeout to 30 sec.
         statement.executeUpdate("DROP TABLE IF EXISTS Timehistory");
@@ -51,7 +51,7 @@ public class InitializeDatabase {
      *
      * @param   connection   connection which to be used for initializing
      */
-    public void addDataCollectionTable(Connection connection) throws SQLException {
+    private void addDataCollectionTable(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.setQueryTimeout(30);  // set timeout to 30 sec.
         statement.executeUpdate("DROP TABLE IF EXISTS Datacollection");

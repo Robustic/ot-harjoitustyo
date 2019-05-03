@@ -18,7 +18,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
      *
      * @param   dbFile   database file
      */
-    public void setDbFile(File dbFile) {
+    public void setDatabaseFile(File dbFile) {
         this.dbFile = dbFile;
     }
 
@@ -52,7 +52,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         int rowId = generatedKey(stmt);
         stmt.close();
         connection.close();                
-        addListAsTable(timehistory.getTimehistory(), rowId);
+        createListAsNewTable(timehistory.getTimehistory(), rowId);
     }
     
     /**
@@ -91,7 +91,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
      * 
      * @param   rowId   Timehistory id related to the acceleration values in the list
      */
-    public void addListAsTable(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
+    public void createListAsNewTable(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
         initializeNewTable(rowId);
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();        
         String listAsString = "";
@@ -157,7 +157,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         stmt.close();
         rs.close();
         connection.close();
-        Timehistory timehistory = new Timehistory(getTableAsList(key), deltaT, name);
+        Timehistory timehistory = new Timehistory(readTableAsList(key), deltaT, name);
         return timehistory;
     }
     
@@ -170,7 +170,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
      * 
      * @return acceleration values as list related to the Timehistory id
      */
-    public ArrayList<Double> getTableAsList(int rowId) throws SQLException {
+    public ArrayList<Double> readTableAsList(int rowId) throws SQLException {
         ArrayList<Double> list = new ArrayList<>();
         String tableName = "Timehistorylist" + rowId;
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
@@ -194,8 +194,8 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
      * 
      * @return Timehistory objects as list related to the given DataCollection id
      */
-    public ArrayList<Timehistory> listWithCollectionId(int dataCollectionId) throws SQLException {
-        ArrayList<Integer> rowIdList = getRowIdList(dataCollectionId);
+    public ArrayList<Timehistory> listTimehistoriesWithGivenDataCollectionId(int dataCollectionId) throws SQLException {
+        ArrayList<Integer> rowIdList = getTimehistoryIdListWithGivenDataCollectionId(dataCollectionId);
         ArrayList<Timehistory> timehistoryList = new ArrayList<>();
         for (int i = 0; i < rowIdList.size(); i++) {
             timehistoryList.add(read(rowIdList.get(i)));
@@ -212,7 +212,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
      * 
      * @return Timehistory id numbers as list related to the given DataCollection id
      */
-    public ArrayList<Integer> getRowIdList(int dataCollectionId) throws SQLException {
+    public ArrayList<Integer> getTimehistoryIdListWithGivenDataCollectionId(int dataCollectionId) throws SQLException {
         ArrayList<Integer> rowIdList = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE datacollection_id = ? ORDER BY id ASC");

@@ -49,7 +49,7 @@ public class Frequencies {
      * 
      * @return frequency value in the index i
      */
-    public double getFrequency(int i) {
+    public double getFrequencyInTheIndex(int i) {
         return frequenceList.get(i);
     }
     
@@ -58,7 +58,7 @@ public class Frequencies {
      * 
      * @return number of the frequencies in the list
      */
-    public int numberOfFrequencies() {
+    public int numberOfFrequenciesInTheList() {
         return frequenceList.size();
     }
 }

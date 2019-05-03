@@ -25,7 +25,7 @@ public class ReadFile {
      * 
      * @return true if file exists
      */
-    public boolean checkThatFileExists(File file) {
+    public boolean checkIfFileExists(File file) {
         return file.exists();
     }
     
@@ -38,7 +38,7 @@ public class ReadFile {
      * 
      * @return text file content as string
      */
-    public String readFileLineByLine(File file) throws Exception {
+    public String readFileToString(File file) throws Exception {
         StringBuilder contentBuilder = new StringBuilder(); 
         try (Stream<String> stream = Files.lines(Paths.get(file.toString()), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s).append("\n"));

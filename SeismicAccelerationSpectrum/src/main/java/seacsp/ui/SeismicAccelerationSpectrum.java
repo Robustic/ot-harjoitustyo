@@ -194,7 +194,7 @@ public class SeismicAccelerationSpectrum extends Application {
                 newDataBaseStage.showAndWait();
                 String givenText = newDataBaseStage.getText();
                 if (!givenText.equals("")) {
-                    String inputToDBNameTextField = logic.newDatabase(givenText);                    
+                    String inputToDBNameTextField = logic.newDatabaseFile(givenText);                    
                     newDataBaseStage.clearText();
                     if (!inputToDBNameTextField.equals("")) {
                         dbNameTextField.setText(inputToDBNameTextField);
@@ -209,17 +209,17 @@ public class SeismicAccelerationSpectrum extends Application {
         );
         button6.setOnAction(e -> {
             File selectedFile = fileChooserDB.showOpenDialog(stage);
-            logic.setDbFile(selectedFile);
+            logic.setDatabaseFile(selectedFile);
             dbNameTextField.setText(selectedFile.getName());
-//            logic.readDatabase();
-            ArrayList<DataCollection> inputFiles = logic.readDatabase();
+//            logic.readDataCollectionsFromDatabase();
+            ArrayList<DataCollection> inputFiles = logic.readDataCollectionsFromDatabase();
             if (inputFiles != null) {
                 timeHistoryCheckBoxTree.addNewFilesToTree(inputFiles);
             }
         }); 
         
         button5.setOnAction(e -> {
-            logic.saveTimehistoriesToDatabase();
+            logic.saveDataCollectionsToDatabase();
         });
         
         // Label

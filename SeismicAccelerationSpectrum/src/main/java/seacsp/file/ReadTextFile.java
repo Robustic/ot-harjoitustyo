@@ -9,7 +9,7 @@ import seacsp.data.DataCollection;
 /**
  * Class to read text file to the data collection.
  */
-public class ReadTxtFile {
+public class ReadTextFile {
     private File file;
     private ArrayList<Timehistory> timehistories;
     final private ReadFile readFile;
@@ -19,7 +19,7 @@ public class ReadTxtFile {
      * 
      * @param   readFile   ReadFile object to be used for file reading operations
      */
-    public ReadTxtFile(ReadFile readFile) {        
+    public ReadTextFile(ReadFile readFile) {        
         this.timehistories = new ArrayList<>();
         this.readFile = readFile;
     }
@@ -34,11 +34,11 @@ public class ReadTxtFile {
     }
     
     /**
-     * Method to clear ReadTxtFile for the new read.
+     * Method to clear ReadTextFile for the new read.
      * 
      * @param   file   text file which is to be read
      */
-    public void clear(File file) {
+    private void clear(File file) {
         setFile(file);
         this.timehistories = new ArrayList<>();
     }
@@ -52,10 +52,10 @@ public class ReadTxtFile {
      * 
      * @return DataCollection created from text file content
      */
-    public DataCollection readTxtFile(File file) throws Exception {
+    public DataCollection readTextFileToDataCollection(File file) throws Exception {
         clear(file);
-        String fileAsString = this.readFile.readFileLineByLine(this.file);        
-        stringToData(fileAsString);        
+        String fileAsString = this.readFile.readFileToString(this.file);        
+        stringToDataCollection(fileAsString);        
         return new DataCollection(this.file.getName(), this.timehistories);        
     }
     
@@ -66,7 +66,7 @@ public class ReadTxtFile {
      * 
      * @param   fileAsString   text file as string
      */
-    public void stringToData(String fileAsString) throws Exception {        
+    public void stringToDataCollection(String fileAsString) throws Exception {        
         Scanner scanner = new Scanner(fileAsString);
         addTimehistoryObjects(scanner);
         addContentToTimehistoryObjects(scanner); 
@@ -152,7 +152,7 @@ public class ReadTxtFile {
             if (i == 0) {
                 timeLine.add(Double.parseDouble(columns.get(0)));
             } else {
-                this.timehistories.get(i - 1).addNewAcc(Double.parseDouble(columns.get(i)));          
+                this.timehistories.get(i - 1).addNewAccelerationValue(Double.parseDouble(columns.get(i)));          
             }
         }
     }

@@ -36,10 +36,10 @@ public class TimehistoryDaoTest {
         Timehistory timehistory1 = new Timehistory(list1, 0.01, "First th");
         Timehistory timehistory2 = new Timehistory(list2, 0.02, "Second th");
         Timehistory timehistory3 = new Timehistory(list3, 0.07, "Third th");
-        this.timehistoryDao.setDbFile(this.file);
+        this.timehistoryDao.setDatabaseFile(this.file);
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
-            initializeDatabase.initializeDatabase(testFile);
+            initializeDatabase.initializeDatabaseFile(testFile);
             this.timehistoryDao.setDataCollectionId(313);
             this.timehistoryDao.create(timehistory1);
             this.timehistoryDao.setDataCollectionId(311);
@@ -69,7 +69,7 @@ public class TimehistoryDaoTest {
     public void timehistory1TableExist() {
         double firstInTheList = 0;
         try {
-            firstInTheList = this.timehistoryDao.getTableAsList(1).get(0);
+            firstInTheList = this.timehistoryDao.readTableAsList(1).get(0);
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -84,7 +84,7 @@ public class TimehistoryDaoTest {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(3.16, timehistoryTest.getAcc(0) , 0.0001);      
+        assertEquals(3.16, timehistoryTest.getAccelerationValueInTheIndex(0) , 0.0001);      
     }
     
     @Test
@@ -95,7 +95,7 @@ public class TimehistoryDaoTest {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(1.01, timehistoryTest.getAcc(0) , 0.0001);      
+        assertEquals(1.01, timehistoryTest.getAccelerationValueInTheIndex(0) , 0.0001);      
     }
     
     @Test
@@ -106,7 +106,7 @@ public class TimehistoryDaoTest {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(1.02, timehistoryTest.getAcc(1) , 0.0001);      
+        assertEquals(1.02, timehistoryTest.getAccelerationValueInTheIndex(1) , 0.0001);      
     }    
     @Test
     public void dataIsRightInDatabase12() {
@@ -116,7 +116,7 @@ public class TimehistoryDaoTest {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(1.03, timehistoryTest.getAcc(2) , 0.0001);      
+        assertEquals(1.03, timehistoryTest.getAccelerationValueInTheIndex(2) , 0.0001);      
     }
     
     @Test
@@ -127,25 +127,25 @@ public class TimehistoryDaoTest {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(1.04, timehistoryTest.getAcc(3) , 0.0001);      
+        assertEquals(1.04, timehistoryTest.getAccelerationValueInTheIndex(3) , 0.0001);      
     }
     
     @Test
     public void givenTimehistoryListWithIdIsOk() {
         ArrayList<Timehistory> timehistoryListTest = null;
         try {
-            timehistoryListTest = this.timehistoryDao.listWithCollectionId(313);
+            timehistoryListTest = this.timehistoryDao.listTimehistoriesWithGivenDataCollectionId(313);
         } catch (SQLException e) {
             System.out.println(e);
         }
-        assertEquals(3.16, timehistoryListTest.get(1).getAcc(0), 0.0001);      
+        assertEquals(3.16, timehistoryListTest.get(1).getAccelerationValueInTheIndex(0), 0.0001);      
     }
     
     @Test
     public void givenTimehistoryListWithIdIsOkDeltaTIsRight() {
         ArrayList<Timehistory> timehistoryListTest = null;
         try {
-            timehistoryListTest = this.timehistoryDao.listWithCollectionId(313);
+            timehistoryListTest = this.timehistoryDao.listTimehistoriesWithGivenDataCollectionId(313);
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -156,7 +156,7 @@ public class TimehistoryDaoTest {
     public void givenTimehistoryListWithIdIsOkNameIsRight() {
         ArrayList<Timehistory> timehistoryListTest = null;
         try {
-            timehistoryListTest = this.timehistoryDao.listWithCollectionId(313);
+            timehistoryListTest = this.timehistoryDao.listTimehistoriesWithGivenDataCollectionId(313);
         } catch (SQLException e) {
             System.out.println(e);
         }
