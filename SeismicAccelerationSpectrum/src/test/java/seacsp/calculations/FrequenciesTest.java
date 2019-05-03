@@ -11,7 +11,7 @@ public class FrequenciesTest {
     @Before
     public void setUp() {        
         this.frequencies = new Frequencies();
-        this.frequencies.equalDivision(1, 50.5, 1);        
+        this.frequencies.setEqualDivision(1, 50.5, 1);        
     }
     
     @Test

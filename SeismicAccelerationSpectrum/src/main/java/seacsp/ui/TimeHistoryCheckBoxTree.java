@@ -25,7 +25,7 @@ public class TimeHistoryCheckBoxTree {
     }  
     
     public void addNewFileToTree(DataCollection inputFile) {
-        CheckBoxTreeItem<String> file = new CheckBoxTreeItem<>(inputFile.getFileName());
+        CheckBoxTreeItem<String> file = new CheckBoxTreeItem<>(inputFile.getName());
         for (int i = 0; i < inputFile.getTimehistories().size(); i++) {
             Timehistory timehistory = inputFile.getTimehistories().get(i);
             CheckBoxTreeItem<String> history = new CheckBoxTreeItem<>(timehistory.getName());

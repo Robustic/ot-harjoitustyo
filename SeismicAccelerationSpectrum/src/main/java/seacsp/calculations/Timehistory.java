@@ -1,9 +1,9 @@
 package seacsp.calculations;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
- * Class capsulate time history lists.
+ * Class to capsulate time history as a list.
  */
 public class Timehistory {
     final private ArrayList<Double> timehistory;
@@ -13,22 +13,7 @@ public class Timehistory {
     /**
      * Constructor.
      * 
-     * @param   timehistory   timehistory for Timehistory
-     * 
-     * @param   deltaT   deltaT for Timehistory
-     * 
-     * @param   name   name for Timehistory
-     */
-    public Timehistory(ArrayList<Double> timehistory, double deltaT, String name) {
-        this.timehistory = timehistory;
-        this.deltaT = deltaT;
-        this.name = name;
-    }
-    
-    /**
-     * Constructor with input name.
-     * 
-     * @param   name   name for Timehistory
+     * @param   name   name for the time history
      */
     public Timehistory(String name) {
         this.timehistory = new ArrayList<>();
@@ -36,11 +21,11 @@ public class Timehistory {
     }
     
     /**
-     * Constructor with input deltaT and name.
+     * Constructor.
      * 
-     * @param   deltaT   deltaT for Timehistory
+     * @param   deltaT   time step between time history values
      * 
-     * @param   name   name for Timehistory
+     * @param   name   name for the time history
      */
     public Timehistory(double deltaT, String name) {
         this.timehistory = new ArrayList<>();
@@ -49,7 +34,22 @@ public class Timehistory {
     }
     
     /**
-     * Adds new acceleration value to Timehistory -list.
+     * Constructor.
+     * 
+     * @param   timehistory   time history as a list
+     * 
+     * @param   deltaT   time step between time history values
+     * 
+     * @param   name   name for the time history
+     */
+    public Timehistory(ArrayList<Double> timehistory, double deltaT, String name) {
+        this.timehistory = timehistory;
+        this.deltaT = deltaT;
+        this.name = name;
+    }
+    
+    /**
+     * Method to add new acceleration value to the end of the time history list.
      * 
      * @param   acc   new acceleration value
      */
@@ -78,27 +78,27 @@ public class Timehistory {
     }
 
     /**
-     * Set method for deltaT-value.
+     * Set method for the time step value.
      *
-     * @param   deltaT   deltaT
+     * @param   deltaT   time step value
      */
     public void setDeltaT(double deltaT) {
         this.deltaT = deltaT;
     }
 
     /**
-     * Get method for deltaT.
+     * Get method for the time step value.
      * 
-     * @return adeltaT
+     * @return time step value
      */
     public double getDeltaT() {
         return deltaT;
     }
 
     /**
-     * Get method for name.
+     * Get method for the time history name.
      * 
-     * @return name
+     * @return time history name
      */
     public String getName() {
         return name;

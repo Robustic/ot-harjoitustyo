@@ -34,7 +34,7 @@ public class DataCollectionTest {
         
     @Test
     public void fileNameIsOk() {
-        assertEquals("TestFile0.txt", this.dataCollection.getFileName());
+        assertEquals("TestFile0.txt", this.dataCollection.getName());
     }
     
     @Test
@@ -61,7 +61,7 @@ public class DataCollectionTest {
         this.dataCollection.setReferenceToTreeItem(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollection.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
@@ -88,7 +88,7 @@ public class DataCollectionTest {
         this.dataCollection.setReferenceToTreeItem(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollection.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
@@ -115,9 +115,9 @@ public class DataCollectionTest {
         this.dataCollection.setReferenceToTreeItem(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollection.calculate(frequencies, phii);
-        frequencies.equalDivision(30.1, 35.5, 1);
+        frequencies.setEqualDivision(30.1, 35.5, 1);
         this.dataCollection.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList;
         spectrumList = new ArrayList<>();
@@ -144,9 +144,9 @@ public class DataCollectionTest {
         this.dataCollection.setReferenceToTreeItem(4, obj4);
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollection.calculate(frequencies, phii);
-        frequencies.equalDivision(30.1, 35.5, 1);
+        frequencies.setEqualDivision(30.1, 35.5, 1);
         this.dataCollection.setCalculatedFalse();
         this.dataCollection.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList;

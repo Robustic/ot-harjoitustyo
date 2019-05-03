@@ -1,9 +1,9 @@
 package seacsp.calculations;
 
-import java.util.*;
+import java.util.ArrayList;
 
 /**
- * Class capsulate list of the frequencies.
+ * Class to capsulate list of the frequencies.
  */
 public class Frequencies {
     private ArrayList<Double> frequenceList;
@@ -13,13 +13,6 @@ public class Frequencies {
      */
     public Frequencies() {
         this.frequenceList = new ArrayList<>();
-    }    
-    
-    /**
-     * Defines division of the frequencies according to the ASCE 4-10.
-     */
-    public void asceDivision() {
-        equalDivision(0.1, 5.005, 0.01);
     }
     
     /**
@@ -31,7 +24,7 @@ public class Frequencies {
      * 
      * @param   divisionHz   division as [Hz]
      */
-    public void equalDivision(double start, double end, double divisionHz) {
+    public void setEqualDivision(double start, double end, double divisionHz) {
         this.frequenceList.clear();
         double z = (end - start) / divisionHz;
         int k = (int) z;
@@ -61,9 +54,9 @@ public class Frequencies {
     }
     
     /**
-     * Get method for number of the frequency values.
+     * Get method for the number of the frequency values.
      * 
-     * @return size of the frequencies in the list
+     * @return number of the frequencies in the list
      */
     public int numberOfFrequencies() {
         return frequenceList.size();

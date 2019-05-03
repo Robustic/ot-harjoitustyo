@@ -40,11 +40,11 @@ public class TimehistoryDaoTest {
         InitializeDatabase initializeDatabase = new InitializeDatabase();
         try {
             initializeDatabase.initializeDatabase(testFile);
-            this.timehistoryDao.setCollectionId(313);
+            this.timehistoryDao.setDataCollectionId(313);
             this.timehistoryDao.create(timehistory1);
-            this.timehistoryDao.setCollectionId(311);
+            this.timehistoryDao.setDataCollectionId(311);
             this.timehistoryDao.create(timehistory2);
-            this.timehistoryDao.setCollectionId(313);
+            this.timehistoryDao.setDataCollectionId(313);
             this.timehistoryDao.create(timehistory3);            
         } catch (SQLException e) {
             System.out.println(e);

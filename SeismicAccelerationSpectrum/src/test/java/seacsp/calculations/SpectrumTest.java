@@ -12,7 +12,7 @@ public class SpectrumTest {
     public void setUp() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(1, 50.5, 1);
+        frequencies.setEqualDivision(1, 50.5, 1);
         ArrayList<Double> timehistoryList = new ArrayList<>();
         for(int i = 0; i <= 1100; i++) {
             timehistoryList.add(Math.sin(9.425 * i * 0.01));

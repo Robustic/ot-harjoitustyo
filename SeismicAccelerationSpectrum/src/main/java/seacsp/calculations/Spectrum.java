@@ -1,10 +1,10 @@
 package seacsp.calculations;
 
-import java.util.*;
-import java.lang.*;
+import java.lang.Math;
+import java.util.ArrayList;
 
 /**
- * Class calculates and capsulate acceleration spectrums with the given frequence values.
+ * Class to calculate and capsulate acceleration spectrums with the given frequence values.
  */
 public class Spectrum {    
     private ArrayList<Double> accelerationList;
@@ -22,7 +22,7 @@ public class Spectrum {
     }
     
     /**
-     * Get method for the acceleration value in the index i.
+     * Get method for the acceleration value in the index i of the spectrum.
      * 
      * @param   i   index
      * 
@@ -33,13 +33,13 @@ public class Spectrum {
     }
     
     /**
-     * Method calculates acceleration spectrum according to the given input.
+     * Method to calculate acceleration spectrum according to the given input.
      *
-     * @param   frequencies   frequency list as class
+     * @param   frequencies   frequency list as object
      *
-     * @param   timehistory   time history list as class
+     * @param   timehistory   time history list as object
      * 
-     * @param   phii   damping value as class
+     * @param   phii   damping value as object
      */
     public void calculateSpectrum(Frequencies frequencies, Timehistory timehistory, Phii phii) {
         this.phi = phii.getPhii();
@@ -75,9 +75,9 @@ public class Spectrum {
     }
 
     /**
-     * Get method for acceleration list.
+     * Get method to get spectrum as a list.
      * 
-     * @return acceleration list
+     * @return spectrum as a list
      */
     public ArrayList<Double> getAccelerationList() {
         return accelerationList;

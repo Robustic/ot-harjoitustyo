@@ -9,19 +9,38 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import seacsp.data.DataCollection;
 
-
+/**
+ * Class to perform SQL-database writing and reading methods for the DataCollection objects.
+ */
 public class DataCollectionDao implements Dao<DataCollection, Integer> {
     private File dbFile;
     private TimehistoryDao timehistoryDao;
-
+    
+    /**
+     * Method to set database file which is used by other methods.
+     *
+     * @param   dbFile   database file
+     */
     public void setDbFile(File dbFile) {
         this.dbFile = dbFile;
     }
 
+    /**
+     * Method to set TimehistoryDao object.
+     *
+     * @param   timehistoryDao   TimehistoryDao object
+     */
     public void setTimehistoryDao(TimehistoryDao timehistoryDao) {
         this.timehistoryDao = timehistoryDao;
     }
     
+    /**
+     * Method to create SQL-object from the DataCollection.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   dataCollection   DataCollection which is copied to the database
+     */
     @Override
     public void create(DataCollection dataCollection) throws SQLException {
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();
@@ -35,12 +54,22 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         stmt.close();
         connection.close();
         this.timehistoryDao.setDbFile(this.dbFile);
-        this.timehistoryDao.setCollectionId(rowId);
+        this.timehistoryDao.setDataCollectionId(rowId);
         for (int i = 0; i < dataCollection.getTimehistories().size(); i++) {
             this.timehistoryDao.create(dataCollection.getTimehistories().get(i));
         }
     }
     
+    /**
+     * Method to get id of the latest object created.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   stmt   statement which used when the latest object created
+     * 
+     * @return id for the latest object created
+     */
+    @Override
     public int generatedKey(PreparedStatement stmt) throws SQLException {
         ResultSet rs;
         int rowId;
@@ -57,7 +86,16 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         }                
         return rowId;
     }
-
+    
+    /**
+     * Method to read DataCollection SQL-object with given key.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   key   key
+     * 
+     * @return DataCollection object read from database
+     */
     @Override
     public DataCollection read(Integer key) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
@@ -78,9 +116,18 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         return dataCollection;
     }
     
+    /**
+     * Method to check if DataCollection SQL-object already exists with given string as name.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   findName   name
+     * 
+     * @return true if SQL-object already exists with given input string as name
+     */
     public boolean exist(String findName) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection WHERE name = ? ORDER BY id ASC");
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Datacollection WHERE name = ?");
         stmt.setString(1, findName);
         ResultSet rs = stmt.executeQuery();
         if (!rs.next()) {
@@ -95,6 +142,16 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         return true;
     }
     
+    /**
+     * Method returns list of the DataCollections in the SQL-database which 
+     * name does not exist in the list given as input.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   names   name list
+     * 
+     * @return list of the DataCollections which name does not exist in the list given as input
+     */
     public ArrayList<DataCollection> listWithNameNotExistInTheList(ArrayList<String> names) throws SQLException {
         this.timehistoryDao.setDbFile(this.dbFile);
         ArrayList<DataCollection> returnList = new ArrayList<>();

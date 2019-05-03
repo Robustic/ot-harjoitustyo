@@ -1,7 +1,7 @@
 package seacsp.calculations;
 
 /**
- * Class capsulate damping variable phii.
+ * Class to capsulate damping variable phii.
  */
 public class Phii {
     private double phii;

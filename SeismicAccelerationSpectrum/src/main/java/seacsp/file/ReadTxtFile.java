@@ -6,38 +6,79 @@ import java.util.Scanner;
 import seacsp.calculations.Timehistory;
 import seacsp.data.DataCollection;
 
+/**
+ * Class to read text file to the data collection.
+ */
 public class ReadTxtFile {
     private File file;
     private ArrayList<Timehistory> timehistories;
     final private ReadFile readFile;
 
+    /**
+     * Constructor.
+     * 
+     * @param   readFile   ReadFile object to be used for file reading operations
+     */
     public ReadTxtFile(ReadFile readFile) {        
         this.timehistories = new ArrayList<>();
         this.readFile = readFile;
     }
 
+    /**
+     * Method to set text file to be read.
+     * 
+     * @param   file   text file which is to be read
+     */
     public void setFile(File file) {
         this.file = file;
     }
     
-    public void initialize(File file) {
+    /**
+     * Method to clear ReadTxtFile for the new read.
+     * 
+     * @param   file   text file which is to be read
+     */
+    public void clear(File file) {
         setFile(file);
         this.timehistories = new ArrayList<>();
     }
     
+    /**
+     * Method to read text file to the DataCollection.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   file   text file which is to be read
+     * 
+     * @return DataCollection created from text file content
+     */
     public DataCollection readTxtFile(File file) throws Exception {
-        initialize(file);
+        clear(file);
         String fileAsString = this.readFile.readFileLineByLine(this.file);        
         stringToData(fileAsString);        
         return new DataCollection(this.file.getName(), this.timehistories);        
     }
     
+    /**
+     * Method to create DataCollection from string.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   fileAsString   text file as string
+     */
     public void stringToData(String fileAsString) throws Exception {        
         Scanner scanner = new Scanner(fileAsString);
-        addHeaders(scanner);
-        addTimehistories(fileAsString, scanner); 
+        addTimehistoryObjects(scanner);
+        addContentToTimehistoryObjects(scanner); 
     }
     
+    /**
+     * Method to clean spaces and tabulars from string array.
+     * 
+     * @param   columnsIn   string array
+     * 
+     * @return strings as list without spaces or tabulars
+     */
     public ArrayList<String> cleanColumns(String[] columnsIn) {
         ArrayList<String> columnsOut = new ArrayList<>();
         for (int i = 0; i < columnsIn.length; i++) {
@@ -49,7 +90,14 @@ public class ReadTxtFile {
         return columnsOut;
     }
     
-    public void addHeaders(Scanner scanner) throws Exception {
+    /**
+     * Method to create new Timehistory objects according to the string content.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   scanner   scanner to be used
+     */
+    public void addTimehistoryObjects(Scanner scanner) throws Exception {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             ArrayList<String> columns = cleanColumns(line.split(" "));            
@@ -65,7 +113,14 @@ public class ReadTxtFile {
         }        
     }
     
-    public void addTimehistories(String fileAsString, Scanner scanner) throws Exception {
+    /**
+     * Method to add time history acceleration values and time steps to the Timehistory objects.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   scanner   scanner to be used
+     */
+    public void addContentToTimehistoryObjects(Scanner scanner) throws Exception {
         ArrayList<Double> timeLine = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -77,6 +132,15 @@ public class ReadTxtFile {
         addDeltaTValues(timeLine);
     }
     
+    /**
+     * Method to add new rows for time history acceleration value lists and time line.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   columns   new row as string array
+     * 
+     * @param   timeLine   time line as list
+     */
     public void addColumnsContent(ArrayList<String> columns, ArrayList<Double> timeLine) throws Exception {
         if (columns.size() - 1 != this.timehistories.size()) {
             throw new IllegalArgumentException("File " + this.file.getName() + " contains ineligible data. Number of columns do not match.");
@@ -93,6 +157,13 @@ public class ReadTxtFile {
         }
     }
     
+    /**
+     * Method calculates and adds time step values to the Timehistory objects.
+     * 
+     * @throws Exception  If exception occurred
+     * 
+     * @param   timeLine   time line as list
+     */
     public void addDeltaTValues(ArrayList<Double> timeLine) throws Exception {
         if (timeLine.size() < 2) {
             throw new IllegalArgumentException("File " + this.file.getName() + " contains ineligible data. Less than 2 data rows.");
@@ -113,6 +184,13 @@ public class ReadTxtFile {
         }
     }    
     
+    /**
+     * Method checks is string given as input numeric value.
+     * 
+     * @param   string   string to check is numeric
+     * 
+     * @return true if string is numeric
+     */
     public static boolean isNumeric(String string) { 
         try {  
             Double.parseDouble(string);  

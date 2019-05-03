@@ -136,7 +136,7 @@ public class DataCollectionsTest {
     public void recalculationNeeded01() {
         Phii phii = new Phii(-0.1);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
@@ -158,7 +158,7 @@ public class DataCollectionsTest {
     public void recalculationNeeded1() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollections.neededToRecalculate(frequencies, phii);
         assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
@@ -167,7 +167,7 @@ public class DataCollectionsTest {
     public void recalculationNeeded2() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollections.neededToRecalculate(frequencies, phii);
         phii = new Phii(0.050001);
         assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
@@ -177,9 +177,9 @@ public class DataCollectionsTest {
     public void recalculationNeeded3() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollections.neededToRecalculate(frequencies, phii);
-        frequencies.equalDivision(3.0001, 5.5, 1);
+        frequencies.setEqualDivision(3.0001, 5.5, 1);
         assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
@@ -187,9 +187,9 @@ public class DataCollectionsTest {
     public void recalculationNeeded4() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         this.dataCollections.neededToRecalculate(frequencies, phii);
-        frequencies.equalDivision(3.1, 5.5, 1);        
+        frequencies.setEqualDivision(3.1, 5.5, 1);        
         assertFalse(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
@@ -197,7 +197,7 @@ public class DataCollectionsTest {
     public void recalculationNeeded5() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(3.1, 5.5, 1);
+        frequencies.setEqualDivision(3.1, 5.5, 1);
         assertTrue(this.dataCollections.neededToRecalculate(frequencies, phii));
     }
     
@@ -205,10 +205,10 @@ public class DataCollectionsTest {
     public void calculationDone() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies = new Frequencies();
-        frequencies.equalDivision(2.1, 6.5, 1);
+        frequencies.setEqualDivision(2.1, 6.5, 1);
         this.dataCollections.calculate(frequencies, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
-        this.dataCollections.getSpectrumList(spectrumList);
+        this.dataCollections.addSpectrumsToList(spectrumList);
         assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
     }
     
@@ -216,14 +216,14 @@ public class DataCollectionsTest {
     public void noNeedForRecalculation() {
         Phii phii = new Phii(0.05);
         Frequencies frequencies1 = new Frequencies();
-        frequencies1.equalDivision(2.1, 6.5, 1);
+        frequencies1.setEqualDivision(2.1, 6.5, 1);
         this.dataCollections.calculate(frequencies1, phii);
         Frequencies frequencies2 = new Frequencies();
-        frequencies2.equalDivision(3.1, 7.5, 1);
+        frequencies2.setEqualDivision(3.1, 7.5, 1);
         this.dataCollections.copyFrequencies(frequencies2.getFrequenceList());
         this.dataCollections.calculate(frequencies2, phii);
         ArrayList<Spectrum> spectrumList = new ArrayList<>();
-        this.dataCollections.getSpectrumList(spectrumList);        
+        this.dataCollections.addSpectrumsToList(spectrumList);        
         assertEquals(4.29171705, spectrumList.get(0).getAccWithFrequency(0), 0.000001);
     }
     
@@ -256,9 +256,9 @@ public class DataCollectionsTest {
         } catch (SQLException e) {
             System.out.println(e);
         }        
-        this.dataCollections.saveTimehistoriesToDB(file1);
+        this.dataCollections.saveTimehistoriesToDatabase(file1);
         DataCollections newDataCollections = new DataCollections(new LogList(), new ReadFile());
-        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataBase(file1);
+        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDatabase(file1);
         deleteDBFile(file1);
         assertEquals(0.00019844, dataCollectionsList.get(1).getTimehistories().get(2).getAcc(3), 0.000001);
     }
@@ -277,7 +277,7 @@ public class DataCollectionsTest {
         File file1 = new File(testFile);
         LogList logList = new LogList();
         DataCollections newDataCollections = new DataCollections(logList, new ReadFile());
-        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataBase(file1);
+        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDatabase(file1);
         deleteDBFile(file1);
         assertEquals("Reading from database caused error.", logList.getLog().get(0));
     }
@@ -295,8 +295,8 @@ public class DataCollectionsTest {
         } catch (SQLException e) {
             System.out.println(e);
         }        
-        this.dataCollections.saveTimehistoriesToDB(file1);
-        this.dataCollections.saveTimehistoriesToDB(file1);
+        this.dataCollections.saveTimehistoriesToDatabase(file1);
+        this.dataCollections.saveTimehistoriesToDatabase(file1);
         deleteDBFile(file1);
         assertEquals("File TestFile0.txt already exist in the DB.", this.logList.getLog().get(this.logList.getLog().size()-1));
     }

@@ -19,24 +19,24 @@ public class ReadFile {
     }
     
     /**
-     * Checks is given file existing.
+     * Check if given file exists.
      * 
      * @param   file   file
      * 
-     * @return true: if file exists - false: not exists
+     * @return true if file exists
      */
     public boolean checkThatFileExists(File file) {
         return file.exists();
     }
     
     /**
-     * Reads given file and returns it as a String.
+     * Method to read given text file to string.
      * 
-     * @throws IOException  If reading exception occurred
+     * @throws IOException  If exception occurred
      * 
      * @param   file   file
      * 
-     * @return true: if file exists - false: not exists
+     * @return text file content as string
      */
     public String readFileLineByLine(File file) throws Exception {
         StringBuilder contentBuilder = new StringBuilder(); 

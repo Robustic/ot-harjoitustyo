@@ -1,23 +1,43 @@
 package seacsp.db;
 
-import java.util.*;
-import java.sql.*;
-import seacsp.calculations.Timehistory;
 import java.io.File;
+import java.sql.*;
 import java.text.DecimalFormat;
+import java.util.*;
+import seacsp.calculations.Timehistory;
 
+/**
+ * Class to perform database writing and reading methods for the Timehistory objects.
+ */
 public class TimehistoryDao implements Dao<Timehistory, Integer> {
     private File dbFile;
-    private int collectionId;
+    private int dataCollectionId;
 
+    /**
+     * Method to set database file which is used by other methods.
+     *
+     * @param   dbFile   database file
+     */
     public void setDbFile(File dbFile) {
         this.dbFile = dbFile;
     }
 
-    public void setCollectionId(int collectionId) {
-        this.collectionId = collectionId;
+    /**
+     * Method to set DataCollection id related to the Timehistory objects.
+     *
+     * @param   dataCollectionId   id for the DataCollection object related to the Timehistory objects
+     */
+    public void setDataCollectionId(int dataCollectionId) {
+        this.dataCollectionId = dataCollectionId;
     }
     
+    /**
+     * Method to create SQL-object from the Timehistory.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   timehistory   Timehistory which is copied to the database
+     */
     @Override
     public void create(Timehistory timehistory) throws SQLException {        
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();
@@ -27,7 +47,7 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
             + " VALUES (?, ?, ?)");
         stmt.setString(1, timehistory.getName());
         stmt.setDouble(2, timehistory.getDeltaT());
-        stmt.setInt(3, this.collectionId);
+        stmt.setInt(3, this.dataCollectionId);
         stmt.executeUpdate();
         int rowId = generatedKey(stmt);
         stmt.close();
@@ -35,6 +55,16 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         addListAsTable(timehistory.getTimehistory(), rowId);
     }
     
+    /**
+     * Method to get id of the latest object created.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   stmt   statement which used when the latest object created
+     * 
+     * @return id for the latest object created
+     */
+    @Override
     public int generatedKey(PreparedStatement stmt) throws SQLException {
         ResultSet rs;
         int rowId;
@@ -52,6 +82,15 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         return rowId;
     }
     
+    /**
+     * Method to create new table for time history acceleration values given as input.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   timehistoryAsList   time history acceleration values as list
+     * 
+     * @param   rowId   Timehistory id related to the acceleration values in the list
+     */
     public void addListAsTable(ArrayList<Double> timehistoryAsList, int rowId) throws SQLException {
         initializeNewTable(rowId);
         String connectionPath = "jdbc:sqlite:" + dbFile.toString();        
@@ -73,6 +112,13 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         connection.close();
     }
     
+    /**
+     * Method to initialize new empty table "Timehistorylist***" (where *** is Timehistory id number).
+     * 
+     * @throws SQLException  If exception happens during database operation
+     * 
+     * @param   rowId   Timehistory id related to the new table
+     */
     public void initializeNewTable(int rowId) throws SQLException {
         Connection connection = null;
         String dbPath = "jdbc:sqlite:" + dbFile.toString();
@@ -88,6 +134,15 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         connection.close();
     }
 
+    /**
+     * Method to read Timehistory SQL-object with given key.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     *
+     * @param   key   key
+     * 
+     * @return Timehistory object read from database
+     */
     @Override
     public Timehistory read(Integer key) throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
@@ -106,6 +161,15 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         return timehistory;
     }
     
+    /**
+     * Method to read time history acceleration values from table.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     * 
+     * @param   rowId   Timehistory id related to the acceleration values
+     * 
+     * @return acceleration values as list related to the Timehistory id
+     */
     public ArrayList<Double> getTableAsList(int rowId) throws SQLException {
         ArrayList<Double> list = new ArrayList<>();
         String tableName = "Timehistorylist" + rowId;
@@ -121,8 +185,17 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         return list;
     }
     
-    public ArrayList<Timehistory> listWithCollectionId(int collectionId) throws SQLException {
-        ArrayList<Integer> rowIdList = getRowIdList(collectionId);
+    /**
+     * Method to get Timehistory objects as list related to the given DataCollection id.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     * 
+     * @param   dataCollectionId   DataCollection id
+     * 
+     * @return Timehistory objects as list related to the given DataCollection id
+     */
+    public ArrayList<Timehistory> listWithCollectionId(int dataCollectionId) throws SQLException {
+        ArrayList<Integer> rowIdList = getRowIdList(dataCollectionId);
         ArrayList<Timehistory> timehistoryList = new ArrayList<>();
         for (int i = 0; i < rowIdList.size(); i++) {
             timehistoryList.add(read(rowIdList.get(i)));
@@ -130,11 +203,20 @@ public class TimehistoryDao implements Dao<Timehistory, Integer> {
         return timehistoryList;
     }
     
-    public ArrayList<Integer> getRowIdList(int collectionId) throws SQLException {
+    /**
+     * Method to get Timehistory object id numbers as list related to the given DataCollection id.
+     * 
+     * @throws SQLException  If exception happens during database operation
+     * 
+     * @param   dataCollectionId   DataCollection id
+     * 
+     * @return Timehistory id numbers as list related to the given DataCollection id
+     */
+    public ArrayList<Integer> getRowIdList(int dataCollectionId) throws SQLException {
         ArrayList<Integer> rowIdList = new ArrayList<>();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Timehistory WHERE datacollection_id = ? ORDER BY id ASC");
-        stmt.setInt(1, collectionId);
+        stmt.setInt(1, dataCollectionId);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
             rowIdList.add(rs.getInt("id"));

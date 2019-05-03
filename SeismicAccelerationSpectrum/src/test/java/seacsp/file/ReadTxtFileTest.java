@@ -177,7 +177,7 @@ public class ReadTxtFileTest {
         Scanner scanner = new Scanner(emptyString);
         String catchedString = "";
         try {
-            this.readTxtFile.addHeaders(scanner);
+            this.readTxtFile.addTimehistoryObjects(scanner);
         } catch (Exception e) {
             catchedString = e.toString();
         }
