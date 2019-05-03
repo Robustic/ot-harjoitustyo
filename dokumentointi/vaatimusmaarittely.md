@@ -18,7 +18,7 @@ Kun laskettavat taajuudet valitaan riittävän tiheästi, voidaan tulosten perus
 
 ## Käyttöliittymä
 
-Sovellus koostuu vähintään yhdestä päänäkymästä, joka selviää seuraavasta kuvasta:
+Sovellus koostuu yhdestä päänäkymästä, joka selviää seuraavasta kuvasta:
 
 <img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Paanakyma.png" width="1331">
 
