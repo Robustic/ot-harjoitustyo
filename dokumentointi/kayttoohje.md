@@ -1,6 +1,6 @@
 # SeismicAccelerationSpectrum -applikaation käyttöohje
 
-Lataa tiedosto [SeismicAccelerationSpectrum-1.1.jar](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko7)
+Lataa tiedosto [SeismicAccelerationSpectrum-1.1.jar](https://github.com/Robustic/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Sovelluksen tarkoitus
 
