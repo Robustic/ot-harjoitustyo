@@ -18,5 +18,9 @@
 | 23.4.  | 6    | tietokannan käyttöönottoa |
 | 24.4.  | 8    | tietokannan käyttöönottoa, JavaDoc:in käyttöönotto |
 | 26.4.  | 12    | tietokannan käyttöönottoa, koodin parantelua, JavaDoc:in täydennys |
-| Yhteensä | 87 | |
-
+| 29.4.  | 3    | tietokannan käytön viimeistely |
+| 30.4.  | 8    | tietokannan käytön viimeistely |
+| 2.5.  | 8    | testien kirjoittaminen, JavaDoc:in teko, ohjelman siistiminen |
+| 3.5.  | 12    | dokumentoinnin viimeistely, käyttöohjeen teko, ohjelman siistiminen |
+| 4.5.  | 5    | testausdokumentin tekeminen |
+| Yhteensä | 123 | |
