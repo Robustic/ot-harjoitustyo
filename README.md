@@ -24,7 +24,7 @@ Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraa
 
 [Viikko 6](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko6) (release 1.02)
 
-[Viikko 7](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko7) (release 1.1)
+[Loppupalautus](https://github.com/Robustic/ot-harjoitustyo/releases/tag/loppupalautus) (release 1.1)
 
 
 ## Komentorivitoiminnot
