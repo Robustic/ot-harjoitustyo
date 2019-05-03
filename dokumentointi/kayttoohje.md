@@ -6,7 +6,7 @@ Lataa tiedosto [SeismicAccelerationSpectrum-1.1.jar](https://github.com/Robustic
 
 Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihtyvyysspektrien verhokäyrä. Kiihtyvyyshistoriat voidaan hakea laskemista varten yhdestä tai useammasta tekstitiedostosta. Kukin tiedosto voi sisältää yhden tai useamman kiihtyvyyshistorian. 
 
-Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraavilla käyttökerroilla. Näin tekstitiedostosta lukua ei myöhemmin tavita, kun kiihtyvyysdata on talletettu hyvin organisoituun tietokantaa
+Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraavilla käyttökerroilla. Näin tekstitiedostosta lukua ei myöhemmin tavita, kun kiihtyvyysdata on talletettu hyvin organisoituun tietokantaan.
 
 ## Sovelluksen käyttöohje
 
@@ -30,7 +30,7 @@ Tiedosto avataan napilla _Select and Import Text-file_, jolloin avautuu valintai
 
 ### Vaimennuksen arvon valitseminen
 
-Käytettävän vaimennuksen (Damping) lukuarvo voidaan valita Radio-button valinnalla, tai syöttämällä vapaavalintainen haluttu arvo tekstikenttään. Suurempi vaimennuksen arvo vaimentaa kiihtyvyyden aikahistorian aiheuttamia kiihtyvyksiä eri taajuuksilla.
+Käytettävän vaimennuksen (Damping) lukuarvo voidaan valita _Radio-button_ valinnalla, tai syöttämällä vapaavalintainen haluttu arvo tekstikenttään. Suurempi vaimennuksen arvo vaimentaa kiihtyvyyden aikahistorian aiheuttamia kiihtyvyksiä eri taajuuksilla.
 
 ### Taajuusvälin valitseminen
 
