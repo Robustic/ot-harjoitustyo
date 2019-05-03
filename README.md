@@ -53,7 +53,7 @@ Komento
 mvn package
 ```
 
-generoi hakemistoon _target_ suoritettavan jar-tiedoston _SeismicAccelerationSpectrum-1.02.jar_
+generoi hakemistoon _target_ suoritettavan jar-tiedoston _SeismicAccelerationSpectrum-1.1.jar_
 
 ### JavaDoc
 
