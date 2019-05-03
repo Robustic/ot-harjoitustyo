@@ -49,6 +49,8 @@ public class DataCollections {
     /**
      * Method returns true if database file contains Datacollection and Timehistory tables.
      * 
+     * @param   dbFile   database file
+     * 
      * @return true if database file contains Datacollection and Timehistory tables
      */
     public boolean tablesDatacollectionAndTimehistoryExist(File dbFile) {
@@ -71,6 +73,10 @@ public class DataCollections {
         for (DataCollection dataCollection : this.dataCollectionList) {
             dataCollectionNames.add(dataCollection.getName());
         }
+        return readDataCollectionsFromDatabaseWithNamesGivenNotExist(dataCollectionNames, dbFile);
+    }
+        
+    private ArrayList<DataCollection> readDataCollectionsFromDatabaseWithNamesGivenNotExist(ArrayList<String> dataCollectionNames, File dbFile) {
         ArrayList<DataCollection> dataCollectionsFromDatabase = new ArrayList<>();
         loglist.addNewLogMessage("*** Reading from database " + dbFile.getName() + " started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
         try {

@@ -2,23 +2,29 @@
 
 ## Sovelluksen tarkoitus
 
-Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihtyvyysspektrien verhokäyrä. Kiihtyvyyshistoriat voidaan hakea laskemista varten yhdestä tai useammasta tiedostosta. Kukin tiedosto voi sisältää yhden tai useamman kiihtyvyyshistorian.
+Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihtyvyysspektrien verhokäyrä. Kiihtyvyyshistoriat voidaan hakea laskemista varten yhdestä tai useammasta tekstitiedostosta. Kukin tiedosto voi sisältää yhden tai useamman kiihtyvyyshistorian. 
+
+Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraavilla käyttökerroilla. Näin tekstitiedostosta lukua ei myöhemmin tavita, kun kiihtyvyysdata on talletettu hyvin organisoituun tietokantaan.
 
 ## Dokumentaatio
 
 [Käyttöohje](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kayttoohje.md)
 
-[Vaatimusmaarittely](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
+[Vaatimusmäärittely](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/vaatimusmaarittely.md)
 
 [Arkkitehtuurikuvaus](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/arkkitehtuuri.md)
+
+[Testausdokumentti](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/testausdokumentti.md)
 
 [Työaikakirjanpito](https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/tuntikirjanpito.md)
 
 ## Releaset
 
-[Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5_1.01)
+[Viikko 5](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko5_1.01) (release 1.01)
 
-[Viikko 6](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko6)
+[Viikko 6](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko6) (release 1.02)
+
+[Viikko 7](https://github.com/Robustic/ot-harjoitustyo/releases/tag/viikko7) (release 1.1)
 
 
 ## Komentorivitoiminnot
