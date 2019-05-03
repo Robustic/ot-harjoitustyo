@@ -29,7 +29,7 @@ import seacsp.logic.Logic;
 public class SeismicAccelerationSpectrum extends Application {
     private Stage stage;
     private TimehistoriesStage timehistoriesStage;
-    private NewDataBaseStage newDataBaseStage;
+    private NewDatabaseStage newDataBaseStage;
     private Logic logic;
     private TimeHistoryCheckBoxTree timeHistoryCheckBoxTree;
     
@@ -63,7 +63,7 @@ public class SeismicAccelerationSpectrum extends Application {
         );
         openTextFileButton.setOnAction(e -> {
             File selectedFile = fileChooserTxt.showOpenDialog(stage);
-            DataCollection inputFile = logic.addNewDataCollection(selectedFile);
+            DataCollection inputFile = logic.addNewDataCollectionFromTextFile(selectedFile);
             if (inputFile != null) {
                 timeHistoryCheckBoxTree.addNewFileToTree(inputFile);
             }
@@ -189,7 +189,7 @@ public class SeismicAccelerationSpectrum extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         this.timehistoriesStage = new TimehistoriesStage();
-        this.newDataBaseStage = new NewDataBaseStage();
+        this.newDataBaseStage = new NewDatabaseStage();
         this.logic = new Logic();
         
         this.openTextFileButton = new Button("Select and Import Text-file");

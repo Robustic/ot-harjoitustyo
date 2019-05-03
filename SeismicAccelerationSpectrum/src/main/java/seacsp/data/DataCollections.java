@@ -235,7 +235,7 @@ public class DataCollections {
      * 
      * @return DataCollection composed from text file content
      */
-    public DataCollection addDataCollectionImportedFromFile(File file) throws Exception {
+    public DataCollection addDataCollectionImportedFromTextFile(File file) throws Exception {
         if (checkIfDataCollectionWithGivenNameAlreadyExist(file)) {
             throw new IllegalArgumentException("File " + file.getName() + " already added.");
         }

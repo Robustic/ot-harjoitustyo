@@ -25,7 +25,7 @@ public class LogicTest {
     @Test
     public void txtFileReadingIsWorking1() {
         File file = new File("TestFile1.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();
@@ -39,7 +39,7 @@ public class LogicTest {
     @Test
     public void txtFileReadingIsWorking2() {
         File file = new File("TestFile1.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();
@@ -53,14 +53,14 @@ public class LogicTest {
     @Test
     public void txtFileNotFound() {
         File file = new File("TestFileWhichNotFound.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         assertTrue(dataCollection == null);
     }
     
     @Test
     public void calculatingIsWorking1() {
         File file = new File("TestFile1.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();
@@ -76,7 +76,7 @@ public class LogicTest {
     @Test
     public void calculatingIsWorking2() {
         File file = new File("TestFile1.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();
@@ -121,7 +121,7 @@ public class LogicTest {
     @Test
     public void dataIsWrittenAndReadedCorrectlyFromDataBase() {
         File file = new File("TestFile1.txt");
-        DataCollection dataCollection = this.logic.addNewDataCollection(file);
+        DataCollection dataCollection = this.logic.addNewDataCollectionFromTextFile(file);
         CheckBoxTreeItem objFalse = new CheckBoxTreeItem();
         objFalse.setSelected(false);
         CheckBoxTreeItem objTrue = new CheckBoxTreeItem();

@@ -150,9 +150,9 @@ public class Logic {
      * 
      * @return created DataCollection
      */
-    public DataCollection addNewDataCollection(File file) {
+    public DataCollection addNewDataCollectionFromTextFile(File file) {
         try {
-            DataCollection dataFile = this.dataCollections.addDataCollectionImportedFromFile(file);
+            DataCollection dataFile = this.dataCollections.addDataCollectionImportedFromTextFile(file);
             logList.addNewLogMessage("File " + file.getName() + " added to list.");            
             return dataFile;            
         } catch (Exception e) {

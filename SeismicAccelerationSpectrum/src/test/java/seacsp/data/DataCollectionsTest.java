@@ -32,8 +32,8 @@ public class DataCollectionsTest {
         File file0 = new File(System.getProperty("user.dir") + "/" + "TestFile0.txt");
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         try {
-            this.dataCollection1 = this.dataCollections.addDataCollectionImportedFromFile(file1); 
-            this.dataCollection0 = this.dataCollections.addDataCollectionImportedFromFile(file0);
+            this.dataCollection1 = this.dataCollections.addDataCollectionImportedFromTextFile(file1); 
+            this.dataCollection0 = this.dataCollections.addDataCollectionImportedFromTextFile(file0);
            
         } catch (Exception e) {
             System.out.println("Something is wrong.");
@@ -69,7 +69,7 @@ public class DataCollectionsTest {
         File file1 = new File(System.getProperty("user.dir") + "/" + "TestFile1.txt");
         String message = "";
         try {
-            this.dataCollections.addDataCollectionImportedFromFile(file1);
+            this.dataCollections.addDataCollectionImportedFromTextFile(file1);
         } catch (Exception e) {
             message = e.toString();
         }

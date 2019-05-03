@@ -11,10 +11,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
-public class NewDataBaseStage extends Stage {
+public class NewDatabaseStage extends Stage {
     private String text;
     
-    public NewDataBaseStage() {
+    public NewDatabaseStage() {
         this.setTitle("Add new database");
         this.setAlwaysOnTop(true);
         initializeNewDataBaseStage();
