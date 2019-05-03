@@ -204,4 +204,11 @@ public class DataCollectionDaoTest {
         }
         assertTrue(dataCollection == null);
     }
+    
+    @Test
+    public void tablesExistInTheDatabase() {
+        boolean result = false;
+        result = this.dataCollectionDao.tablesDatacollectionAndTimehistoryExist();
+        assertTrue(result);
+    }
 }

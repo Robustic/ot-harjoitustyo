@@ -52,7 +52,12 @@ public class Logic {
      * @return DataCollections as a list read from the database
      */
     public ArrayList<DataCollection> readDataCollectionsFromDatabase() {
-        return this.dataCollections.readDataCollectionsFromDatabase(this.dbFile);
+        if (!this.dataCollections.tablesDatacollectionAndTimehistoryExist(this.dbFile)) {
+            this.logList.addNewLogMessage("Needed tables are missing from database. Select other database file or create new database.");
+            return null;
+        } else {
+            return this.dataCollections.readDataCollectionsFromDatabase(this.dbFile);
+        }
     }
     
     /**
@@ -100,6 +105,8 @@ public class Logic {
     public void saveDataCollectionsToDatabase() {
         if (this.dbFile == null || this.dbFile.getName().equals("")) {
             this.logList.addNewLogMessage("Database not selected.");
+        } else if (!this.dataCollections.tablesDatacollectionAndTimehistoryExist(this.dbFile)) {
+            this.logList.addNewLogMessage("Needed tables are missing from database. Select other database file or create new database.");
         } else {
             dataCollections.saveDataCollectionsToDatabase(this.dbFile);
         }

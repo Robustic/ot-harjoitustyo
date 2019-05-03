@@ -47,6 +47,17 @@ public class DataCollections {
     }
     
     /**
+     * Method returns true if database file contains Datacollection and Timehistory tables.
+     * 
+     * @return true if database file contains Datacollection and Timehistory tables
+     */
+    public boolean tablesDatacollectionAndTimehistoryExist(File dbFile) {
+        this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
+        this.dataCollectionDao.setDatabaseFile(dbFile);
+        return this.dataCollectionDao.tablesDatacollectionAndTimehistoryExist();
+    }
+    
+    /**
      * Method to read data from SQL-database.
      *
      * @param   dbFile   database file to read
@@ -61,6 +72,7 @@ public class DataCollections {
             dataCollectionNames.add(dataCollection.getName());
         }
         ArrayList<DataCollection> dataCollectionsFromDatabase = new ArrayList<>();
+        loglist.addNewLogMessage("*** Reading from database " + dbFile.getName() + " started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
         try {
             dataCollectionsFromDatabase = this.dataCollectionDao.listDataCollectionsWithNameNotExistInTheList(dataCollectionNames);
         } catch (SQLException e) {
@@ -70,7 +82,7 @@ public class DataCollections {
             this.dataCollectionList.add(dataCollectionsFromDatabase.get(i));
             loglist.addNewLogMessage("Collection " + dataCollectionsFromDatabase.get(i).getName() + " readed from database.");
         }
-        loglist.addNewLogMessage("Reading from database " + dbFile.getName() + " finished.");
+        loglist.addNewLogMessage("*** Reading from database " + dbFile.getName() + " finished " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
         return dataCollectionsFromDatabase;
     }
     
@@ -83,16 +95,17 @@ public class DataCollections {
         this.dataCollectionDao.setTimehistoryDao(this.timehistoryDao);
         this.dataCollectionDao.setDatabaseFile(dbFile);
         try { 
+            loglist.addNewLogMessage("*** Writing to the database " + dbFile.getName() + " started " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
             for (int i = 0; i < this.dataCollectionList.size(); i++) {                
                 if (this.dataCollectionDao.dataCollectionWithGivenNameExist(this.dataCollectionList.get(i).getName())) {
-                    loglist.addNewLogMessage("File " + this.dataCollectionList.get(i).getName() + " already exist in the DB.");                    
+                    loglist.addNewLogMessage("Collection " + this.dataCollectionList.get(i).getName() + " already exist in the DB.");                    
                 } else {
-                    loglist.addNewLogMessage("Writing file " + this.dataCollectionList.get(i).getName() + " to the database started. Just wait a moment...");
+                    loglist.addNewLogMessage("Writing collection " + this.dataCollectionList.get(i).getName() + " to the database started. Wait a moment...");
                     this.dataCollectionDao.create(this.dataCollectionList.get(i));
-                    loglist.addNewLogMessage("Writing file " + this.dataCollectionList.get(i).getName() + " to the database finished.");
-                }
-                
+                    loglist.addNewLogMessage("Writing collection " + this.dataCollectionList.get(i).getName() + " to the database finished.");
+                }                
             }
+            loglist.addNewLogMessage("*** Writing to the database " + dbFile.getName() + " finished " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
         } catch (SQLException e) {
             loglist.addNewLogMessage("Writing to the database caused error.");
         }     
@@ -187,10 +200,10 @@ public class DataCollections {
         for (DataCollection dataCollection : this.dataCollectionList) {
             if (dataCollection.isCalculated() == false) {
                 dataCollection.calculate(frequencies, phii);
-                loglist.addNewLogMessage("File " + dataCollection.getName() + " calculated.");
+                loglist.addNewLogMessage("Collection " + dataCollection.getName() + " calculated.");
                 
             } else {
-                loglist.addNewLogMessage("File " + dataCollection.getName() + " already calculated.  No need to recalculate.");
+                loglist.addNewLogMessage("Collection " + dataCollection.getName() + " already calculated.  No need to recalculate.");
             }
         }
         loglist.addNewLogMessage("*** Calculation finished " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS));
@@ -220,9 +233,19 @@ public class DataCollections {
         if (checkIfDataCollectionWithGivenNameAlreadyExist(file)) {
             throw new IllegalArgumentException("File " + file.getName() + " already added.");
         }
-        DataCollection newFile = this.readTxtFile.readTextFileToDataCollection(file);
-        this.dataCollectionList.add(newFile);
-        return newFile;
+        return addNewDataCollection(this.readTxtFile.readTextFileToDataCollection(file));
+    }
+    
+    /**
+     * Method to add given data collection to the data collections.
+     * 
+     * @param   dataCollection   given data collection
+     * 
+     * @return data collection
+     */
+    public DataCollection addNewDataCollection(DataCollection dataCollection) {
+        this.dataCollectionList.add(dataCollection);
+        return dataCollection;
     }
     
     /**

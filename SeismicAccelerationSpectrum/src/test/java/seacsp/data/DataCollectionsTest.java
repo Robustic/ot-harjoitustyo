@@ -53,56 +53,6 @@ public class DataCollectionsTest {
         this.dataCollection0.setReferenceToTreeItemObject(4, objTrue);        
     }
     
-    private DataCollection initializeDataCollection1() {
-        ArrayList<Double> list1 = new ArrayList<>();   
-        list1.add(1.01);
-        list1.add(1.02);
-        list1.add(1.03);
-        list1.add(1.04);
-        ArrayList<Double> list2 = new ArrayList<>();   
-        list2.add(2.01);
-        list2.add(2.03);
-        list2.add(2.05);
-        list2.add(2.07);
-        list2.add(2.09);
-        list2.add(2.11);
-        ArrayList<Double> list3 = new ArrayList<>();   
-        list3.add(3.16);
-        Timehistory timehistory1 = new Timehistory(list1, 0.01, "First th 1");
-        Timehistory timehistory2 = new Timehistory(list2, 0.02, "Second th 1");
-        Timehistory timehistory3 = new Timehistory(list3, 0.07, "Third th 1");
-        ArrayList<Timehistory> list = new ArrayList<>();
-        list.add(timehistory1);
-        list.add(timehistory2);
-        list.add(timehistory3);
-        return new DataCollection("Collection 1", list);
-    }
-    
-    private DataCollection initializeDataCollection2() {
-        ArrayList<Double> list1 = new ArrayList<>();   
-        list1.add(21.01);
-        list1.add(21.02);
-        list1.add(21.03);
-        list1.add(21.04);
-        ArrayList<Double> list2 = new ArrayList<>();   
-        list2.add(22.01);
-        list2.add(22.03);
-        list2.add(22.05);
-        list2.add(22.07);
-        list2.add(22.09);
-        list2.add(22.11);
-        ArrayList<Double> list3 = new ArrayList<>();   
-        list3.add(23.16);
-        Timehistory timehistory1 = new Timehistory(list1, 2.01, "First th 2");
-        Timehistory timehistory2 = new Timehistory(list2, 2.02, "Second th 2");
-        Timehistory timehistory3 = new Timehistory(list3, 2.07, "Third th 2");
-        ArrayList<Timehistory> list = new ArrayList<>();
-        list.add(timehistory1);
-        list.add(timehistory2);
-        list.add(timehistory3);
-        return new DataCollection("Collection 2", list);
-    }
-    
     @Test
     public void dataFilesExist() {        
         assertTrue(this.dataCollections != null);      
@@ -255,12 +205,16 @@ public class DataCollectionsTest {
             initializeDatabase.initializeDatabaseFile(testFile);            
         } catch (SQLException e) {
             System.out.println(e);
-        }        
-        this.dataCollections.saveDataCollectionsToDatabase(file1);
-        DataCollections newDataCollections = new DataCollections(new LogList(), new ReadFile());
-        ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataCollectionsFromDatabase(file1);
+        }
+        ReadFile readFile = new ReadFile();
+        DataCollections newDataCollections = new DataCollections(this.logList, readFile);
+        newDataCollections.addNewDataCollection(initializeDataCollection1());
+        newDataCollections.addNewDataCollection(initializeDataCollection2());
+        newDataCollections.saveDataCollectionsToDatabase(file1);
+        DataCollections extraDataCollections = new DataCollections(new LogList(), new ReadFile());
+        ArrayList<DataCollection> dataCollectionsList = extraDataCollections.readDataCollectionsFromDatabase(file1);
         deleteDBFile(file1);
-        assertEquals(0.00019844, dataCollectionsList.get(1).getTimehistories().get(2).getAccelerationValueInTheIndex(3), 0.000001);
+        assertEquals(22.07, dataCollectionsList.get(1).getTimehistories().get(1).getAccelerationValueInTheIndex(3), 0.000001);
     }
     
     public void deleteDBFile(File file) {
@@ -279,7 +233,7 @@ public class DataCollectionsTest {
         DataCollections newDataCollections = new DataCollections(logList, new ReadFile());
         ArrayList<DataCollection> dataCollectionsList = newDataCollections.readDataCollectionsFromDatabase(file1);
         deleteDBFile(file1);
-        assertEquals("Reading from database caused error.", logList.getLogMessagesAsStringList().get(0));
+        assertEquals("Reading from database caused error.", logList.getLogMessagesAsStringList().get(1));
     }
     
     @Test
@@ -294,10 +248,65 @@ public class DataCollectionsTest {
             initializeDatabase.initializeDatabaseFile(testFile);            
         } catch (SQLException e) {
             System.out.println(e);
-        }        
-        this.dataCollections.saveDataCollectionsToDatabase(file1);
-        this.dataCollections.saveDataCollectionsToDatabase(file1);
+        }
+        this.logList = new LogList();
+        ReadFile readFile = new ReadFile();
+        DataCollections newDataCollections = new DataCollections(this.logList, readFile);
+        newDataCollections.addNewDataCollection(initializeDataCollection1());
+        newDataCollections.addNewDataCollection(initializeDataCollection2());
+        newDataCollections.saveDataCollectionsToDatabase(file1);
+        newDataCollections.saveDataCollectionsToDatabase(file1);
         deleteDBFile(file1);
-        assertEquals("File TestFile0.txt already exist in the DB.", this.logList.getLogMessagesAsStringList().get(this.logList.getLogMessagesAsStringList().size()-1));
+        assertEquals("Collection Collection 2 already exist in the DB.", this.logList.getLogMessagesAsStringList().get(this.logList.getLogMessagesAsStringList().size() - 2));
+    }
+    
+    private DataCollection initializeDataCollection1() {
+        ArrayList<Double> list1 = new ArrayList<>();   
+        list1.add(1.01);
+        list1.add(1.02);
+        list1.add(1.03);
+        list1.add(1.04);
+        ArrayList<Double> list2 = new ArrayList<>();   
+        list2.add(2.01);
+        list2.add(2.03);
+        list2.add(2.05);
+        list2.add(2.07);
+        list2.add(2.09);
+        list2.add(2.11);
+        ArrayList<Double> list3 = new ArrayList<>();   
+        list3.add(3.16);
+        Timehistory timehistory1 = new Timehistory(list1, 0.01, "First th 1");
+        Timehistory timehistory2 = new Timehistory(list2, 0.02, "Second th 1");
+        Timehistory timehistory3 = new Timehistory(list3, 0.07, "Third th 1");
+        ArrayList<Timehistory> list = new ArrayList<>();
+        list.add(timehistory1);
+        list.add(timehistory2);
+        list.add(timehistory3);
+        return new DataCollection("Collection 1", list);
+    }
+    
+    private DataCollection initializeDataCollection2() {
+        ArrayList<Double> list1 = new ArrayList<>();   
+        list1.add(21.01);
+        list1.add(21.02);
+        list1.add(21.03);
+        list1.add(21.04);
+        ArrayList<Double> list2 = new ArrayList<>();   
+        list2.add(22.01);
+        list2.add(22.03);
+        list2.add(22.05);
+        list2.add(22.07);
+        list2.add(22.09);
+        list2.add(22.11);
+        ArrayList<Double> list3 = new ArrayList<>();   
+        list3.add(23.16);
+        Timehistory timehistory1 = new Timehistory(list1, 2.01, "First th 2");
+        Timehistory timehistory2 = new Timehistory(list2, 2.02, "Second th 2");
+        Timehistory timehistory3 = new Timehistory(list3, 2.07, "Third th 2");
+        ArrayList<Timehistory> list = new ArrayList<>();
+        list.add(timehistory1);
+        list.add(timehistory2);
+        list.add(timehistory3);
+        return new DataCollection("Collection 2", list);
     }
 }

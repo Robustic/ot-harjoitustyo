@@ -223,8 +223,8 @@ public class SeismicAccelerationSpectrum extends Application {
         });
         
         // Label
-        Label infoLabel = new Label("Open text-file or open database-file to import data. Calculate and draw envelope spectrum. "
-                + "Draw timehistories. Save timehistories to SQL-db-file.");
+        Label infoLabel = new Label("Open text-file or open database-file to import data. Select time histories to calculate and draw envelope spectrum or "
+                + "to draw timehistories. Save timehistories to database-file.");
         
         // Layout
         BorderPane layout = new BorderPane();
@@ -235,7 +235,7 @@ public class SeismicAccelerationSpectrum extends Application {
         
         // Scene
         Scene scene = new Scene(layout, 1500, 600);
-        stage.setTitle("Acceleration Spectrums");
+        stage.setTitle("Seismic Acceleration Spectrum 1.1");
         stage.setScene(scene);
         stage.show();
     }

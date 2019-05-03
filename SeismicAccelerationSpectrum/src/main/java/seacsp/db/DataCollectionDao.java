@@ -168,4 +168,37 @@ public class DataCollectionDao implements Dao<DataCollection, Integer> {
         connection.close();
         return returnList;
     }
+    
+    /**
+     * Method returns true if database file contains Datacollection and Timehistory tables.
+     * 
+     * @return true if database file contains Datacollection and Timehistory tables
+     */    
+    public boolean tablesDatacollectionAndTimehistoryExist() {
+        boolean returnValue = true;
+        try {        
+            returnValue = checkThatDatacollectionAndTimehistoryExist(returnValue);
+        } catch (SQLException e) {
+            returnValue = false;
+        }
+        return returnValue;
+    }
+    
+    private boolean checkThatDatacollectionAndTimehistoryExist(boolean returnValue) throws SQLException {
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbFile.toString(), "sa", "");
+        PreparedStatement stmt = connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name='Datacollection'");
+        ResultSet rs = stmt.executeQuery();
+        if (!rs.next()) {
+            returnValue = false;
+        }
+        stmt = connection.prepareStatement("SELECT name FROM sqlite_master WHERE type='table' AND name='Timehistory'");
+        rs = stmt.executeQuery();
+        if (!rs.next()) {
+            returnValue = false;
+        }
+        stmt.close();
+        rs.close();
+        connection.close();
+        return returnValue;
+    }
 }
