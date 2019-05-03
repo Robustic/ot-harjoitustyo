@@ -20,7 +20,7 @@ java -jar SeismicAccelerationSpectrum-1.1.jar
 
 Ohjelman käynnistäminen avaa päänäkymän:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kuvat/Paanakyma.png" width="1331">
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Paanakyma.png" width="1331">
 
 ### Tekstitiedoston avaaminen
 
@@ -42,7 +42,7 @@ Vasemman reunan hierarkiapuusta valitaan halutut aikahistoriat. Painettaessa _Ca
 
 Laskennan jälkeen pääkymään tulostuu spektrin kuvaaja:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kuvat/CalculatedSpectrum.png" width="1329">
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/CalculatedSpectrum.png" width="1329">
 
 ### Aikahistoroiden näyttäminen omassa ikkunassaan
 
@@ -50,7 +50,7 @@ Kun käyttäjä painaa _Draw Time Histories_ -nappia, ilmestyy uusi ikkuna, jost
 
 Aikahistoriat tulostuvat omaan ikkunaansa:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kuvat/Timehistories.png" width="1206">
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Timehistories.png" width="1206">
 
 ### Tietokannan luominen
 
@@ -58,7 +58,7 @@ Käyttäjä voi luoda uuden tietokantatiedoston painamalla nappia _Add New SQL-d
 
 Uuden tietokannan nimi annetaan ilmestyvään ikkunaan:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/tree/master/dokumentointi/kuvat/AddDBFilename.png" width="306">
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/AddDBFilename.png" width="306">
 
 ### Tietokannan avaaminen
 
