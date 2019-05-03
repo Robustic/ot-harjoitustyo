@@ -73,10 +73,10 @@ Muissa toiminnallisuukissa toimitaan vastaavalla tavalla. Käyttöliittymästä 
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
 
-## Käyttöliittymä
+### Käyttöliittymä
 
 Käyttöliittymän koodi on tällä hetkellä aika sekava. Käyttöliittymä toimii kyllä halutulla tavalla, mutta ohjelmaa laajennettaessa selkeämpi koodi jaettuna loogisempiin kokonaisuuksiin helpottaisi koodin hallintaa.
 
-## Paketteihin ja luokkiin jako
+### Paketteihin ja luokkiin jako
 
 Paketteihin ja luokkiin jakoa voisi parantaa nykyisestä. Viimeistellympi jako voisi selkeyttää koodia ja vähentäisi kyselyitä suoraan luokkien läpi, mitkä tekevät nykyisen koodin paikoin vaikealukuiseksi.
