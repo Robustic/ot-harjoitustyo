@@ -6,9 +6,9 @@ Ohjelman rakenne noudattaa kerrosarkkitehtuuria. Rakenne on kuvattuna pakkauksin
 
 <img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/PackageStructure.png" width="821">
 
-Ylimpänä on pakkaus _seacsp.ui_, joka sisältää JavaFX:llä toteutetun käyttöliittymän. Pakkaus _seacsp.logic_ sisältää sovelluslogiikan ja pakkaus _seacsp.data_ sisältää toiminnot tiedon hallintaan ja organisointiin. Pakkaus _seacsp.calculations_ vastaa laskentaan liittyvistä metodeista.
+Ylimpänä on pakkaus [seacsp.ui](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/ui), joka sisältää JavaFX:llä toteutetun käyttöliittymän. Pakkaus [seacsp.logic](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic) sisältää sovelluslogiikan ja pakkaus [seacsp.data](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data) sisältää toiminnot tiedon hallintaan ja organisointiin. Pakkaus [seacsp.calculations](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/calculations) vastaa laskentaan liittyvistä metodeista.
 
-Ohjelmassa on lisäksi pakkaukset tekstitiedostosta lukua _seascsp.file_ ja tietokantaan talletusta ja tietokannasta lukemista varten _seacsp.db_. Nämä pakkaukset sijoittuvat pakkauksen seacsp.data alle, kuten myös pakkaus _seacsp.calculations_.
+Ohjelmassa on lisäksi pakkaukset tekstitiedostosta lukua [seacsp.file](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/file) ja tietokantaan talletusta ja tietokannasta lukemista varten [seacsp.db](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/db). Nämä pakkaukset sijoittuvat pakkauksen [seacsp.data](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data) alle, kuten myös pakkaus [seacsp.calculations](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/calculations).
 
 ## Käyttöliittymä
 
@@ -20,25 +20,25 @@ Käyttöliittymä sisältää viisi erillistä näkymää:
 
 Päänäkymä, aikahistoriakuvaajien piirtonäkymä, sekä uuden tietokantatiedoston nimensyöttönäkymä on toteutettu kolmena [Stage](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html)-oliona. Jokainen niistä voi olla samaan aikaan auki. Tiedostojen valintaikkunat on toteutettu [FileChooser](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/FileChooser.html)-oliona.
 
-Päänäkymä muodostetaan seacsp.ui.SeismicAccelerationSpectrum luokassa, uuden tietokantatiedoston nimensyöttönäkymä seacsp.ui.NewDatabaseStage luokassa ja aikahistoriakuvaajien piirtonäkymä luokassa seacsp.ui.TimehistoriesStage.
+Päänäkymä muodostetaan [seacsp.ui.SeismicAccelerationSpectrum](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/ui/SeismicAccelerationSpectrum.java) luokassa, uuden tietokantatiedoston nimensyöttönäkymä [seacsp.ui.NewDatabaseStage](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/ui/NewDatabaseStage.java) luokassa ja aikahistoriakuvaajien piirtonäkymä luokassa [seacsp.ui.TimehistoriesStage](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/ui/TimehistoriesStage.java).
 
-Käyttöliittymä on eristetty sovelluslogiikasta niin hyvin, kuin mahdollista. Käyttöliittymän luokista tehdään kutsuja pääasiassa seacsp.logic.Logic luokan metodeihin, joilla ohjelma käsittelee tietoa halutulla tavalla.
+Käyttöliittymä on eristetty sovelluslogiikasta niin hyvin, kuin mahdollista. Käyttöliittymän luokista tehdään kutsuja pääasiassa [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) luokan metodeihin, joilla ohjelma käsittelee tietoa halutulla tavalla.
 
 Käyttöliittymän päänäkymän valintapuu [TreeView](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TreeView.html) sekä kuvaaja [LineChart](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/chart/LineChart.html) pävittyvät käsitellyn tiedon mukaisiksi.
 
 ## Sovelluslogiikka
 
-Pakauksen _seacsp.logic_ luokka seacsp.logic.Logic toimii pääasiallisena rajapintana käyttöliittymän suuntaan. Se hallinnoi käyttöliittymän kutsuja ja tarkistaa kutsujen oikeellisuuden, etteivät vääränlaiset kutsut pääsisi sotkemaan ohjelman tallettamaa tietoa. Luokan seacsp.logic.Logic olion sisältämä luokan seacsp.logic.LogList olio välittää käyttäjälle annettavat viestit käyttöliitymälle.
+Pakauksen [seacsp.logic](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic) luokka [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) toimii pääasiallisena rajapintana käyttöliittymän suuntaan. Se hallinnoi käyttöliittymän kutsuja ja tarkistaa kutsujen oikeellisuuden, etteivät vääränlaiset kutsut pääsisi sotkemaan ohjelman tallettamaa tietoa. Luokan [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) olion sisältämä luokan [seacsp.logic.LogList](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/LogList.java) olio välittää käyttäjälle annettavat viestit käyttöliitymälle.
 
-Luokka seacsp.logic.Logic sisältää myös luokan seacsp.data.DataCollections olion. Luokka seacsp.data.DataCollections toimii kokoajana useammalle luokan seacsp.data.DataCollection oliolle, mikä helpottaa tiedon hallinnoimista ja käsittelyä. Luokan seacsp.data.DataCollection olio toimii puolestaan kokoajana useammalle luokan seacsp.calculations.Timehistory oliolle, minkä metodeilla vaativin laskenta tapahtuu.
+Luokka [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) sisältää myös luokan [seacsp.data.DataCollections](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data/DataCollections.java) olion. Luokka [seacsp.data.DataCollections](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data/DataCollections.java) toimii kokoajana useammalle luokan [seacsp.data.DataCollection](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data/DataCollection.java) oliolle, mikä helpottaa tiedon hallinnoimista ja käsittelyä. Luokan [seacsp.data.DataCollection](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data/DataCollection.java) olio toimii puolestaan kokoajana useammalle luokan [seacsp.calculations.Timehistory](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/calculations/Timehistory.java) oliolle, minkä metodeilla vaativin laskenta tapahtuu.
 
 ## Tietojen pysyväistallennus
 
-Tekstitiedostosta lukua varten on pakkaus _seacsp.file_ ja sen luokat _seacsp.file.ReadFile_ ja _seacsp.file.ReadTextFile_.
+Tekstitiedostosta lukua varten on pakkaus [seacsp.file](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/file) ja sen luokat [seacsp.file.ReadFile](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/file/ReadFile.java) ja [seacsp.file.ReadTextFile](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/file/ReadTextFile.java).
 
-Pakkauksen _seacsp.db_ luokat _seacsp.db.DataCollectionDao_ ja _seacsp.db.TimehistoryDao_ huolehtivat tietojen tallettamisesta tietokantaan. 
+Pakkauksen [seacsp.db](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/db) luokat [seacsp.db.DataCollectionDao](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/db/DataCollectionDao.java) ja [seacsp.db.TimehistoryDao](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/db/TimehistoryDao.java) huolehtivat tietojen tallettamisesta tietokantaan. 
 
-Tekstitiedoston luku voitasiin korvata suhteellisen helposti vaikka binääritiedostosta luvuksi, kuten myös tietokannasta lukeminen ja kirjoittaminen voitaisiin korvata binääritiedoston käsittelyksi. Tällöin korvattaisiin pakkausten _seacsp.file_ ja _seacsp.db_ luokat vastaavilla luokilla binääritiedostojen käsittelyyn.
+Tekstitiedoston luku voitasiin korvata suhteellisen helposti vaikka binääritiedostosta luvuksi, kuten myös tietokannasta lukeminen ja kirjoittaminen voitaisiin korvata binääritiedoston käsittelyksi. Tällöin korvattaisiin pakkausten [seacsp.file](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/file) ja [seacsp.db](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/db) luokat vastaavilla luokilla binääritiedostojen käsittelyyn.
 
 ### Luettavat tekstitiedostot
 
@@ -55,21 +55,66 @@ t       No1          No2         No3        No4          No5
 
 Tekstitiedostossa on tietosolut erotettu toisistaan välilyönneillä ja rivinvaihdoilla. Tekstitiedoston lukemista on tehty virheitä kestäväksi, joten välilyöntien ja rivinvaihtojen määrä voi jonkin verran vaihdella ilman tiedostosta luvun häiriintymistä.
 
+### Tietokantaan talletus
+
+Ohjelma käyttää SQLite tietokantaa. SQLite tietokannan käyttöä varten käytetään ulkoisena kirjastona JDBC-kirjastoa.
+
+Käyttäjä voi luoda uuden tyhjän tietokannan, jolloin tietokannassa on tyhjät taulut Datacollection ja Timehistory. Käyttäjä voi myös avata tietokannan ja tallettaa tietokantaan.
+
+#### Datacollection -taulu
+
+_Datacollection_ -taulu muodostuu _id_-sarakkeesta ja _Datacollection_:in nimestä
+
+```
+id                  INTEGER PRIMARY KEY AUTOINCREMENT
+name                VARCHAR(255)
+```
+
+#### Timehistory -taulu
+
+_Timehistory_ -taulussa on käytössä sarakkeet
+
+```
+id                  INTEGER PRIMARY KEY AUTOINCREMENT
+name                VARCHAR(255)
+deltat              DOUBLE
+datacollection_id   INTEGER)
+```
+
+Sarake datacollection_id viittaa _Datacollection_ -taulun vastaavaan objektiin. Näin _Timehistory_ -taulun riveistä on mahdollisuus viitata _Datacollection_ -taulun objekteihin. Tätä hyödynnetään tietokantahauissa.
+
+#### Timehistorylist<NNN> -taulu
+
+_Timehistory_ -oliot sisältävät listan _timehistory_, jossa voi olla kymmeniä tuhansia alkioita. Kun tietokantaan voidaan puolestaan tallettaa tuhansia aikahistorioita, on tehokkuuden kannalta järkevää käsitellä tietokannassa suuria _timehistory_ -listoja omina tauluinaan. Tätä varten jokaista _Timehistory_ -taulun jokaista riviä kohden generoidaan rivin luontivaiheessa taulu nimeltään, Timehistorylist<NNN>, missä <NNN> paikalla on _Timehistory_ taulun objektin _id_. Näin tieto pysyy tallessa hyvin järjestyneenä ja tietokannan käyttö pysyy tehokkaana.
+
+Jokaisessa _Timehistorylist<NNN>_ -taulussa on sarakkeet
+
+```
+id                  INTEGER PRIMARY KEY AUTOINCREMENT
+acceleration        DOUBLE
+```
+
 ## Päätoiminnallisuudet
 
-Ohjelma sisältää lukuisia toimintoja. Niiden kaikkien kuvaaminen ei ole mielekästä, mutta alla on kuvattu esimerkinomaisesti tiedostosta lukeminen sekvenssikaaviona.
+Ohjelma sisältää lukuisia toimintoja. Niiden kaikkien kuvaaminen ei ole mielekästä, mutta alla on kuvattu esimerkinomaisesti tekstitiedostosta lukeminen sekä tietokantaan talletus sekvenssikaaviona.
 
 ### Tiedoston lukeminen sekvenssikaaviona
 
 Tiedoston lukeminen sekvenssikaaviona:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Tiedostonluku.png" width="1188">
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/Tiedostonluku.png" width="1200">
 
 Saatuaan palautusarvona DataCollection luokan olion, käyttöliittymälogiikka päivittää päänäkymän valintapuun.
 
+### Tietokantaan talletus sekvenssikaaviona
+
+Tietokantaan talletus sekvenssikaaviona:
+
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/TietokantaanTalletus.png" width="1195">
+
 ### Muut toiminnallisuudet
 
-Muissa toiminnallisuukissa toimitaan vastaavalla tavalla. Käyttöliittymästä tulleen kutsun perusteella toimintalogiikka tekee tarvittavat kutsut tarvittaviin metodeihin, jotka palauttavat palautusarvon. Saadessa kontrollin takaisin, käyttöliittymä päivittää näkymät käyttäjälle ja jää odottamaan käyttäjän seuraavaa käskyä.
+Muissa toiminnallisuukissa toimitaan vastaavalla tavalla. Käyttöliittymästä tulleen kutsun perusteella toimintalogiikka tekee tarvittavat kutsut tarvittaviin metodeihin, jotka palauttavat palautusarvon. Saadessaan kontrollin takaisin, käyttöliittymä päivittää näkymät käyttäjälle ja jää odottamaan käyttäjän seuraavaa käskyä.
 
 ## Ohjelman rakenteeseen jääneet heikkoudet
 

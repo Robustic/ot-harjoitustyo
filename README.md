@@ -55,6 +55,14 @@ mvn package
 
 generoi hakemistoon _target_ suoritettavan jar-tiedoston _SeismicAccelerationSpectrum-1.1.jar_
 
+Jar ohjelma suoritetaan komennolla
+
+```
+java -jar SeismicAccelerationSpectrum-1.1.jar
+```
+
+siinä kansiossa, missä jar-paketti sijaitsee.
+
 ### JavaDoc
 
 JavaDoc generoidaan komennolla
@@ -74,7 +82,3 @@ Tiedostoon [checkstyle.xml](https://github.com/Robustic/ot-harjoitustyo/tree/mas
 ```
 
 Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto _target/site/checkstyle.html_
-
-
-
-

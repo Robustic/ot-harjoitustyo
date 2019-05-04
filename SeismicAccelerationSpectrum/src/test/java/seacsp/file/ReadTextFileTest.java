@@ -8,7 +8,7 @@ import java.util.*;
 import java.io.File;
 import seacsp.data.DataCollection;
 
-public class ReadTxtFileTest {
+public class ReadTextFileTest {
     private ReadTextFile readTxtFile;
     private File file;
     
