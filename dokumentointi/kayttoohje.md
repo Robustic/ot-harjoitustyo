@@ -6,7 +6,7 @@ Lataa tiedosto [SeismicAccelerationSpectrum-1.1.jar](https://github.com/Robustic
 
 Sovelluksen avulla voidaan määrittää useammasta kiihtyvyyshistoriasta kiihtyvyysspektrien verhokäyrä. Kiihtyvyyshistoriat voidaan hakea laskemista varten yhdestä tai useammasta tekstitiedostosta. Kukin tiedosto voi sisältää yhden tai useamman kiihtyvyyshistorian. 
 
-Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraavilla käyttökerroilla. Näin tekstitiedostosta lukua ei myöhemmin tavita, kun kiihtyvyysdata on talletettu hyvin organisoituun tietokantaan.
+Kiihtyvyyshistoriat voidaan tallettaa SQL-tietokantaan ja tuoda ohjelmaan seuraavilla käyttökerroilla. Näin tekstitiedostosta lukua ei myöhemmin tarvita, kun kiihtyvyysdata on talletettu hyvin organisoituun tietokantaan.
 
 ## Sovelluksen käyttöohje
 
@@ -66,8 +66,8 @@ Käyttäjä voi halutessaan avata olemassa olevan tietokantatiedoston painamalla
 
 ### Tallettaminen tietokantaan
 
-Käyttäjä voi tallettaa kiihtyvyysaikahistoriat valitsemaansa tietokantatiedostoon painamalla nappia _Save Timehistories to SQL-db_. Tällöin kaikki ohjelmaan tekstitiedostoista tai tietokannoista avatut aikahistoriat tallettuvat tekstikentässä _Chosen SQL-database:_ valittuna olevaan tietokantatiedostoon, elleivät ne jo ole kyseisessä tietokantatiedostossa.
+Käyttäjä voi tallettaa kiihtyvyysaikahistoriat valitsemaansa tietokantatiedostoon painamalla nappia _Save Timehistories to SQL-db_. Tällöin kaikki ohjelmaan tekstitiedostoista tai tietokannoista avatut aikahistoriat tallettuvat tekstikentässä _Chosen SQL-database_ valittuna olevaan tietokantatiedostoon, elleivät ne jo ole kyseisessä tietokantatiedostossa.
 
 ### Ohjelman sulkeminen
 
-Ohjelma suljetaan painamlla nappia _Exit_. Tällöin ohjelma sulkeutuu ja kaikka tallentamattomat tiedot katoavat. Tietokantoihin talletettu tai tekstitiedostoissa oleva tieto säilyy ja niihin talletettu tieto voidaan avata ohjelmaan seuraavalla käyttökerralla.
+Ohjelma suljetaan painamlla nappia _Exit_. Tällöin ohjelma sulkeutuu ja kaikki tallentamattomat tiedot katoavat. Tietokantoihin talletettu tai tekstitiedostoissa oleva tieto säilyy ja niihin talletettu tieto voidaan avata ohjelmaan seuraavalla käyttökerralla.
