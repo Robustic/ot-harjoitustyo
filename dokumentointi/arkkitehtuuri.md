@@ -53,7 +53,7 @@ t       No1          No2         No3        No4          No5
 ...
 </pre>
 
-Tekstitiedostossa on tietosolut erotettu toisistaan välilyönneillä ja rivinvaihdoilla. Tekstitiedoston lukemista on tehty virheitä kestäväksi, joten välilyöntien ja rivinvaihtojen määrä voi jonkin verran vaihdella ilman tiedostosta luvun häiriintymistä.
+Tekstitiedostossa on tietosolut erotettu toisistaan välilyönneillä ja rivinvaihdoilla. Tekstitiedoston lukemista on tehty virheitä kestäväksi, joten välilyöntien ja rivinvaihtojen määrä voi jonkin verran vaihdella ilman tiedostosta lukemisen häiriintymistä.
 
 ### Tietokantaan talletus
 
