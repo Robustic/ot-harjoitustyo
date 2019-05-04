@@ -22,5 +22,5 @@
 | 30.4.  | 8    | tietokannan käytön viimeistely |
 | 2.5.  | 8    | testien kirjoittaminen, JavaDoc:in teko, ohjelman siistiminen |
 | 3.5.  | 12    | dokumentoinnin viimeistely, käyttöohjeen teko, ohjelman siistiminen |
-| 4.5.  | 5    | testausdokumentin tekeminen |
-| Yhteensä | 123 | |
+| 4.5.  | 6    | testausdokumentin tekeminen ja virheiden korjaus muista dokumenteista |
+| Yhteensä | 124 | |
