@@ -1,6 +1,6 @@
 # työaikakirjanpito
 
-| päivä | aika | mitä tein  |
+| päivä | aika h | mitä tein  |
 | :----:|:-----| :-----|
 | 22.3. | 2    | vaatimusmäärittelyn suunnittelu ja tekeminen |
 | 25.3. | 4    | vaatimusmäärittelyn suunnittelu ja tekeminen, ohjelmoinnin aloittaminen|
@@ -23,4 +23,5 @@
 | 2.5.  | 8    | testien kirjoittaminen, JavaDoc:in teko, ohjelman siistiminen |
 | 3.5.  | 12    | dokumentoinnin viimeistely, käyttöohjeen teko, ohjelman siistiminen |
 | 4.5.  | 7    | testausdokumentin tekeminen ja virheiden korjaus muista dokumenteista |
-| Yhteensä | 125 | |
+| 5.5.  | 1    | Luokkakaavio lisäys |
+| Yhteensä | 126 | |
