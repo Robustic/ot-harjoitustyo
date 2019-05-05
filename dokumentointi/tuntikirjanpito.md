@@ -23,5 +23,5 @@
 | 2.5.  | 8    | testien kirjoittaminen, JavaDoc:in teko, ohjelman siistiminen |
 | 3.5.  | 12    | dokumentoinnin viimeistely, käyttöohjeen teko, ohjelman siistiminen |
 | 4.5.  | 7    | testausdokumentin tekeminen ja virheiden korjaus muista dokumenteista |
-| 5.5.  | 1    | Luokkakaavio lisäys |
+| 5.5.  | 1    | Luokkakaavion lisäys arkkitehtuurikuvaukseen |
 | Yhteensä | 126 | |
