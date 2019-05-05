@@ -2,9 +2,34 @@
 
 ## Rakenne
 
-Ohjelman kerrosarkkitehtuuria noudattava rakenne pakkauksina on seuraavanlainen:
+Ohjelman jako pakkauksiin on seuraavanlainen:
 
-<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/PackageStructure.png" width="821">
+- seacsp.ui
+  - SeismicAccelerationSpectrum
+  - NewDatabaseStage
+  - SpectrumLineChart
+  - TimeHistoryCheckBoxTree
+  - TimehistoriesStage
+  - TimehistoryLineChart
+- seacsp.logic
+  - LogList
+  - Logic
+- seacsp.data
+  - DataCollection
+  - DataCollections
+- seacsp.calculations
+  - Frequencies
+  - Phii
+  - Spectrum
+  - Timehistory
+- seacsp.file
+  - ReadFile
+  - ReadTextFile
+- seacsp.db
+  - Dao
+  - DataCollectionDao
+  - InitializeDatabase
+  - TimehistoryDao
 
 Ylimpänä on pakkaus [seacsp.ui](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/ui), joka sisältää JavaFX:llä toteutetun käyttöliittymän. Pakkaus [seacsp.logic](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic) sisältää sovelluslogiikan ja pakkaus [seacsp.data](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/data) sisältää toiminnot tiedon hallintaan ja organisointiin. Pakkaus [seacsp.calculations](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/calculations) vastaa laskentaan liittyvistä metodeista.
 
@@ -27,6 +52,10 @@ Käyttöliittymä on eristetty sovelluslogiikasta niin hyvin, kuin mahdollista. 
 Käyttöliittymän päänäkymän valintapuu [TreeView](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/TreeView.html) sekä kuvaaja [LineChart](https://docs.oracle.com/javase/8/javafx/api/javafx/scene/chart/LineChart.html) pävittyvät käsitellyn tiedon mukaisiksi.
 
 ## Sovelluslogiikka
+
+Sovelluslogiikan luokkakaavio
+
+<img src="https://github.com/Robustic/ot-harjoitustyo/blob/master/dokumentointi/kuvat/ClassStructure.png" width="974">
 
 Pakauksen [seacsp.logic](https://github.com/Robustic/ot-harjoitustyo/tree/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic) luokka [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) toimii pääasiallisena rajapintana käyttöliittymän suuntaan. Se hallinnoi käyttöliittymän kutsuja ja tarkistaa kutsujen oikeellisuuden, etteivät vääränlaiset kutsut pääsisi sotkemaan ohjelman tallettamaa tietoa. Luokan [seacsp.logic.Logic](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/Logic.java) olion sisältämä luokan [seacsp.logic.LogList](https://github.com/Robustic/ot-harjoitustyo/blob/master/SeismicAccelerationSpectrum/src/main/java/seacsp/logic/LogList.java) olio välittää käyttäjälle näytettävät viestit käyttöliitymälle.
 
@@ -128,4 +157,4 @@ Käyttöliittymän koodi on tällä hetkellä aika sekava. Käyttöliittymä toi
 
 ### Paketteihin ja luokkiin jako
 
-Paketteihin ja luokkiin jakoa voisi parantaa nykyisestä. Viimeistellympi jako voisi selkeyttää koodia ja vähentäisi kyselyitä suoraan luokkien läpi, mitkä tekevät nykyisen koodin paikoin vaikealukuiseksi.
+Paketteihin ja luokkiin jakoa voisi parantaa nykyisestä. Viimeistellympi jako voisi selkeyttää koodia.
